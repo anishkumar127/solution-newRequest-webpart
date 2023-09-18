@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/s-KaiNet/spfx-fast-serve/master/schema/config.latest.schema.json",
+  "serve": {
+    "eslint": false,
+    "open": true,
+    "hotRefresh": false,
+    "reactProfiling": false,
+    "openUrl": "https://localhost:5432/workbench"
+  },
+  "cli": {
+    "isLibraryComponent": false
+  }
+}

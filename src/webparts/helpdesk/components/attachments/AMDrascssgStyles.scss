@@ -1,0 +1,415 @@
+// .file-input-box{
+//   // position: relative;
+
+// }
+:root {
+  --lightdarkBG: '#fff';
+  --lightdarkColor: '#323130';
+  --lightdarkBGGray: '#e9e9e9';
+  --textIconColor:'#333';
+  --lightdarkHoverBG: 'F4f4f4';
+}
+.file-input-container {
+  position: relative;
+  // display: none;
+  top: 0;
+  display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+    // margin-bottom: 1rem;
+  }
+  
+  .file-input-label {
+    font-weight: bold;
+    // margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .ms-Button{
+      &:hover{
+        background: transparent!important;
+      }
+    }
+
+  }
+
+  .b-w-img{
+    // filter: grayscale(100%);
+    // background-color: #e2e2e2 !important;
+    background-color: var(--lightThemeAttachmentBGColor) !important;
+    border: 2px dotted #999494 !important;
+  }
+
+  .b-w-img .drop-logo{
+    filter: grayscale(80%);
+  }
+  .b-w-img .drag_text{
+    color:#7c7b7b;
+  }
+  .drop-logo{
+    width: 100px;
+  }
+  .file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 6px);
+    height: 120px;
+   // border-radius: 0.5rem;
+    border: 2px dotted var(--lightdarkBGGray);
+    background-color: var(--lightdarkBGTable);
+    overflow: hidden;
+  }
+  .drag_brdr_clr{
+    border-color: var(--lightdarkBGGray);
+  }
+  .drag_text{
+    color: var(--lightdarkBGGray);
+  }
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+  }
+  .file-input-icon {
+    display: flex !important;
+    align-items:center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    font-size: 22px;
+    display: grid;
+    place-items: center;
+    // align-items: center;
+    // color: #ccc;
+    color: var(--primary);
+
+    // gap: 4px;
+  }
+  .selected-file-text {
+    margin-top: 0.5rem;
+  }
+  .selected-file-name {
+    font-weight: bold;
+    color: var(--primary);
+  }
+  .file_dropdown{
+    gap: 10px;
+    margin-bottom: 10px;
+    display: none  !important;
+    grid-template-columns: 30% 30% 30%;
+
+  }
+  .file_dropdown_box{
+    display: inline-flex;
+    padding:8px 5px;
+    border: 1px solid var(--lightThemeDropDownBorderColor) !important;;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+    border-radius: 4px;
+
+  }
+  .file-dropdown-option{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    overflow: hidden;
+    z-index: 1;
+    width: 100%;
+    // padding: 12px;
+    // width: calc(100% - 24px);
+    transition: height 0.3s;
+    background: white;
+  }
+.open_dropdown{
+  // padding: 4px;
+  border: 1px solid #d3d1ce;  
+}
+.file-dropdown-option-cta{
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  
+}
+
+.file-input-label{
+  .ms-Button{
+    &:hover{
+      background: transparent;
+    }
+  }
+}
+.hidden{
+  display: none!important;
+}
+// .flex{
+//   display: flex;
+// }
+.fileNameLabel{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 15px);
+  padding: 0px;
+}
+
+.maindiv{
+  background: #fff;
+    padding: 5px;
+    width: 38%;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+}
+.span{
+  color: #005a9e;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+
+// :root {
+//   --lightdarkBG: "#fff";
+//   --lightdarkColor: "#323130";
+//   --lightdarkBGGray: "#e9e9e9";
+//   --textIconColor: "#333";
+//   --lightdarkHoverBG: "F4f4f4";
+// }
+
+// .file-input-container {
+//   position: relative;
+//   // display: none;
+//   top: 0;
+//   display: flex;
+//   flex-direction: column;
+//   margin-bottom: 5px;
+//   // margin-bottom: 1rem;
+// }
+
+// .file-input-label {
+//   font-weight: bold;
+//   // margin-bottom: 0.5rem;
+//   display: flex;
+
+//   .ms-Button {
+//     &:hover {
+//       background: transparent !important;
+//     }
+//   }
+// }
+
+// // .b-w-img {
+// // filter: grayscale(100%);
+// // background-color: #e2e2e2 !important;
+// // border: 2px dotted #999494 !important;
+// // }
+
+// .b-w-img .drop-logo {
+//   filter: grayscale(80%);
+// }
+
+// .b-w-img .drag_text {
+//   color: var(--lightThemeTextColorBlack) !important;
+
+// }
+
+// .drop-logo {
+//   width: 100px;
+// }
+
+// .file-input-wrapper {
+//   position: relative;
+//   display: inline-block;
+//   width: calc(100% - 6px);
+//   height: 120px;
+//   // border-radius: 0.5rem;
+//   border: 2px dotted var(--lightdarkBGGray);
+//   background-color: var(--lightdarkBGTable);
+//   overflow: hidden;
+// }
+
+// .drag_brdr_clr {
+//   border-color: var(--lightdarkBGGray);
+// }
+
+// .drag_text {
+//   color: var(--lightThemePivotTextBlack) !important;
+//   font-size: 18px;
+// }
+
+// .file-input {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   opacity: 0;
+//   z-index: 2;
+//   cursor: pointer;
+// }
+
+// .file-input-icon {
+//   display: flex !important;
+//   align-items: center;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 1;
+//   font-size: 22px;
+//   display: grid;
+//   place-items: center;
+//   // align-items: center;
+//   // color: #ccc;
+//   // color: var(--primary);
+
+//   // gap: 4px;
+// }
+
+// .selected-file-text {
+//   margin-top: 0.5rem;
+// }
+
+// .selected-file-name {
+//   font-weight: bold;
+//   // color: var(--primary);
+// }
+
+// .file_dropdown {
+//   gap: 6px;
+//   margin-bottom: 10px;
+//   grid-template-columns: 30% 30% 30%;
+//   display: flex;
+//   flex-wrap: wrap;
+// }
+
+// .file_dropdown_box {
+//   display: inline-flex;
+//   padding: 8px 5px;
+//   border: 1px solid #d3d1ce;
+//   align-items: center;
+//   position: relative;
+//   background-color: #fff;
+//   border-radius: 4px;
+// }
+
+// .file-dropdown-option {
+//   position: absolute;
+//   top: 100%;
+//   left: 0;
+//   overflow: hidden;
+//   z-index: 1;
+//   width: 100%;
+//   // padding: 12px;
+//   // width: calc(100% - 24px);
+//   transition: height 0.3s;
+//   background: white;
+// }
+
+// .open_dropdown {
+//   // padding: 4px;
+//   border: 1px solid #d3d1ce;
+// }
+
+// .file-dropdown-option-cta {
+//   justify-content: space-between;
+//   gap: 5px;
+//   align-items: center;
+// }
+
+// .file-input-label {
+//   .ms-Button {
+//     &:hover {
+//       background: transparent;
+//     }
+//   }
+// }
+
+// .hidden {
+//   display: block !important;
+// }
+
+// .fileNameLabel {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   max-width: calc(100% - 15px);
+//   padding: 0px;
+// }
+
+// .maindiv {
+//   background: #fff;
+//   padding: 5px;
+//   width: 38%;
+//   border-radius: 3px;
+//   display: flex;
+//   justify-content: space-between;
+//   border: 1px solid #ddd;
+// }
+
+// .span {
+//   color: #005a9e;
+//   font-weight: 600;
+//   font-size: 14px;
+// }
+
+// .dropped_file_box {
+//   padding: 5px;
+//   display: inline-flex;
+//   gap: 5px;
+//   align-items: center;
+//   border: 1px solid #fefefe;
+// }
+
+// .AttachMainBox {
+//   // background: var(--lightdarkBGTable);
+//   // background: var(--lightdarkBGTable) !important;
+//   background: var(--lightThemeDashboardBGColor) !important;
+//   padding: 5px 0px 5px 5px;
+//   border-radius: 3px;
+//   display: flex;
+//   align-items: self-end;
+//   justify-content: space-between;
+//   border: 1px solid #ddd;
+//   min-width: 140px;
+//   max-width: 140px;
+//   margin-right: 5px;
+//   margin-bottom: 5px;
+// }
+
+// // .AttachMainBox i{
+// // margin-top: 5px;
+// // }
+// .FileLabelDiv {
+//   max-width: calc(100% - 30px);
+//   display: flex;
+//   align-items: center;
+//   cursor: pointer;
+// }
+
+// .AttachFileLabel {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   max-width: calc(100% - 0px);
+//   white-space: nowrap;
+//   font-weight: 400;
+//   font-size: 12px;
+//   color: var(--lightThemeTextColorBlack) !important;
+
+// }
+
+// .AttachFileIcon {
+//   font-size: 14px;
+// }
+
+// .FileCancelIcon button {
+//   padding: 0px;
+// }

@@ -1,0 +1,767 @@
+.MainDiv {
+    font-size: 12px;
+    --fontFamily: "Segoe UI WPC Regular", "Segoe UI", Tahoma, "Microsoft Sans Serif", Verdana, sans-serif !important;
+    font-weight: 400;
+}
+
+.FilterDiv {
+    display: flex;
+    width: unset;
+    align-items: center;
+   // margin-bottom: 10px;
+    // padding-top: 6px;
+    padding: 0px;
+}
+
+.AddNew {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    // margin-bottom: 10px;
+    // padding: 6px;
+}
+
+.FilterContent1 {
+    float: left;
+    width: 100%;
+    min-width: 144px;
+    max-width: 15%;
+    // border: 1px solid #ddd;
+    padding: 3px 0px;
+    margin-right: 5px;
+    //margin-bottom: 8px;
+}
+
+.FilterContent2 {
+    float: left;
+    width: 100%;
+    min-width: 144px;
+    max-width: 15%;
+    // border: 1px solid #ddd;
+    padding: 3px 2px;
+    margin-right: 1%;
+    margin-bottom: 8px;
+}
+
+.btnsforsortfilter {
+    display: flex;
+}
+
+.TicketsinfoDiv {
+    display: flex;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.CulmsHeader {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.columnHeaderTitle {
+    min-height: 0px;
+    min-width: 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 270px;
+    margin-bottom: 5px;
+}
+
+.TitleSection h3 {
+    min-height: 0px;
+    min-width: 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+    // color: rgb(50, 49, 48);
+    height: 32px;
+    line-height: 32px;
+    margin: 0px -5px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px 5px;
+    border-bottom: 1px solid #ddd;
+
+    // THEMES1
+    color: var(--lightThemeTextColorBlack) !important;
+
+}
+
+.RequerterDetailstextfield {
+    position: relative;
+    top: 0px;
+}
+
+.dropzones {
+    // height: 100%;
+    margin: 5px 2.5px;
+    padding: 0px;
+    min-width: 270px;
+    position: sticky;
+}
+
+.Cardsview {
+    box-shadow: rgb(0 0 0 / 13%) 0px 3.2px 7.2px 0px, rgb(0 0 0 / 11%) 0px 0.6px 1.8px 0px;
+    flex: 0 0 auto;
+    min-height: 10px;
+    min-width: 0px;
+    display: flex;
+    flex-flow: row nowrap;
+    border-radius: 2px;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    // THEMES1
+    background-color: var(--lightThemeBGcolorWhite) !important;
+}
+
+.threedots {
+    position: absolute;
+    right: 5px;
+    top: 7px;
+    height: 20px;
+    PADDING: 0px;
+    width: 25px;
+}
+
+.threedots .dropbtn {
+    position: absolute;
+    display: flex;
+    font-size: 0px;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+    top: 40%;
+}
+
+.threedotli {
+    // background: none repeat scroll 0 0 #868686;
+    height: 4px;
+    width: 4px;
+    line-height: 0;
+    list-style: none outside none;
+    margin: 1px;
+    vertical-align: top;
+    border-radius: 50%;
+    pointer-events: none;
+
+    // THEMES1
+    background-color: var(--lightThemeBGcolorWhite) !important;
+}
+
+.dropdowncontent {
+    display: none;
+    position: absolute;
+    margin-top: 15px;
+    // background-color: #f9f9f9;
+    min-width: 50px;
+    overflow: auto;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 20%);
+    right: 2em;
+    z-index: 1;
+    // background: #fff;
+
+    // THEMES1
+    background-color: var(--lightThemeBGcolorWhite) !important;
+
+}
+
+.dropdowncontent2 {
+    display: none;
+    position: absolute;
+    bottom: 15px;
+    left: 25px;
+    width: 105px;
+    // position: absolute;
+    margin-top: 2px;
+    // background-color: #f9f9f9;
+    min-width: 50px;
+    overflow: auto;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 20%);
+    right: 0.4em;
+    z-index: 1;
+    // background: #fff;
+
+    // themes1
+    background-color: var(--lightThemeBGcolorWhite) !important;
+    i {
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+    .ms-Button-label {
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+}
+.dropdowncontent li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    // color: black;
+    padding: 5px 5px;
+    text-decoration: none;
+    /* display: block; */
+    border-bottom: 1px solid #eee;
+    color: var(--lightThemeTextColorBlack) !important;
+    cursor: pointer;
+
+    i {
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+    .ms-Button-label {
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+}
+
+.CardContent {
+    padding: 5px 8px;
+    // width: 270px;
+    width: 100%;
+}
+
+.textboxcard {
+    padding: 2px 0px 5px 0px;
+}
+
+.ticketalign {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.displayid {
+    margin: 0;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    max-width: 70px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 70px;
+}
+
+.formlink {
+    color: #014446;
+    text-decoration: none;
+}
+
+.statuscode {
+    margin-left: 2px;
+    font-weight: 500;
+    background: #fab7b7;
+    padding: 1px 6px;
+    border-radius: 2px;
+    max-width: 80px;
+    min-width: 60px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    //  themes1
+    // color: var(--lightThemeTextColorBlack)!important;
+    color: black !important;
+}
+
+.statuscode2 {
+    margin-left: 2px;
+    font-weight: 500;
+    background: #ffd3d3;
+    padding: 1px 6px;
+    border-radius: 2px;
+    max-width: 80px;
+    min-width: 60px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    color: black !important;
+}
+
+.statuscode3 {
+    margin-left: 2px;
+    font-weight: 500;
+    background: #afffa8;
+    padding: 1px 6px;
+    border-radius: 2px;
+    max-width: 80px;
+    min-width: 60px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    color: black !important;
+
+}
+
+.statuscode4 {
+    margin-left: 2px;
+    font-weight: 500;
+    background: #feecaa;
+    padding: 1px 6px;
+    border-radius: 2px;
+    max-width: 80px;
+    min-width: 60px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    color: black !important;
+
+}
+
+.ticketdate {
+    margin-left: 5px;
+    // max-width: 80px;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: 65px;
+
+    // THEMES1
+    color: var(--lightThemeTextColorBlack) !important;
+}
+
+.TitleforTicket {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-height: 2rem;
+    min-height: 2rem;
+    padding: 0px 0px;
+    text-overflow: ellipsis;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.Ticketdescription {
+    line-height: 1rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    max-height: 4.7rem;
+    min-height: 4.7rem;
+    padding: 10px 0px;
+
+    // THEMES1
+        p {
+            color: var(--lightThemeTextColorBlack) !important;
+        }
+    
+        color: var(--lightThemeTextColorBlack) !important;
+    
+        .elementToProof {
+            color: var(--lightThemeTextColorBlack) !important;
+        }
+    
+        html body {
+            .elementToProof {
+                color: var(--lightThemeTextColorBlack) !important;
+            }
+        }
+}
+.elementToProof{
+    color: var(--lightThemeTextColorBlack) !important;
+}
+
+.dateimage {
+    display: flex;
+    justify-content: space-between;
+    // border-top: 1px solid #ddd;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.downalignment {
+    display: flex;
+    align-items: center;
+}
+
+.UserIcon {
+    display: flex;
+    align-items: center;
+}
+
+.imageicon {
+    text-align: center;
+    display: flex;
+    margin-bottom: -3px;
+    position: relative;
+    margin-right: 0px;
+    cursor: pointer;
+
+    // THEMES1
+    i{
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+}
+
+.UserLetter {
+    background: #6d6d6d;
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 13px;
+    color: #fff;
+    min-width: 25px;
+    min-height: 25px;
+    cursor: pointer;
+    /* position: absolute; */
+    /* text-align: center; */
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserLetter2 {
+    background: #f4b967;
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 13px;
+    color: #fff;
+    min-width: 25px;
+    min-height: 25px;
+    cursor: pointer;
+    /* position: absolute; */
+    /* text-align: center; */
+    display: flex;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
+}
+
+.threedotspri {
+    position: relative;
+    margin: 0px 0px 0px 10px;
+}
+
+.threedotspri .dropdown-priority {
+    margin: 0px 0px 0px 0px;
+}
+
+.dropbtnpri {
+    position: relative;
+    // display: flex;
+    // font-size: 0px;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.TeamCode {
+    // margin: 0px 10px 0px 10px;
+    color: #8a0909;
+    font-weight: 600;
+    // padding: 1px 0px;
+    // border-radius: 2px;
+    font-size: 14px;
+    margin-left: 50px;
+}
+
+.threedotsAdd {
+    position: relative;
+    //margin-bottom: 15px;
+}
+
+.dropdownadd {
+    // margin-right: 0px;
+    // margin-left: 5px;
+    position: relative;
+    right: -23px;
+}
+
+.threedotsAdd .dropbtn-add {
+    position: relative;
+    display: flex;
+    font-size: 0px;
+    border: none;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.imageicon {
+    text-align: center;
+    display: flex;
+    margin-bottom: -3px;
+    position: relative;
+    margin-right: 0px;
+    cursor: pointer;
+    left: -20px;
+}
+
+.CommandBar1 {
+    margin-bottom: 10px !important;
+}
+
+.maintoparea {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    justify-content: space-between;
+}
+
+// .NewTicketbtu {
+//     display: inline-block;
+//     float: left;
+//     border-right: 5px solid #fff;
+// }
+.Newticketlable {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    line-height: 40px;
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    font-family: Segoe UI WPC Regular, Segoe UI, Tahoma, Microsoft Sans Serif, Verdana, sans-serif;
+}
+
+.TrailDiv {
+    float: left;
+    width: 78%;
+    text-align: center;
+    padding: 11px 0px;
+    font-size: 14px;
+    font-weight: 600;
+    background: #ff980036;
+}
+
+.RightBtu {
+    background: rgb(244, 244, 244);
+    float: right;
+}
+
+.Teamsdailogdiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+
+}
+
+.DailogLabelTitle {
+    width: 40%;
+}
+
+.DailogDropdown {
+    width: 60%;
+}
+
+.AssignedDiv {
+    display: block;
+}
+
+.button1 {
+    min-width: 115px !important;
+    max-width: 10px !important;
+    text-align: center;
+}
+
+.ButtonsDiv2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // width: 20%;
+    margin-top: 21px;
+}
+
+.Reopentext {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px
+}
+
+.Reopentext span {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 12px 3px;
+}
+
+.reply {
+    list-style: none;
+    .ms-Button{
+        .ms-Button-flexContainer{
+            .ms-Button-textContainer{
+                .ms-Button-label {
+                        color: var(--lightThemeTextColorBlack) !important;
+                }
+            }
+        }
+    }
+    .ms-Button-label{
+        color: var(--lightThemeTextColorBlack) !important;
+    }
+}
+
+.HomePageIcon {
+    display: flex;
+    align-items: center;
+}
+
+.FilterIcon {
+    display: flex;
+}
+
+.KanbanbtuDiv {
+    display: flex;
+}
+
+.HeadersDiv {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.searchname {
+    display: flex;
+    float: right;
+    // padding: 8px;
+    align-items: center;
+}
+
+.searchname i {
+    //font-weight: 600;
+    cursor: pointer;
+}
+
+.linkstyle {
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.rotationclass {
+    animation: rotation 2s infinite linear;
+    -webkit-animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+    }
+}
+
+.bellIconMainDiv {
+    margin-left: -5px;
+    /* position: absolute; */
+    top: 3px;
+    right: 17px;
+  }
+
+  .mainhoverdiv {
+    // display: flex;
+    // align-items: center;
+    // padding: 0px 10px;
+    display: flex;
+    // -ms-flex-align: center;
+    // align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    // width: 100%; 
+  }
+
+  .bellspanhover {
+    font-weight: '600';
+    display: 'inline-block';
+    border: '1px dashed #605e5c';
+    padding: 5;
+    border-radius: 2;
+  }
+  .hoverlabeltext {
+    // margin-left: 11px;
+    // font-size: 15px;
+    // margin-left: 9px;
+      font-size: 15px;  
+      width: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .hoverlabelvalue {
+    // margin-left: 11px;
+    // font-size: 15px;
+    margin-left: 9px;
+      font-size: 15px;
+      width: 18%;
+  }
+  .hoverlabelvalueLink{
+    margin-left: 9px;
+    font-size: 15px;
+    width: 45%;
+  }
+  .bellIconMainDiv {
+    margin-left: -5px;
+    /* position: absolute; */
+    top: 3px;
+    right: 17px;
+  }
+  
+  .noteMainDiv {
+    display: flex;
+    margin-top: 10px;
+  }
+  .noteSpan {
+    margin-left: 13px;
+    display: flex;
+    margin-top: 5px
+  }
+  .bellIcon {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .bellIcon i {
+    font-size: 20px;
+  }
+  .bellspan {
+    font-size: 10px;
+    background: red;
+    padding: 1px 5px 2px 5px;
+    border-radius: 50%;
+    position: absolute;
+    font-weight: 600;
+    color: #fff;
+    top: -2px;
+    right: 1px;
+  }
+
+  .dialogButtonresolve {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  .buttonresolveok {
+    min-width: 90px !important;
+    max-width: 10px !important;
+    // padding-bottom: 3px;
+    text-align: center;
+    // THEMES1
+    // .ms-Button-label{
+    //   color: var(--lightThemeSwitcherTextColor) !important;
+    // }
+  }
+
+  .TakeOwnerShipSpan{
+    display: block;
+    margin:12px 14px;
+  }

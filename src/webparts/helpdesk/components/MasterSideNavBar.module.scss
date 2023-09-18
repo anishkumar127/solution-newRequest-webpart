@@ -1,0 +1,1119 @@
+// @import '~office-ui-fabric-react/dist/css/References.css';
+:root{
+  --panel: "none";
+  --HideCommandBar: "none";
+  --titleHeader: 'block';
+  --lightdarkBG: '#fff';
+  --lightdarkBGTable: '#ffffff40';
+  --lightdarkColor: '#323130';
+  --lightdarkBGGray: '#e9e9e9';
+  --lightdarkHoverBG: '#f4f4f4';
+  --paddingaa: '8px';
+  --marginaa: '24px 0px';
+  --padding: '0px';
+  --margin: '0px';
+  --paddingTop: '0px';
+  --maxWidth: '100% !important';
+  --maxWidth1236: '1268px';
+  --spappBarhide: "block";
+  --userLThide: 'inline-flex';
+  --HideTopSiteHeader:none;
+  --HideCommentsWrapper:none;
+}
+:global{
+  .ms-Panel-contentInner .ms-Label{
+    color: #333 ;
+  }
+  .ms-Panel-contentInner .ms-Checkbox-text{
+    color: #333 ;
+  }
+  .ms-Panel-contentInner .ms-ChoiceFieldLabel{
+    color: #333 ;
+  }
+ #spLeftNav{
+   display: var(--panel)
+ }
+ #spCommandBar{
+  display: var(--CommandBar)
+ }
+ #spSiteHeader{
+  display: var(--HideTopSiteHeader);
+}
+#CommentsWrapper{
+  display: var(--HideCommentsWrapper);
+}
+
+#RecommendedItems{
+  display: var(--HideCommentsWrapper) !important;
+}
+ .css-1gtu0rj-indicatorContainer{
+  color: rgba(255, 0, 0, 0);
+ }
+.webPartContainer>div div:last-child>div~div:last-child{
+  display: var(--spappBarhide)
+}
+  /* Workbench Styles*/
+  #workbenchPageContent,
+  .CanvasComponent.LCS .CanvasZone {
+    max-width: 100% !important;
+  }
+  .CanvasComponent.LCS
+    .CanvasSection--read:not(.CanvasSection--fullWidth)
+    .ControlZone:last-of-type {
+    min-height: 400px;
+    height: 100%;
+  }
+  // .sp-appBar-linkContainer {
+  //   display: none;
+  // }
+  .CanvasComponent.LCS
+    .CanvasZone.CanvasZone--controlSelected
+    .CanvasSection--edit {
+    min-height: 300px;
+  }
+  .CanvasComponent.LCS .CanvasZone:not(.CanvasZone--fullWidth) .ControlZone {
+    padding: 0px;
+  }
+  // .CanvasZone>div{
+  //   max-width: var(--maxWidth1236) !important;
+  // }
+  // .a_c_50a7110f:not(.b_c_50a7110f) .l_c_50a7110f{
+  //   max-width: var(--maxWidth1236) !important;
+  // }
+  .CanvasComponent.LCS .ControlZone.ControlZone--edit,
+  .CanvasComponent.LCS .ControlZone .ControlZone--position,
+  .ControlZone-control,
+  .ControlZone-control > div,
+  .ms-SPLegacyFabricBlock {
+    height: 100%;
+  }
+  .CanvasComponent.LCS .CanvasSection-col {
+    padding: 0px;
+  }
+  [dir="ltr"] .CanvasComponent.LCS .CanvasZone.CanvasZone--edit {
+    padding-left: 0px;
+  }
+  .selected-65::after {
+    border: 0px;
+  }
+  .CanvasComponent.LCS .CanvasToolboxHint:not(.AlignedHint) {
+    display: none;
+  }
+  .webPartContainer{
+    display: var(--titleHeader);
+  }
+  .a_h_50a7110f:not(.b_h_50a7110f) .r_h_50a7110f {
+    max-width: var(--maxWidth);
+    padding: var(--padding);
+    margin: var(--margin)
+  }
+
+  .a_h_50a7110f:not(.b_h_50a7110f):not(.p_h_50a7110f):not(.n_h_50a7110f) {
+    padding: var(--padding);
+  }
+
+  .a_f_50a7110f:not(.b_f_50a7110f) {
+    padding: var(--padding);
+  }
+
+  .a_a_50a7110f:not(.b_a_50a7110f) {
+    margin: var(--marginaa);
+    padding: var(--paddingaa);
+  }
+
+  .ja_af_9f38462c {
+    padding-top: var(--paddingTop);
+  }
+
+  .CanvasComponent.LCS .Canvas--edit.Canvas--withLayout {
+    margin-left: 0px !important;
+  }
+  #workbenchPageContent > div:nth-child(3) {
+    padding: 0px !important;
+  }
+  .CanvasZone {
+    max-width: 100%;
+  }
+  #workbenchPageContent {
+    margin-top: 0px;
+  }
+
+  @media screen and (min-width: 641px){
+    [dir=ltr] .CanvasComponent.LCS .CanvasZone.CanvasZone--edit {
+        padding-right: 0px;
+    }
+    .CanvasComponent.LCS .CanvasSection--read:not(.CanvasSection--fullWidth) .ControlZone{
+      margin-top: 0;
+    }
+  }
+/*Workbench Styles*/
+.ms-Panel-navigation {
+  background-color: var(--lightdarkBGGray);
+  padding: 6px 0;
+  height: 30px;
+}
+  // .ms-Panel-headerText{
+  //   color: #fff;
+  //   font-size: 16px;
+  // }
+  // .ms-Panel-closeButton{
+  //   color: #fff;
+  // }
+  // .ms-Panel-commands{
+  //   margin: 0px;
+  //   margin-bottom: 20px;
+  // }
+
+  // .ms-Panel-closeButton:hover{
+  //   background-color: #f4f4f4;
+  // }
+  .ms-Button--primary {
+    min-width: 80px;
+    max-width: 100px;
+    width: 100%;
+    border-radius: 2px;
+    max-height: auto;
+    min-height: 32px;
+  }
+
+
+
+
+  /*Sidenav Styles*/
+
+ /*Sidenav Styles*/
+
+
+ .ShowFull {
+  width: 15%;
+  float: left;
+  background:var(--lightdarkBGGray);
+  min-width: 160px;
+  position: relative;
+  color: var(--lightdarkColor);
+  z-index: 9;
+  min-height: calc(100vh - 44px);
+  // flex: 1;
+ //background-color: "[theme: themePrimary, default: #005a9e]";
+}
+.ShowHalf {
+  width: 44px;
+  float: left;
+  background: var(--lightdarkBGGray);
+  color: var(--lightdarkColor);
+//  flex: 1;
+  position: relative;
+  z-index: 9;
+  //background-color: "[theme: themePrimary, default: #005a9e]";
+  min-height: calc(100vh - 44px);
+}
+.GlobalNavButton{
+  position: absolute;
+    float: right;
+    right: 8px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.Cancel{
+  position: absolute;
+  right: 16px;
+  font-size: 12px;
+  top: 8px;
+  cursor: pointer;
+}
+.ShowFull .ms-Nav-compositeLink, .ShowHalf .ms-Nav-compositeLink{
+  background: var(--lightdarkBGGray);
+}
+.ShowFull .ms-Nav-linkText{
+  color: var(--lightdarkColor);
+}
+.linkText-198 {
+  margin: -4px 4px;
+  overflow: hidden;
+  vertical-align: middle;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+.ShowFull .ms-Nav-compositeLink:hover .ms-Nav-linkText{
+  color: var(--lightdarkColor);
+
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink:hover+.ms-Nav-navItems .ms-Nav-linkText{
+  color: var(--lightdarkColor);
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink+.ms-Nav-navItems .ms-Nav-linkText {
+  color: var(--lightdarkColor);
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink+.ms-Nav-navItems .ms-Nav-navItem:hover+.ms-Nav-linkText
+{
+  color: var(--lightdarkBG);
+}
+.ShowHalf .ms-Nav-compositeLink.is-selected .ms-Nav-link, .ShowFull .ms-Nav-compositeLink.is-selected .ms-Nav-link{
+  background-color: var(--lightdarkBG);
+
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink:hover .ms-Button-icon{
+  color: var(--lightdarkColor);
+
+}
+.ShowFull .ms-Nav-compositeLink:hover .ms-Nav-chevronButton, .ShowHalf .ms-Nav-compositeLink:hover .ms-Nav-chevronButton {
+    color: var(--lightdarkColor);
+    background-color: unset;
+
+}
+.ShowFull .ms-Nav-compositeLink:hover .ms-Nav-link, .ShowHalf .ms-Nav-compositeLink:hover .ms-Nav-link {
+    color: var(--lightdarkColor);
+    background-color: var(--lightdarkHoverBG);
+}
+.ms-Nav-link:hover .ms-Button-icon{
+  color: var(--lightdarkColor);
+}
+.contentDiv{
+  width: 85%;
+  // padding: 0.8% 2%;
+  float: left;
+  min-width: calc(100% - 160px);
+}
+
+.padding20{
+  padding: 2%;
+}
+.contentShortDiv{
+  width: 99%;
+  min-width: calc(100% - 44px);
+  // padding: 1%;
+  float: left;
+}
+
+.ShowHalf .ms-Nav-navItem .ms-Nav-navItems{
+  display: none;
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink:hover + .ms-Nav-navItems{
+  display: block;
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-compositeLink + .ms-Nav-navItems:hover{
+  display: block;
+}
+.ShowHalf .ms-Nav-navItem{
+  position: relative;
+}
+.ShowHalf .ms-Nav-navItem .ms-Nav-navItems{
+  background:#f4f4f4;
+  position: absolute;
+  left:100%;
+  top:0px;
+}
+.ShowHalf .ms-Nav-chevronButton{
+  display: none;
+}
+.ShowFull .ms-Nav-chevronButton{
+  color: var(--lightdarkColor);
+}
+.ShowHalf .ms-Nav-compositeLink + .ms-Nav-navItems .ms-Nav-link {
+  border-bottom: 0px solid #e7e7e7;
+  min-height: 0px;
+  line-height: 20px;
+  padding: 5px 15px !important;
+  height: 30px;
+}
+
+.ShowHalf .ms-Nav-groupContent>.ms-Nav-navItems .ms-Nav-navItem .ms-Nav-link{
+  padding: 0px;
+}
+
+.ShowHalf .ms-Nav-compositeLink:hover .ms-Nav-chevronButton{
+    background: inherit;
+}
+.menuIcon {
+  text-align: start;
+  padding: 10px 15px;
+  // padding: 5px 8px 5px 8px;
+  cursor: pointer;
+  color:var(--lightdarkColor);
+}
+.menuIconFull {
+  text-align: start;
+  // padding: 13px;
+ // padding: 13px 0px;
+ padding: 8px 0px 13px 0px;
+  // padding: 5px 10px 5px 10px;
+  cursor: pointer;
+  color:var(--lightdarkColor);
+}
+.menuIconFull i{
+  margin-left: 139px;
+  font-size: 10PX;
+}
+.ShowHalf .ms-Button-flexContainer{
+  display: block;
+  text-align: center;
+}
+.ShowHalf .ms-Button-icon, .ShowFull .ms-Button-icon{
+  // THEMES1
+  color: var(--lightdarkColor) !important;
+}
+/*Sidenav Styles*/
+// @media all and (max-width:767px) {
+//   .contentDiv{
+//     margin-left: 50px;
+//   }
+//   .menuIconFull{
+//     text-align: start;
+//   }
+
+//   .ShowFull {
+//     position: absolute;
+//     z-index: 99;
+//     transition: 2.3s;
+//     width: initial;
+//   }
+// }
+@media all and (max-width: 768px) {
+  .newcontentdivclass, .newcontentdivclassHomepage{
+    width: 100% !important;
+  }
+  .fullTopbar {
+    width: 92%;
+    display: block;
+    background-color: var(--lightdarkBGGray);
+    overflow: hidden;
+    padding: 5px 10px;
+}
+.ShowHalf .ms-Nav-group{
+  display: none;
+
+}
+.ShowHalf{
+  float: initial;
+  width: 100%;
+  display: none;
+}
+
+.sideNavmain{
+  display: block;
+}
+
+.helpDesk{
+  display: none;
+}
+.contentShortDiv{
+  width: 100%;
+  background-color: #f9f9f9 !important;
+}
+.contentDiv{
+        margin-left: 50px;
+      }
+      .menuIconFull{
+        text-align: end;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .ShowFull {
+        position: absolute;
+        z-index: 99;
+        transition: 2.3s;
+        width:100%;
+        min-width: 160px;
+      }
+    .showHalf,.showFull {
+    display: none;
+  }
+  .pivotCustomBGcolor > .ms-Pivot {
+    margin-left: 0px;
+    margin-top: 4px;
+  }
+  .pivotCustomBGcolorHome > .ms-Pivot {
+    margin-left: 0px;
+    margin-top: 4px;
+  }
+  .showMBCancel i,
+  .showMBToggle i {
+    // color: #fff;
+    color:var(--lightdarkColor);
+    margin-left: -7px;
+  }
+  .ShowMBFull {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    background: var(--lightdarkBGGray);
+  }
+  .ShowMBFull .ms-Nav-linkText {
+    color: var(--lightdarkColor);
+  }
+  .ShowHalf .ms-Nav-compositeLink.is-selected .ms-Nav-link,
+  .ShowMBFull .ms-Nav-compositeLink.is-selected .ms-Nav-link {
+    background-color: var(--lightdarkBG);
+  }
+  .ShowMBFull .ms-Nav-compositeLink:hover .ms-Nav-chevronButton {
+    color: var(--lightdarkColor);
+    // background-color: var(--lightdarkHoverBG);
+    background-color: var(--lightdarkBGGray);
+  }
+  .ShowMBFull .ms-Nav-compositeLink:hover .ms-Nav-link {
+    color: var(--lightdarkColor);
+    background-color: var(--lightdarkHoverBG);
+  }
+  .ShowMBFull .ms-Nav-chevronButton {
+    color: var(--lightdarkColor);
+  }
+  .ShowMBFull .ms-Button-icon {
+    color: var(--lightdarkColor);
+  }
+  .ShowMBFull .ms-Nav-compositeLink:hover .ms-Nav-linkText {
+    color: var(--lightdarkColor);
+  }
+  .ShowMBFull .ms-Nav-compositeLink {
+    background: var(--lightdarkBGGray);
+  }
+  .menuHideIcon {
+    display: none;
+  }
+
+  .ShowMBToggle {
+    display: block;
+    float: left;
+  }
+  .hideMBToggle {
+    display: none;
+  }
+  .hideMBCancel {
+    display: none;
+  }
+  .showMBCancel {
+    display: block;
+    float: left;
+  }
+}
+
+/*Sidenav Styles*/
+.CanvasComponent.LCS .CanvasZoneContainer.CanvasZoneContainer--selected:before{
+  border: 0px;
+}
+.selected-109::after {
+  border: 0px;
+}
+.CanvasComponent.LCS .CanvasZoneContainer.CanvasZoneContainer--selected:before, .CanvasComponent.LCS .CanvasZoneContainer:not(.CanvasZoneContainer--read):hover:before{
+  border: 0px;
+}
+.CanvasComponent.LCS .CanvasZone.CanvasZone--controlSelected .CanvasSection--edit{
+  min-height: 500px;
+}
+.ms-Nav-chevronButton {
+  background-color: unset !important;
+}
+}
+
+/*Global Styles*/
+.elementToFadeInAndOut div{
+  width: 6px;
+  height: 6px;
+  background: var(--lightdarkColor);
+  display: inline-block;
+  margin-right: 2px;
+  border-radius: 50%;
+}
+.elementToFadeInAndOut {   
+  -webkit-animation: fadeinout 2s linear forwards infinite;
+  animation: fadeinout 2s linear forwards infinite;
+  opacity: 0;
+}
+.custom-swal-container{
+  width: 300px;
+}
+.custom-swal-title{
+  font-size: medium;
+  font-family: "Segoe UI WPC Regular", "Segoe UI", Tahoma, "Microsoft Sans Serif", Verdana, sans-serif !important;
+}
+
+@-webkit-keyframes fadeinout {
+50% { opacity: 1; }
+}
+
+@keyframes fadeinout {
+50% { opacity: 1; }
+}
+.settingBlock{
+  padding: 1% 0!important;
+  border-bottom: 1px solid #dadada;
+}
+.mainContent{
+  height: 100%;
+}
+.sideNavmain{
+  height: 100%;
+  display: flex;
+}
+.addeditdelbutonStyles{
+  display: flex;
+  flex-flow: row;
+  flex: 0 1 10%;
+}
+.placeholderBlk div{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.placeholderBlk div button {
+  color: #333;
+  background-color: #fff;
+  padding: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  outline: 0;
+  min-width: 100px;
+  margin-right: 7px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #777;
+}
+.addeditdelbutonStyles>button{
+  margin-right: 2%;
+  background: #f4f4f4;
+  border: 0px;
+}
+.panelheader{
+  font-size: 14px;
+}
+.buttons{
+  display: flex;
+  margin: 6px 0 4px 0;
+}
+.fieldsBlockStyles{
+  width: 100%;
+  margin-bottom: 3%;
+}
+.fieldsBlockStyles>div {
+  width: 100%;
+}
+.button{
+  margin-right: 10px;
+}
+.panelele{
+  margin: 15px 0;
+}
+.panelrow{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-flow: row nowrap;
+  height: auto;
+  box-sizing: border-box;
+  justify-content: space-between;
+
+}
+
+.cards{
+  display: flex;
+  justify-content: space-between;
+}
+.logospace{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0px;
+}
+.logowidheight{
+  width: 150px;
+  height: 60px;
+}
+.logoimg{
+  width: 150px;
+  height: 60px;
+    display: flex;
+    // justify-content: right;
+}
+
+.panelcolumn{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  flex: 0 1 48%;
+  font-size: 14px;
+  align-items: center;
+  font-weight: 600;
+  color: rgb(50, 49, 48);
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 0px 0px 10px;
+  display: block;
+  overflow-wrap: break-word;
+}
+.activetoggle{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  align-items: center;
+  margin: -25px 0;
+  padding: 10px 0;
+  justify-content: space-between;
+}
+.resolutionlabel{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  margin:5px 0;
+}
+.assignedto{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  flex: 0 1 48%;
+  font-size: 14px;
+  align-items: center;
+  font-weight: 600;
+  color: rgb(50, 49, 48);
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 0px 0px 10px;
+  display: none;
+  overflow-wrap: break-word;
+}
+
+.addtaskbtn{
+  font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  flex: 0 1 48%;
+  font-size: 14px;
+  align-items: center;
+  font-weight: 600;
+  color: rgb(50, 49, 48);
+  box-sizing: border-box;
+  box-shadow: none;
+  margin: 13px 0 0 0;
+  display: block;
+  overflow-wrap: break-word;
+  text-align: end;
+}
+.helpDesk {
+
+  .container {
+    max-width: 700px;
+    margin: 0px auto;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .activeClrFilterOption{
+    border:1px solid #ddd;
+    border-radius: 20px;
+    background-color: "[theme:themePrimary]";
+    padding: 6px 10px;
+    color: #fff;
+    font-size: 13px;
+    margin-right: 2%;
+    min-width: 60px;
+    text-align: center;
+  }
+  .editorBlockStyles{
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+  }
+  .RichEditorBlk{
+    width: 100%;
+  }
+  .placeholderBlk{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .placeholderBlk h4{
+    font-size: 14px;
+      font-weight: 500;
+      margin: 0;
+      padding-bottom: 8px;
+  }
+  .placeholderBlk div{
+    border:1px solid #ddd;
+    padding: 8px;
+  }
+  .placeholderBlk div button{
+      color: #333;
+      background-color: #fff;
+      padding: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      outline: 0;
+      min-width: 100px;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      box-shadow: none;
+      border: 1px solid #777;
+  }
+  .row {
+    // @include ms-Grid-row;
+    // @include ms-fontColor-white;
+    // background-color: $ms-color-themeDark;
+    padding: 20px;
+  }
+
+  // .column {
+  //   // @include ms-Grid-col;
+  //   @include ms-lg10;
+  //   @include ms-xl8;
+  //   @include ms-xlPush2;
+  //   @include ms-lgPush1;
+  // }
+
+  // .title {
+  //   @include ms-font-xl;
+  //   @include ms-fontColor-white;
+  // }
+
+  // .subTitle {
+  //   @include ms-font-l;
+  //   @include ms-fontColor-white;
+  // }
+
+  // .description {
+  //   @include ms-font-l;
+  //   @include ms-fontColor-white;
+  // }
+
+  .button {
+    // Our button
+    text-decoration: none;
+    height: 32px;
+
+    // Primary Button
+    min-width: 80px;
+    // background-color: $ms-color-themePrimary;
+    // border-color: $ms-color-themePrimary;
+    // color: $ms-color-white;
+
+    // Basic Button
+    outline: transparent;
+    position: relative;
+    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    -webkit-font-smoothing: antialiased;
+    // font-size: $ms-font-size-m;
+    // font-weight: $ms-font-weight-regular;
+    border-width: 0;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 16px;
+
+    .label {
+      // font-weight: $ms-font-weight-semibold;
+      // font-size: $ms-font-size-m;
+      height: 32px;
+      line-height: 32px;
+      margin: 0 4px;
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+}
+
+
+//For TeamsHR
+.Heading{
+  align-items: center;
+  margin: -10px 0 -10px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.class1{
+  width: 100%;
+}
+.Shimmers {
+  width: 100%;
+  // margin: 10px 05px;
+
+}
+.pivot {
+  width: 100%;
+  margin: 5px 0px;
+}
+
+
+.firstLayer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  margin-top: 5px;
+}
+
+.searchname {
+  display: flex;
+  align-items: center;
+  float: right;
+  margin-right: 5px;
+}
+.excelbutton{
+  margin-left: 0px;
+}
+/*Pagination*/
+.paginationBlk, .paginationTopBlk{
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  align-items: center;
+  flex-flow: row;
+  padding: 8px;
+  align-content: flex-end;
+  margin-left: auto;
+  // background: #fff;
+}
+.paginationTopBlk label {
+  margin-right: 2%;
+}
+.shownumberofpages {
+  align-content: flex-start;
+}
+
+.previousandnext {
+  align-content: flex-end;
+  //margin-left: auto;
+}
+
+.shownumberofpages span {
+  font-weight: 400;
+  font-size: 14px;
+  // THEMES1
+color: var(--lightThemeTextColorBlack) !important;
+
+
+}
+
+.previousandnext {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.previousandnext button, .previousandnext button span {
+  border: 0px;
+  font-size: 14px;
+  font-weight: 400;
+  background: none;
+}
+
+.previousandnext>span {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0px;
+  cursor: pointer;
+  padding: 5px 10px;
+
+  // THEMES1
+  // background-color: var(--lightThemeBGcolorWhite) !important;
+  background-color: var(--lightThemeHoverBGColor) !important;
+  color: var(--lightThemeTextColorBlack) !important;
+}
+.prevnext{
+  min-width: 40px;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: center;
+
+   //THEMES1
+   color: var(--lightThemeTextColorBlack) !important;
+}
+/*pagination*/
+.searchforemail{
+  display: flex;
+  justify-content: flex-end;
+  // margin-right: 10px;
+}
+
+
+//to adjust height of navbar
+.newcontentdivclass{
+  width: calc(100% - 10px);
+    float: left;
+    padding: 0px 4px;
+  
+  // THEMES1
+  background-color: var(--lightThemeSettingBgColor) !important;
+}
+.newcontentdivclassHomepage{
+  // width: calc(100% - 44px);
+  width: 100%;
+  float: left;
+  padding:0px 0px 0px 4px;
+}
+
+//for edit dlt Icons
+.editbtn {
+  height: 0px;
+}
+.deletebtn {
+  height: 0px;
+}
+@media all and (max-width:1160px){
+  .logospace{
+    display: none;
+  }
+}
+
+
+@media all and (max-width:480px){
+  .logospace{
+    display: none;
+  }
+}
+.dialogButtons{
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.button1 {
+  // margin-left: 7px;
+  min-width: 90px!important;
+  max-width: 10px!important;
+  // padding-bottom: 3px;
+  align-items: center;
+}
+.button2 {
+  margin-left: 10px !important;
+  min-width: 90px!important;
+  max-width: 10px!important;
+  // padding-bottom: 3px;
+  align-items: center;
+}
+
+
+
+
+
+.togleopen{
+  display: block;
+}
+@media screen and (max-width: 768px){
+  .newcontentdivclass{
+    padding: 0px;
+  }
+  .newcontentdivclassHomepage{
+    width: 100%;
+    padding: 0px;
+  }
+  .logoimg{
+    margin-left: 10px;
+  }
+  .menuIconFull i{
+    margin-right: 10px !important;
+  }
+  .sideNavmain{
+    display: block!important;
+  }
+  .logoimg {
+    justify-content:flex-start;
+  }
+  .ShowFull{
+    width: 100%;
+    min-width: 160px;
+  }
+  .ShowFull{
+    .togleopen {
+      display: none;
+      // display: flex;
+      // justify-content:flex-start;
+    }
+  .togleclose {
+    display: block;
+  }
+  }
+  .menuIcon{
+    text-align: start!important;
+  }
+  .menuIconFull{
+    display: grid !important;
+   &.logoimg {
+
+    order: 2 !important;
+    }
+  }
+
+
+}
+////////////////////////////
+.diaheader {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.diasecondheader {
+  display: block;
+  text-align: center;
+  // color:'#000';
+  font-size: 20px;
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.dia3rdheader {
+  display: block;
+  text-align: center;
+  color: #333;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.dialgboxbtn {
+  // min-width: 120px !important;
+
+  width: 100% !important;
+  font-weight: 600;
+  // max-width: 140px !important;
+}
+
+.dialogonboardstyles{
+  max-width: 288px;
+  min-height: 176px;
+}
+
+
+.ms-Dialog-main{
+  max-width: 560px!important;
+  width: 100%!important;
+  min-width: initial!important;
+}
+
+	
+	// ----custom styles for commandbar buttons start here-----
+	.SubCustomCommandBarStyles .ms-Button.ms-Button--commandBar.root:hover {
+		background-color: none !important;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button--commandBar {
+		background-color: none ;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button-flexContainer {
+		color: var(--lightdarkBG);
+		background-color: var(--lightdarkBGTable);
+		height: 32px;
+		padding: 0px 7px 0px 7px;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button-flexContainer:hover {
+		background-color: none !important;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button--commandBar:hover {
+		background-color: none !important;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button .ms-Button--commandBar:active {
+		background-color: var(--lightdarkBGTable);
+	}
+
+	.SubCustomCommandBarStyles .ms-Button .ms-Button--commandBar:hover {
+		background-color: none !important;
+	}
+
+	.SubCustomCommandBarStyles .ms-Button-flexContainer .ms-Button-icon {
+		color: var(--lightdarkBG);
+	}
+
+  .ICONdiv{
+    position: relative;
+    text-align: start;
+    cursor: pointer;
+    color: var(--lightdarkColor);
+    padding: 0px 15px;
+    top: 5px;
+  }
+  .overFlowDltbtn{
+    transform: rotate(90deg)
+  }

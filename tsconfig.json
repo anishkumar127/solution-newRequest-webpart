@@ -1,0 +1,50 @@
+{
+  "extends": "./node_modules/@microsoft/rush-stack-compiler-4.5/includes/tsconfig-web.json",
+  "compilerOptions": {
+    "target": "es6",
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "declaration": true,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "outDir": "lib",
+    "inlineSources": false,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "downlevelIteration": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "allowSyntheticDefaultImports":true,
+
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@microsoft"
+    ],
+    "types": [
+      "webpack-env",
+      "microsoft-ajax",
+      "sharepoint"
+    ],
+    "lib": [
+      "es6",
+      // "es5",
+      "dom",
+      // "es2015.collection",
+      // "es2015.promise",
+      "es2017",
+      "es2021"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
+  // ,
+  // "exclude": [
+  //   "src/webparts/helpdesk/HelpdeskWebPart.ts"
+  // ]
+}

@@ -1,0 +1,4078 @@
+// // @import '~office-ui-fabric-react/dist/css/References.css';
+
+
+// :root {
+//     --lightdarkBG: '#fff';
+//     --lightdarkBGTable: '#ffffff40';
+//     --lightdarkColor: '#323130';
+//     --lightdarkBGGray: '#e9e9e9';
+//     --lightdarkHoverBG: 'F4f4f4';
+//     --textIconColor: #333;
+//     --pivotSelectedTextColor: #333;
+//     --pivotSelectedBGColor: #d0d0d0;
+  
+  
+//     // <-------------------- THEMES LIGHT/DARK/SITE -------------------->
+//     --lightThemeBGcolorWhite: transparent;
+//     --lightThemeTextColorBlack: transparent;
+//     --lightThemeHoverBGColor: transparent;
+//     --lightThemePivotTextBlack: transparent;
+//     --lightThemeSwitcherTextColor: transparent;
+//     --lightThemePanelBGSwitcher: transparent;
+//     // <-------------------- DETAILS LIST -------------------->
+//     --lightThemeDetailsListBGEvenOdd: transparent;
+//     --lightThemeBGPriorityHigh: transparent;
+//     --lightThemeBGPriorityUrgent: transparent;
+//     --lightThemeBGPriorityClosed: transparent;
+  
+//     // < ----------------------- ACTION BUTTON BG SWITCHER ------------------->
+//     --lightThemeActionButtonBGBlack: transparent;
+  
+//     //  <----------------------- COMMENTS PAGE REACT QUIL SIDEBAR BG BORDER ---------------------------->
+//     --lightThemeBorderColor: transparent;
+  
+//     // <--------------- PERSONA NEW TICKET ------------------->
+//     --lightThemePersonaNameColor: transparent;
+  
+//     // <--------------- TOGGLE BUTTON ON/OFF ------------------->
+//     // BUTTON
+//     --lightThemeToggleBtnOn: transparent;
+//     --lightThemeToggleBtnOff: transparent;
+//     // INSIDE CIRCLE
+//     --lightThemeToggleCircleBtnOn: transparent;
+//     --lightThemeToggleCircleBtnOff: transparent;
+  
+//     // <-------------- COMMENTS PAGE PRIVATE NOTE ---------------------->
+//     --lightThemePrivateNoteColor: transparent;
+  
+//     // <--------------  SELECTION ICON COLOR---------------------->
+//     --lightThemeSelectionIcon: transparent;
+  
+//     // <--------------  SETTINGS PAGE BG / ICON COLOR---------------------->
+//     --lightThemeSettingBgColor: transparent;
+//     --lightThemeSettingIconColor: transparent;
+  
+//     // <--------------  PRIORITY TEXT COLOR---------------------->
+//     --lightThemePriorityTextColor: transparent;
+//     // <-------------- HOMEPAGE DROPDOWN BORDER COLOR---------------------->
+//     --lightThemeDropDownBorderColor: transparent;
+  
+//     // <---------------------------- ATTACHMENT BG COLOR ----------------->
+//     --lightThemeAttachmentBGColor:transparent;
+  
+//     /*
+  
+//     - COLORS
+//     BG WHITE/BLACK ONLY => background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//     HOVER BG GRAY ONLY => background-color: var(--lightThemeHoverBGColor) !important;
+  
+//     ICON COLOR WHITE/BLACK/SITE =>  ALL MODE CHANGED REFLICT - color: var(--lightThemePivotTextBlack) !important;
+   
+//     TEXT COLOR WHITE/BLACK =>  ONLY WHITE/DARK CHANGE - color: var(--lightThemeTextColorBlack) !important;
+  
+//     TEXT COLOR WHITE/BLACK/SITE = > ALL MODE COLOR SWITTCHER = >  COMMENTS PAGE =>  color: var(--lightThemeSwitcherTextColor) !important;
+  
+//     PANEL BG COLOR SWITCHER = >  ALL PLACES  = > background-color: var(--lightThemePanelBGSwitcher) !important;
+    
+//     ACTION BUTTON COMMAND BAR COLOR SWITCHER => background-color:var(--lightThemeActionButtonBGBlack) !important;
+  
+//     TOGGLE BUTTON -> BUTTON
+//       - ON ->  background-color: var(--lightThemeToggleBtnOn) !important;   | OFF -> background-color: var(--lightThemeToggleBtnOff) !important;
+//           - INSIDE BUTTON CIRCLE 
+//               - ON ->   background-color: var(--lightThemeToggleCircleBtnOn) !important;  | OFF ->   background-color: var(--lightThemeToggleCircleBtnOff) !important;
+            
+//     ATTACHMENT BG COLOR  - LIGHT MODE - DARK MODE - GRAY  AND BLACK.
+//       background-color: var(--lightThemeAttachmentBGColor) !important;
+//    */
+//   }
+  
+//   // Common Styles. Create Resuable.
+//   @mixin common-modal-styles {
+//     width: 300px;
+//     height: 170px;
+//     border-radius: 0px;
+//     box-shadow: 0 0 0 50vmax rgba(0, 0, 0, 0.5);
+//     transition: opacity 0.5s ease-out;
+//     background-color: var(--lightThemeBGcolorWhite) !important;
+//     border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//     &::backdrop {
+//       background: rgba(0, 0, 0, 0.3);
+//     }
+//   }
+  
+  
+//   .MB5 {
+//     margin-bottom: 5px;
+//   }
+  
+//   :global {
+//     #MailBox {
+  
+//       div:where(.swal2-container).swal2-top,
+//       div:where(.swal2-container).swal2-center,
+//       div:where(.swal2-container).swal2-bottom {
+//         position: absolute;
+//       }
+//     }
+  
+//     #MailBox .swal2-container .swal2-popup .swal2-actions [class^=swal2-cancel]:focus {
+//       box-shadow: unset !important
+//     }
+  
+//     div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
+//       box-shadow: unset !important
+//     }
+  
+//     .ContactInfoSpan {
+//       .ms-Dialog-actions {
+//         position: relative;
+//         width: 100%;
+//         min-height: 24px;
+//         line-height: 24px;
+//         margin: 16px 0px 0px;
+//         font-size: 0px;
+//         display: flex;
+//         justify-content: center;
+//       }
+//     }
+  
+//     #MailBox {
+  
+//       .swal2-container {
+//         .swal2-popup {
+//           .swal2-actions {
+  
+//             [class^=swal2-confirm] {
+//               min-width: 90px !important;
+//               max-width: 10px !important;
+//               -ms-flex-align: center !important;
+//               align-items: center !important;
+//               color: var(--lightThemeSwitcherTextColor) !important;
+//               font-size: 14px;
+//               border-radius: 0;
+//               background-color: var(--lightdarkBGGray);
+//               border: var(--lightdarkBGGray);
+//             }
+  
+//             [class^=swal2-cancel] {
+//               font-size: 14px;
+//               border-radius: 0;
+//               border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//               background-color: var(--lightThemeBGcolorWhite) !important;
+//               color: var(--lightThemeTextColorBlack) !important;
+//             }
+  
+//           }
+//         }
+  
+//       }
+//     }
+  
+//     // <-------------------------- COLUMNS SETTINGS OVERFLOW MENU -------------------------------->
+//     .pivotOverflowColor {
+//       .ms-Button .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+//     }
+  
+//     // Outside Color
+//     .ControlZone-drag,
+//     .ControlZone--drag-show,
+//     .ControlZone--position,
+//     .ControlZone--emphasisBackground {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     .contentShortDiv {
+//       background-color: var(--lightThemeBGcolorWhite);
+//       // background-color: var(--lightThemePanelBGSwitcher)!important;
+//     }
+  
+//     .ms-TextField-fieldGroup {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     .ms-SearchBox {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     // Dropdown LIST
+//     .ms-Dropdown-title {
+//       background-color: var(--lightThemeBGcolorWhite);
+//       color: var(--lightThemeTextColorBlack);
+//     }
+  
+//     .ms-Dropdown-container .is-disabled .ms-Dropdown-title {
+//       background-color: rgb(243, 242, 241) !important;
+  
+//     }
+  
+//     .ms-Callout-main {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     .ms-Dropdown-optionText {
+//       color: var(--lightThemeTextColorBlack);
+//     }
+  
+//     .is-row-header {
+//       // color: var(--lightThemeTextColorBlack);
+//       color: var(--lightThemePriorityTextColor);
+//     }
+  
+//     .is-row-header,
+//     .ms-Dropdown-optionText {
+//       // color: var(--lightThemeTextColorBlack);
+//       color: var(--lightThemePriorityTextColor);
+//     }
+  
+//     .ms-Dropdown-item:active {
+//       background: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-Dropdown-item:focus {
+//       background: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .dropdownItemSelected:hover:focus {
+//       background: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-Dropdown-callout {
+//       .ms-Button {
+//         background: var(--lightThemeBGcolorWhite) !important;
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // CONFLICT COMMENTS BUTTON
+//     // .ms-Button .ms-Button {
+//     //   &:active {
+//     //     background-color: var(--lightThemeBGcolorWhite);
+//     //   }
+//     // }
+  
+//     .ms-Button .ms-Button--action .ms-Button--command .ms-Dropdown-item .dropdownItem:active {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     .ms-Button .ms-Button--action .ms-Button--command .ms-Dropdown-item .dropdownItem:focus {
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     // CONFLICT COMMENTS BUTTON
+//     // .ms-Button {
+//     //   &:active {
+//     //     background-color: var(--lightThemeBGcolorWhite);
+//     //   }
+//     // }
+  
+//     // Dropdown Items
+//     .ms-Button .ms-Dropdown-item {
+//       &:active:focus {
+//         background-color: var(--lightThemeBGcolorWhite);
+//       }
+//     }
+  
+//     .ms-Button .ms-Dropdown-item {
+//       &:active {
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+//       }
+//     }
+  
+//     // DetailsList Row
+//     .ms-FocusZone .ms-DetailsRow {
+//       &:hover {
+//         background-color: var(--lightThemeBGcolorWhite);
+//       }
+//     }
+  
+//     // cONFCLIT DETAILS LIST COLOR. commented.
+//     // .ms-FocusZone .ms-DetailsRow {
+//     //   background-color: var(--lightThemeBGcolorWhite);
+//     // }
+  
+//     // conflicted issue1
+//     // .ms-DetailsRow-fields{
+//     //   background-color: var(--lightThemeBGcolorWhite);
+//     // }
+//     .ms-DetailsRow-fields:hover .is-row-header {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // DetailsList Row Hover
+//     .ms-List-page .ms-List-cell {
+//       .ms-FocusZone:hover {
+//         color: var(--lightThemeTextColorBlack) !important;
+//         // background-color: var(--lightdarkBGGray) !important;
+//         // conflict
+//         background-color: var(--lightThemeHoverBGColor);
+//       }
+  
+//       .is-row-header {
+//         .ms-FocusZone {
+//           .ms-OverflowSet-overflowButton {
+//             .ms-Button {
+  
+//               &:hover,
+//               &:active {
+//                 background-color: unset;
+//               }
+//             }
+//           }
+//         }
+//       }
+  
+//       .ms-FocusZone {
+//         .ms-DetailsRow-fields {
+//           .ms-DetailsRow-cell {
+//             .ms-Button {
+//               .ms-Button-flexContainer {
+//                 .ms-Icon {
+//                   // color: var(--lightThemeTextColorBlack) !important;
+//                   // Conflict - MS ICON - Persona DetailsList
+//                   color: var(--lightThemePivotTextBlack) !important;
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     // Dropdown placeholder hover
+//     .ms-DetailsRow-fields .ms-Dropdown:hover .ms-Dropdown-title {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-DetailsRow-fields {
+//       .ms-Dropdown:focus {
+//         .ms-Dropdown-title {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+  
+//       .ms-Persona,
+//       .ms-Persona-details {
+  
+//         .ms-Persona-primaryText,
+//         .ms-Persona-secondaryText,
+//         .ms-Persona-tertiaryText,
+//         .ms-Persona-optionalText {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     // Resovled & Closed Modal
+//     .ms-Dialog-main {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//       .ms-Label {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-Modal-scrollableContent {
+//         background-color: var(--lightThemeBGcolorWhite);
+  
+//         .ms-Dialog-header {
+  
+//           .ms-Dialog-title {
+//             color: var(--lightThemeTextColorBlack) !important;
+//           }
+//         }
+  
+//         .ms-Dialog-actionsRight {
+//           .ms-Button {
+//             // background-color: var(--lightThemeBGcolorWhite);
+//             color: var(--lightdarkColor);
+//             background-color: var(--lightdarkBGGray);
+//             // border: var(--lightdarkBGGray);
+//           }
+//         }
+  
+//         .ms-Button--default {
+//           background-color: var(--lightThemeBGcolorWhite);
+  
+//           .ms-Button-label {
+//             color: var(--lightThemeTextColorBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // ADD New Ticket
+//     .ListIconDiv {
+//       .newTicketStyles .ms-Button-label {
+//         // color: var(--lightThemeTextColorBlack) !important;
+//         // conflict
+//         color: var(--lightThemePivotTextBlack) !important;
+  
+//       }
+  
+//       .ms-Button:hover {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+//     }
+  
+//     // Columns Sorting ICON
+//     .ms-DetailsHeader-cell {
+//       .ms-Icon {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+  
+//     // Add New TICKET
+//     .field {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-ChoiceField-field {
+//       // border-color: var(--lightThemeDropDownBorderColor) !important;
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+  
+//       &::before {
+//         background-color: var(--lightThemeBGcolorWhite);
+//       }
+//     }
+  
+//     .ms-TextField-fieldGroup ::before {
+//       // border-color: var(--lightThemeDropDownBorderColor) !important;
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     .ms-TextField-fieldGroup ::after {
+//       // border-color: var(--lightThemeDropDownBorderColor) !important;
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//       background-color: var(--lightThemeBGcolorWhite);
+//     }
+  
+//     // Persona IMG
+//     // .ms-BasePicker-text {
+//     //   .ms-PickerPersona-container {
+//     //     background-color: var(--lightThemeHoverBGColor) !important;
+//     //   }
+//     // }
+  
+//     .ms-BasePicker {
+//       .ms-Persona-details {
+//         .ms-Persona-primaryText {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+  
+//         .ms-Button {
+//           color: var(--lightThemeTextColorBlack) !important;
+  
+//         }
+//       }
+//     }
+  
+//     // DROPDOWN ITEMS
+//     .ms-Dropdown-item {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+  
+//       &:hover {
+//         color: var(--lightThemeTextColorBlack) !important;
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+//       }
+//     }
+  
+//     .ms-DatePicker {
+  
+//       .ms-DatePicker-monthAndYear {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       // Date picker
+//       .ms-DatePicker-wrap {
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+//       }
+  
+//       .ms-DatePicker-day-button {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//   // Calendar 
+//   .ms-DatePicker-day {
+//     background-color: var(--lightThemeBGcolorWhite) !important;
+//   }
+  
+//   .ms-DatePicker-day--highlighted {
+//     background-color: var(--lightThemeBGcolorWhite) !important;
+//   }
+//       .ms-DatePicker-weekday {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-DatePicker-monthOption {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-DatePicker-monthOption:hover {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+  
+//       .ms-DatePicker-currentYear {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       // Month Sorting 
+//       .ms-DatePicker-prevMonth,
+//       .ms-DatePicker-nextMonth,
+//       .ms-DatePicker-prevYear,
+//       .ms-DatePicker-nextYear {
+  
+//         &:hover,
+//         &:active {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+  
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       // date focus
+//       .dayIsHighlighted,
+//       .pickerIsFocused {
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+//       }
+  
+//       // Pending
+//       // hover
+//       .ms-DatePicker-table {
+  
+//         .dayIsFocused,
+//         .dayIsUnfocused {
+  
+//           &:active,
+//           &:hover {
+//             background-color: var(--lightThemeHoverBGColor) !important;
+//           }
+  
+//           .ms-DatePicker-day:hover {
+//             background-color: var(--lightThemeHoverBGColor) !important;
+//           }
+  
+//           .ms-DatePicker-day:active {
+//             background-color: var(--lightThemeHoverBGColor) !important;
+//           }
+//         }
+  
+  
+//         tr .dayIsFocused:hover,
+//         .dayIsUnfocused:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+  
+//       .ms-DatePicker-monthOption {
+  
+//         &:active,
+//         &hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+//     }
+  
+//     // DIRECT
+//     .dayIsFocused:hover,
+//     .dayIsUnfocused:hover {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+//     }
+  
+//     .dayIsFocused:active {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+//     }
+  
+//     .ms-DatePicker-table {
+//       tr td:hover {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+  
+//       tr td:active {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+//     }
+  
+//     // select an option
+//     .ms-Dropdown-container {
+//       .ms-Dropdown {
+  
+//         &:hover,
+//         &:active,
+//         &:focus,
+//         .ms-Dropdown-titleIsPlaceHolder,
+//         .ms-Dropdown-title {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .ms-CalendarDay-dayIsToday{
+//       span{
+//         color :white !important
+//       }
+//     }
+//     // <------------------------------- AGENT ------------------------->
+//     .dropdownStyles {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .datePickerAbstraction {
+//       .ms-Label {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     .ms-DatePicker {
+  
+//       .ms-TextField-field,
+//       .ms-DatePicker-event--without-label {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-TextField-fieldGroup {
+//         .ms-DatePicker-event--with-label {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .ms-SearchBox {
+//       .ms-SearchBox-iconContainer {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-SearchBox-field {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     .ms-TextField {
+//       .ms-TextField-field {
+//         color: var(--lightThemeTextColorBlack) !important;
+//         // background-color: var(--lightThemeBGcolorWhite) !important; // conflict
+//       }
+//     }
+  
+//     // <------------------------ DASHBOARD ----------------------->
+//     .dashbboardlabelstyles,
+//     .dashboard365dropdownStyles {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-TextField-field::placeholder {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // <-------------------- AGENT REPORT ----------------------->
+//     .agent-report-compactView-align {
+//       display: flex;
+//       // width: 64px;
+//       margin-top: -4px;
+//       align-items: center;
+//     }
+  
+//     .agent-report-label-align {
+//       margin-top: -9px;
+//     }
+  
+//     .MainDiv {
+//       .ms-Label {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // -------------------------- PAGINATION
+  
+//     // Direct //Pending
+//     .pageCountTextColor {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ms-SearchBox-field::placeholder {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // TEAMS IT
+//     .ms-Panel-content {
+//       h2 {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ms-FocusZone {
+//         .ms-Button {
+//           // color: var(--lightThemeTextColorBlack) !important;
+//           color: var(--lightThemePivotTextBlack) !important;
+//         }
+//       }
+//     }
+  
+//     // SETTINGS
+//     .ms-Panel-main .ms-Panel-contentInner {
+//       .ms-Panel-scrollableContent {
+//         .ms-Panel-content {
+//           .ms-Button .ms-Button--default {
+//             background-color: var(--lightThemeBGcolorWhite) !important;
+//             color: var(--lightThemeTextColorBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // <---------------------------- HOMEPAGE --------------------------------->
+//     .ms-Stack {
+  
+//       .pivotCustomBGcolorHome,
+//       .pivotCustomBGcolor {
+//         .pivotTicketCount {
+//           // color: var(--lightThemeTextColorBlack) !important; //
+//           // OLD VARIABLE
+//           color: var(--pivotSelectedTextColor) !important;
+//         }
+  
+//         .ms-FocusZone {
+//           .ms-Button {
+//             .ms-Button-flexContainer {
+//               .ms-Icon {
+//                 // color: var(--lightThemeSwitcherTextColor) !important;
+//                 color: var(--pivotSelectedTextColor)!important;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     .emailPivot button:hover {
+//       background-color: unset !important;
+//     }
+  
+//     // 
+//     .pivotCustomBGcolor {
+//       .pivotTicketCount {
+//         color: var(--pivotSelectedTextColor) !important;
+//       }
+//     }
+  
+//     // .ms-OverflowSet-overflowButton {
+//     //   background-color: unset;
+//     // }
+  
+//     .homepageIconHoverColor:hover {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+  
+//       .ms-Button:hover {
+//         background-color: unset;
+//       }
+//     }
+  
+//     // <--------------------------------- HOMEPAGE STATUS [ PRIORITY BASED ] ---------------------------->
+//     .priority-dropdown-font-size {
+//       .ms-Dropdown-container {
+//         .ms-Dropdown {
+//           .ms-Dropdown-title {
+//             font-size: 13px !important;
+//             // min-height: 26px !important;
+//             // height: 26px;
+//             // padding: 0px 8px;
+//           }
+//         }
+//       }
+//     }
+  
+//     // SETTINGS - Add/Edit Users - ADD
+//     .ms-BasePicker {
+//       .ms-BasePicker-text {
+//         .ms-BasePicker-input {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .ms-Suggestions {
+//       .ms-Suggestions-item {
+//         &:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+  
+//         .is-suggested {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+  
+//       .ms-Button-flexContainer {
+  
+//         .ms-Persona,
+//         .ms-Persona-details {
+  
+//           .ms-Persona-primaryText,
+//           .ms-Persona-secondaryText,
+//           .ms-Persona-tertiaryText,
+//           .ms-Persona-optionalText {
+//             color: var(--lightThemeTextColorBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     .ms-Checkbox {
+  
+//       &:hover,
+//       &:focus {
+//         .ms-Checkbox-text {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+  
+//       .ms-Checkbox-label {
+//         .ms-Checkbox-text {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .ms-ChoiceFieldGroup-flexContainer {
+//       .ms-ChoiceField {
+//         label span {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+  
+//         .ms-ChoiceField-wrapper {
+//           .ms-ChoiceField-field {
+  
+//             &::before,
+//             &::after {
+//               // border-color: var(--lightThemeTextColorBlack) !important;
+//               border-color: var(--lightThemePivotTextBlack) !important;
+//             }
+  
+//           }
+//         }
+//       }
+//     }
+  
+//     .ChoiceGroupLabel335-Admin {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+  
+//     // Close Button
+//     .ms-Dialog-header {
+//       .ms-Button {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+  
+//     // Hover - Removed as of now.
+//     // .ms-Button:hover {
+//     //   background-color: var(--lightThemeHoverBGColor) !important;
+//     // }
+  
+//     // DARK MODE SETTING.
+  
+//     //  <--------------------- ADD NEW TICKET ------------------------>
+//     .ms-Panel-scrollableContent {
+//       // background-color: var(--lightThemeBGcolorWhite) !important;
+//       background-color: var(--lightThemePanelBGSwitcher) !important;
+//     }
+  
+//     .ms-DatePicker {
+//       .ms-TextField {
+//         .ms-TextField-wrapper {
+//           .ms-TextField-fieldGroup {
+//             .ms-TextField-field::placeholder {
+//               color: var(--lightThemeTextColorBlack) !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     .ms-TextField {
+//       .ms-TextField-fieldGroup {
+//         .ms-TextField-field::placeholder {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     // Direct Label.
+  
+//     .ms-Label {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // Columns Details list.
+//     .ms-DetailsList {
+//       .ms-FocusZone {
+//         .ms-DetailsHeader-cell {
+//           .ms-DetailsHeader-cellName {
+//             color: var(--lightThemePivotTextBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // Search
+//     .ms-SearchBox {
+//       .ms-SearchBox-icon {
+//         // color: var(--lightThemeTextColorBlack) !important;
+//         // conflict
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     // Radio button
+  
+//     .hideMBCancelnew {
+//       .ms-ChoiceFieldGroup {
+//         .ms-ChoiceFieldGroup-flexContainer {
+//           .ms-ChoiceField {
+//             .ms-ChoiceField-field {
+  
+//               &::before,
+//               &::after {
+//                 // border-color: var(--lightThemeTextColorBlack) !important;
+//                 // conflict.
+//                 border-color: var(--lightThemePivotTextBlack) !important;
+//               }
+//             }
+  
+//             .ms-ChoiceField-wrapper {
+//               background-color: var(--lightThemeBGcolorWhite) !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     // people picker
+//     .ms-BasePicker {
+  
+//       .ms-BasePicker-text {
+//         background-color: var(--lightThemeBGcolorWhite);
+//       }
+  
+//       .ms-PickerPersona-container {
+//         background-color: var(--lightThemePersonaNameColor);
+//       }
+//     }
+  
+//     // Quil
+//     .quill {
+//       .ql-toolbar {
+//         // background-color: var(--lightThemeBGcolorWhite) !important;
+//         background-color: var(--lightThemePanelBGSwitcher) !important;
+  
+//         .ql-formats .ql-font {
+//           color: var(--lightThemeTextColorBlack) !important;
+  
+//         }
+//       }
+  
+//       .ql-container {
+  
+//         .ql-editor,
+//         p {
+//           background-color: var(--lightThemeBGcolorWhite) !important;
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+  
+//         .ql-editor.ql-blank:before {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+  
+//         .ql-editor p::before {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .ql-container {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ql-editor {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // Let's Try 
+  
+//     .ql-toolbar .ql-picker,
+//     .ql-toolbar .ql-button {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+  
+//     }
+  
+//     .ql-toolbar .ql-picker-label {
+//       // color: var(--lightThemeTextColorBlack) !important;
+//       background-color: var(--lightThemePanelBGSwitcher) !important;
+  
+  
+//     }
+  
+//     .ql-toolbar .ql-picker-options {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//       color: var(--lightThemeTextColorBlack) !important;
+  
+//     }
+  
+//     .ql-size,
+//     .ql-bold,
+//     .ql-italic,
+//     .ql-underline,
+//     .ql-strike,
+//     .ql-color {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ql-editor svg {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .ql-list {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+  
+  
+//     // Attachment
+//     .file-input-label {
+//       .ms-TooltipHost {
+//         .ms-Button {
+//           .ms-Button-flexContainer {
+//             .ms-Icon {
+//               color: var(--lightThemeTextColorBlack) !important;
+//             }
+//           }
+//         }
+//       }
+  
+//       .ms-Button {
+//         .ms-Button-flexContainer {
+//           .ms-Icon {
+//             // color: var(--lightThemeTextColorBlack) !important;
+//             // Conflict Color  = Persona & DetailsList Icon
+//             color: var(--lightThemePivotTextBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // <------------------------- TOOLTIP HOST TEXT ------------------------------>
+//     // .ms-TooltipHost .ms-Tooltip-subText {
+//     //   color: var(--lightThemeTextColorBlack) !important;
+//     // }
+//     // .ms-layer{
+//     //   color: var(--lightThemeTextColorBlack) !important;
+//     // }
+//     #enabletooltip {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     #field13,
+//     #field19,
+//     #field16,
+//     #title3,
+//     #titleAged,
+//     #field161,
+//     #field20,
+//     #field21,
+//     #field22,
+//     #field23,
+//     #field24 {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // <---------------------COMMENTS PAGE -------------------->
+//     .ms-Button {
+//       .ms-Button-flexContainer {
+//         .ms-Button-textContainer {
+//           .ms-Button-label .ms-Button--default {
+//             color: var(--lightThemeTextColorBlack) !important;
+//             // color: var(--lightThemePivotTextBlack) !important;
+//           }
+  
+//           // color: var(--lightThemePivotTextBlack) !important;
+//         }
+  
+//         .ms-Icon {
+//           // color: var(--lightThemeTextColorBlack) !important;
+//           // color: var(--lightdarkColor) !important;    // OLD VARIABLE
+//           // CONFLICT ICON COLOR.
+//           color: var(--lightThemePivotTextBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .colorChanger {
+//       justify-content: space-between;
+  
+//       .ms-Button {
+//         .ms-Button-flexContainer {
+//           .ms-Button-textContainer {
+//             .ms-Button-label {
+//               // color: var(--lightThemeTextColorBlack) !important;
+//               color: var(--lightThemePivotTextBlack) !important;
+//               // color: var(--lightThemePivotTextBlack) !important;
+//             }
+  
+//             // color: var(--lightThemePivotTextBlack) !important;
+//           }
+  
+//           .ms-Icon {
+//             // color: var(--lightThemeTextColorBlack) !important;
+//             // color: var(--lightdarkColor) !important;    // OLD VARIABLE
+//             // CONFLICT ICON COLOR.
+//             color: var(--lightThemePivotTextBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     .comments-time-ago-color {
+//       color: var(--lightThemeTextColorBlack);
+//     }
+  
+//     // <----------- LEFT SIDE BAR REACT QUIL -------------------------> 
+//     .ql-editor,
+//     .ql-snow .ql-editor {
+//       border-color: 1px solid var(--lightThemeBorderColor) !important;
+//     }
+  
+//     .personaContactInfoStylesBGCommon {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//     }
+  
+//     .personaContainerItemsText {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .personaSideBarStyle {
+//       .labelContactDetails {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     .IconTextAlign {
+//       .ReqEmailOverFlow {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//         .parsonaPhoneTextColor {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+//     .contactInfoIconHoverColor:hover {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+  
+//       a button:hover {
+//         background-color: unset;
+//       }
+//     }
+  
+//     // CONFLICT.
+//     .contactInfoIconHoverColor {
+//       .ms-Icon {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     // Recent Ticket
+//     .recentTicketBoxStyle {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       // background-color: var(--lightThemePanelBGSwitcher) !important;
+//     }
+  
+//     // UPDATE BTN COMMENTS PAGE.
+//     .recentTicketBoxStyleUpdateBtn {
+//       background-color: var(--lightThemePanelBGSwitcher) !important;
+//     }
+  
+//     // Properties & Persona
+//     .contactInfoStyleCommon {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // Update Button More Option.
+  
+//     .ms-Callout {
+//       .ms-Callout-main {
+//         .ms-ComboBox-optionsContainerWrapper {
+//           .ms-ComboBox-optionsContainer {
+//             .ms-Button {
+//               color: var(--lightThemeTextColorBlack) !important;
+//             }
+  
+//             .ms-Button--command {
+  
+//               &:hover,
+//               &:active {
+//                 background-color: var(--lightThemeHoverBGColor) !important;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     // Select Box Hover
+//     .ms-Callout {
+//       .ms-Callout-main {
+//         .ms-Dropdown-item {
+  
+//           &:hover,
+//           &:active {
+//             background-color: var(--lightThemeHoverBGColor) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // DropDown caret Down
+//     .ms-Dropdown-container {
+//       .ms-Dropdown {
+//         .ms-Dropdown-caretDownWrapper {
+//           .ms-Dropdown-caretDown {
+//             color: var(--lightThemePivotTextBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // <----------------- BAR CODE ? ------------------>
+//     // .tab {
+//     //   background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//     //   .tablinks {
+//     //     color: var(--lightThemeTextColorBlack) !important;
+  
+//     //   }
+//     // }
+  
+//     // <---------------------- SETTINGS ----------------------------
+  
+//     // ADD Custom form
+//     // .CustomFormDiv {
+//     //   .CustomFormLeftDivwithButton {
+//     //     .ms-TextField {
+//     //       .ms-TextField-wrapper {
+//     //         .ms-TextField-fieldGroup {
+//     //           .ms-TextField-field {
+//     //             color: var(--lightThemeTextColorBlack) !important;
+//     //             background-color: var(--lightThemeBGcolorWhite) !important;
+//     //           }
+//     //         }
+//     //       }
+//     //     }
+//     //   }
+//     // }
+  
+  
+//     // Features - Add Workflow
+//     .MainDiv {
+//       background-color: var(--lightThemeBGcolorWhite) !important; // conflict
+  
+//       .centerIcon {
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+//       }
+  
+//       .centerIconaddnext {
+//         background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//         .ms-Button-label {
+//           color: var(--lightThemePivotTextBlack) !important;
+//         }
+//       }
+//     }
+  
+//     // Sidebar <------------------  MENU ----------------------->
+  
+//     .ShowHalf {
+//       .menuIcon {
+//         color: var(--lightdarkColor) !important;
+//       }
+  
+//       .ms-FocusZone {
+//         .ms-Icon {
+//           color: var(--lightdarkColor) !important;
+//         }
+//       }
+//     }
+  
+  
+  
+//     // <---------------------------------- HOVER WORLD ---------------------------->
+  
+//     // TEAMS HR
+//     .pivotCustomBGcolorrr {
+//       .ms-FocusZone {
+//         .ms-Button {
+//           &:hover {
+//             background-color: var(--lightThemeHoverBGColor) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//    // < --------------- ATTACHMENT - FILE CANCEL ICON ----------------------------->
+//   .attachment-cancel-file-icon{
+//     .ms-Icon{
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+//     button[title=Delete] .ms-Button-flexContainer .ms-Icon {
+//       color: var(--lightThemeTextColorBlack) !important;
+//   }
+//   }
+//     // <------------------- COMPACT BUTTON ---------------------------->
+//     button[title="Compact View"]:hover {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+//     }
+  
+//     button[title="Compact View"] {
+//       .ms-Button-flexContainer i {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     button[title="More options"]:hover {
+//       background-color: unset !important;
+//     }
+  
+//     button[title="More options"] {
+//       // background-color: var(--lightThemeBGcolorWhite);
+//       background-color: unset !important;
+//     }
+  
+  
+//     // <--------------------------- Sync Mailbox --------------------------->
+//     button[title="Sync Mailbox"] {
+  
+//       &:active,
+//       &:hover {
+//         background-color: unset !important;
+//       }
+//     }
+  
+//     // <--------------------------- SAVE BUTTON --------------------------->
+//     button[title="Save"] {
+//       .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+//     }
+  
+//     .SaveBtuColor {
+//       button[title="Save"] {
+//         .ms-Button-flexContainer .ms-Icon {
+//           color: var(--lightThemeSwitcherTextColor) !important;
+//         }
+//       }
+//     }
+  
+//     // <--------------------------- DELETE BUTTON --------------------------->
+  
+//     button[title="Delete"] {
+//       .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+//     }
+  
+//     .DeleteBtuThemeColor {
+//       button[title="Delete"] {
+//         .ms-Button-flexContainer .ms-Icon {
+//           color: var(--lightThemePivotTextBlack) !important;
+//         }
+//       }
+//     }
+  
+//     // < --------------------------- MORE OPTION ------------------------>
+//     button[title="More options"] {
+//       .ms-Button-flexContainer .ms-Icon {
+//         // color: var(--lightThemeSwitcherTextColor) !important;
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     // <--------------------------- SIDEBAR MENU -------------------------------->
+//     .ShowFull {
+//       .ms-Nav-groupContent {
+//         .ms-Nav-navItems {
+//           .ms-Icon {
+//             color: unset;
+//             color: var(--lightdarkColor) !important;
+//           }
+//         }
+//       }
+//     }
+  
+  
+//     // <------------------------- SETTINGS / General Settings -------------------------------->
+  
+//     .cropButtonColor {
+//       .ms-Button .ms-Button-flexContainer .ms-Button-textContainer .ms-Button-label {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//         // color: var(--lightdarkColor);
+//       }
+//     }
+  
+//     //  <------------------------------- SELECT BOX AGENT REPORT -------------------------->
+  
+//     .SelectBoxStyles {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       margin-top: -5px;
+//     }
+  
+  
+//     // --------------------------------- COMMENTS ATTACHMENT LENGTH --------------------------
+  
+//     .attachmentsLengthStyle {
+//       margin-left: 2px;
+//       margin-top: 4px;
+//       // color: var(--lightThemePivotTextBlack) !important;
+//       color: var(--lightdarkColor) !important;
+//     }
+  
+  
+  
+//     // DIRECT ------------------- DEFAULT BUTTON
+  
+//     .ms-Button--default {
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//       // .ms-Button-label{
+//       //   color: var(--lightThemeSwitcherTextColor) !important;
+//       // }
+//     }
+  
+//     //sachin
+//     //   #fluent-default-layer-host{
+//     //  z-index: 99999999999 !important
+//     //     }
+  
+//     // <--------------------------------------- REACT SELECT || DROPDOWN ----------------------------------------------->
+  
+//     // .css-u6sm8-control{
+//     //   background-color: var(--lightThemeBGcolorWhite) !important;
+  
+//     //   .css-15ykcpd-singleValue{
+//     //   background-color: var(--lightThemeBGcolorWhite) !important;
+//     //   color: var(--lightThemeTextColorBlack) !important;
+//     //   }
+//     // }
+//     // .css-qx79b1-control{
+//     //   background-color: var(--lightThemeBGcolorWhite) !important;
+//     //   color: var(--lightThemeTextColorBlack) !important;
+//     // }
+//     // .css-2613qy-menu{
+//     //   background-color: var(--lightThemeBGcolorWhite) !important;
+//     //   color: var(--lightThemeTextColorBlack) !important;
+//     // }
+  
+  
+//     // <---------------------------------- DASHBOARD --------------------------------->
+//     // .dashboardTextColor{
+//     //   .ms-Label{
+//     //     color: #fff !important;
+//     //   }
+//     // }
+  
+//     // <--------------------------------- UPDATE COMMENTS ---------------------------------->
+  
+//     .chevronDownReplyBtnStyles {
+//       .ms-Button .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+//     }
+  
+//     .TeamsAddButton {
+//       .ms-Icon :hover {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+//     }
+  
+//     .ms-ComboBox-container {
+//       .ms-ComboBox {
+//         .ms-ComboBox-CaretDown-button {
+//           .ms-Button-flexContainer {
+//             .ms-Icon {
+//               color: var(--lightThemeSwitcherTextColor) !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     // < ----------------------------------- REPLY PRIVATE ETC COMMENTS PAGE ---------------------->
+  
+//     .commentBelowCommandBtnColor {
+//       .ms-Button-label {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+  
+//     // <----------------------------- ADD BULK USER ----------------------->
+  
+//     .addBulkUserStyles {
+//       span {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       ul li {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//         span {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+//     }
+  
+  
+//     // < ------------------------------------- ADD WORKFLOW ------------------------------>
+//     .levelTextSwitcher {
+//       .ms-Button-flexContainer {
+//         .ms-Button-textContainer {
+//           .ms-Button-label {
+//             color: var(--lightThemeTextColorBlack) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // <--------------------------------- DETAILS LIST COLUMNS RESIZER ------------------------->
+  
+//     .ms-DetailsRow {
+//       min-width: -webkit-fill-available !important;
+//     }
+  
+//     // <------------------------------ Knowledgebase ---------------------------->
+  
+//     .knowledgebaseInputAlign {
+//       position: relative;
+//       left: 123px;
+  
+//       .ms-BasePicker-input {
+//         width: 100%;
+//         min-width: 204px;
+//       }
+//     }
+  
+  
+//     // <----------------- RULES & AUTOMATION ------------------------>'
+  
+//     .ReviewHeading {
+//       h1 {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     .CondtionAndSettingsInfoDiv {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+  
+//     // <----------------- RULES & AUTOMATION ------------------------>'
+  
+//     .ReviewHeading {
+//       h1 {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     .CondtionAndSettingsInfoDiv {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .automationSidebarStyle,
+//     .ProcessBar {
+//       div {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//       }
+//     }
+  
+//     .PivotDiv {
+//       button:hover {
+//         background-color: unset !important;
+//       }
+//     }
+  
+//     // < ------------------- COMMENTS PAGE PLAY/PAUSE BUTTON----------------------->
+//     .playPauseBtn {
+//       .ms-Button {
+//         .ms-Button-flexContainer {
+//           .ms-Icon {
+//             color: var(--lightThemeSwitcherTextColor) !important;
+  
+//           }
+//         }
+//       }
+  
+//       .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+  
+//       i {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+  
+//       }
+//     }
+  
+//     // <--------------------------- PANEL GLOBALLY TOP -------------------------->
+//     .ms-Panel-commands {
+//       padding-top: 0 !important;
+//     }
+  
+//     .ms-Panel-main {
+//       .ms-Panel-contentInner {
+//         .ms-Panel-scrollableContent {
+//           .ms-Panel-commands {
+//             padding-top: 0;
+//           }
+//         }
+//       }
+//     }
+  
+//     .automationSidebarStyle,
+//     .ProcessBar {
+//       div {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//       }
+//     }
+  
+//     .PivotDiv {
+//       button:hover {
+//         background-color: unset !important;
+//       }
+//     }
+  
+//     // < ------------------- COMMENTS PAGE PLAY/PAUSE BUTTON----------------------->
+//     .playPauseBtn {
+//       .ms-Button {
+//         .ms-Button-flexContainer {
+//           .ms-Icon {
+//             color: var(--lightThemeSwitcherTextColor) !important;
+  
+//           }
+//         }
+//       }
+  
+//       .ms-Icon {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+//       }
+  
+//       i {
+//         color: var(--lightThemeSwitcherTextColor) !important;
+  
+//       }
+//     }
+  
+  
+//     // <----------------- REPORT PAGE DATE PICKER ----------------------->
+//     .datepicker {
+//       width: 100%;
+//       min-width: unset;
+//       max-width: unset;
+  
+//       i {
+//         position: unset !important;
+//       }
+  
+//       .ms-TextField-fieldGroup {
+//         .ms-DatePicker-event--without-label {
+//           position: unset !important;
+//         }
+  
+//         height: unset !important;
+//       }
+//     }
+  
+//     .datePickerAbstraction {
+//       i {
+//         position: unset !important;
+//       }
+  
+//       .ms-TextField-fieldGroup {
+//         height: unset !important;
+  
+//         .ms-DatePicker-event--without-label {
+//           position: unset !important;
+//         }
+  
+//         i {
+//           position: unset !important;
+//           position: unset;
+//         }
+//       }
+//     }
+  
+//     // <----------------------------- AGENT REPORT DATE PIKCER ------------------------->
+  
+//     .agentReportDatePickerAlignment {
+  
+//       min-width: 140px;
+  
+//       .ms-TextField {
+//         min-width: 140px;
+  
+//         .ms-TextField-fieldGroup {
+//           .ms-TextField-field {
+//             min-width: 140px;
+  
+//           }
+  
+//           height: unset !important;
+//         }
+  
+//         .ms-TextField-field {
+//           min-width: 140px;
+  
+//         }
+//       }
+//     }
+  
+//     // <---------------------------- HR365DASHBOARD ----------------------------->
+//     .dashboard-label-color {
+//       color: var(--lightThemeTextColorBlack) !important
+//     }
+  
+//     .dashboard-sample-data-OnClick-color {
+//       text-decoration: underline var(--lightdarkColor) !important;
+//       color: var(--lightdarkColor) !important;
+//       font-weight: bold;
+//     }
+  
+//     .dashboard-filter-color {
+//       cursor: pointer;
+  
+//       .ms-Icon {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // <---------------------------- AUTOMATION ----------------------------->
+//     .automation-button {
+//       .automation-button-hover-color {
+//         &:hover {
+//           background-color: var(--lightdarkBGGray) !important;
+//         }
+  
+//         .ms-Button {
+//           &:hover {
+//             background-color: var(--lightdarkBGGray) !important;
+//           }
+//         }
+  
+//         .ms-Button--primary {
+//           &:hover {
+//             background-color: var(--lightdarkBGGray) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     .automation-more-options-button {
+//       button[title="More options"] .ms-Button-flexContainer .ms-Icon {
+//         // color: var(--lightThemeSwitcherTextColor)!important;
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+  
+//       .ms-Button .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     .automation-add-btn-color {
+//       i {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+  
+//     //  <-------------------------------------------  REPORT & AGENT REPORT TITLE --------------------->
+  
+//     .reports-title-color {
+//       color: var(--lightThemePivotTextBlack) !important;
+//     }
+  
+//     .reports-archive-btn-color {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+  
+//     // .ms-Callout{
+//     //   .ms-Callout-main{
+  
+//     //   }
+//     // }
+//     .ms-CalendarDay-dayIsToday{
+//       span{
+//         color :white !important
+//       }
+//     }
+//     .ms-DatePicker {
+//       table tr {
+  
+//         th,
+//         td {
+//           color: var(--lightThemeTextColorBlack) !important;
+//         }
+//       }
+  
+//       color: var(--lightThemeTextColorBlack) !important;
+  
+//       button {
+//         &:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+//       .ms-CalendarDay-dayIsToday{
+//         span{
+//           color :white !important
+//         }
+//       }
+//       button,
+//       span {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//       }
+  
+//       .ms-CalendarDay-daySelected {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+  
+//       .ms-CalendarDay-hoverStyle {
+//         background-color: var(--lightThemeHoverBGColor) !important;
+//       }
+//     }
+  
+  
+//     // <---------------------------- TOGGLE BUTTON ON / OFF ----------------------------------->
+//     // ON BTN
+//     .ms-Toggle.is-checked.is-enabled {
+//       .ms-Toggle-innerContainer {
+//         .ms-Toggle-background {
+//           // background-color: var(--lightThemePivotTextBlack) !important;
+//           background-color: var(--lightThemeToggleBtnOn) !important;
+  
+//           .ms-Toggle-thumb {
+//             background-color: var(--lightThemeToggleCircleBtnOn) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // OFF BTN
+//     .ms-Toggle.is-enabled {
+//       .ms-Toggle-innerContainer {
+//         .ms-Toggle-background {
+//           background-color: var(--lightThemeToggleBtnOff) !important;
+  
+//           .ms-Toggle-thumb {
+//             background-color: var(--lightThemeToggleCircleBtnOff) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     .ms-TooltipHost {
+//       .ms-layer {
+//         color: var(--lightThemeTextColorBlack) !important;
+  
+//       }
+  
+//       #enabletooltip {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // <------------------------------------------- QUILL COMMENTS PAGE PRIVATE NOTE ----------------------------->
+//     .private-note-quill {
+//       .quill .ql-toolbar {
+//         background-color: #8d20ae !important;
+//       }
+  
+//       .quill .ql-snow.ql-toolbar button {
+//         background-color: #8d20ae !important;
+//       }
+  
+//       .quill .ql-snow.ql-toolbar button {
+//         background-color: #8d20ae !important;
+//       }
+  
+//       .ql-toolbar .ql-picker-label {
+//         background-color: #8d20ae !important;
+//         color: #fff !important;
+//       }
+  
+//       .ql-snow .ql-stroke {
+//         stroke: #fff !important;
+//       }
+  
+//       .ql-snow .ql-fill {
+//         fill: #fff !important;
+//       }
+  
+//       .quill .ql-snow .ql-stroke {
+//         color: #fff !important;
+//       }
+  
+//       .quill .ql-snow .ql-fill {
+//         fill: #fff !important;
+//       }
+  
+//       .quill .ql-snow .ql-stroke {
+//         stroke: #fff !important;
+//       }
+//     }
+  
+//     // <------------------------------------------- RICH TEXT EDITOR ----------------------------->
+  
+//     .quill {
+//       .ql-snow.ql-toolbar button {
+//         // background: var(--lightThemeBGcolorWhite) !important;
+//         background-color: var(--lightThemePanelBGSwitcher) !important;
+//       }
+  
+//       .ql-snow .ql-stroke {
+//         stroke: var(--lightThemeTextColorBlack) !important;
+//       }
+  
+//       .ql-snow .ql-fill {
+//         fill: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // <------------------------------------ COMMENTS PAGE TICKET DESCRIPTION. --------------------------->
+//     .comments-desc {
+//       display: block;
+//       width: 100%;
+//       max-width: -webkit-fill-available;
+//       background: var(--lightThemeBGcolorWhite) !important;
+//       overflow-x: auto;
+//       overflow-y: auto;
+//       padding: 10px;
+//       border: 1px solid #ccc;
+//       // padding-top: 30px;
+//       min-height: 100px !important;
+//     }
+  
+//     .dark-padding-desc {
+//       padding-top: 30px;
+//     }
+  
+//     .light-padding-desc {
+//       padding-top: 38px;
+//     }
+  
+//     .comments-desc-dark-mode {
+//       display: block;
+//       width: 100%;
+//       max-width: -webkit-fill-available;
+//       background: var(--lightThemeBGcolorWhite) !important;
+//       overflow-x: auto;
+//       overflow-y: auto;
+//       min-height: 100px !important;
+//       padding: 10px;
+//       border: 1px solid #ccc;
+//       color: var(--lightThemeTextColorBlack) !important;
+  
+//       p {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // <------------- COMMENTS PAGE ATTACHMENT ----------------------->
+//     .attach-color-dark-mode {
+//       color: #fff;
+//     }
+  
+//     // <------------------------------ APPLY SLA POLICIES  --------------------------------------->
+//     .applySLA-hover-color {
+  
+//       .ms-Button,
+//       button {
+//         &:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+//     }
+  
+//     .applySLA-Dropdown-bg-color {
+  
+//       .ms-Button,
+//       button {
+//         &:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+  
+//       .ms-Dropdown-container .is-disabled .ms-Dropdown-title {
+//         // background-color: var(--lightThemeBGcolorWhite);
+//         background-color: var(--lightThemePanelBGSwitcher) !important;
+//       }
+//     }
+  
+//     // < ------------------------ DISABLE SELECT BOX COLOR ------------------------------->
+//     .ms-Dropdown-container .is-disabled .ms-Dropdown-title {
+//       background-color: var(--lightThemePanelBGSwitcher) !important;
+//     }
+  
+//     // < ---------------------- REQUESTER PLACEHOLDER COLOR ------------------->
+  
+//     .ActionButtonStyles {
+//       button {
+//         .ms-Button-flexContainer {
+//           .ms-Icon {
+//             color: var(--lightThemePivotTextBlack) !important;
+  
+  
+//           }
+//         }
+//       }
+//     }
+  
+//     .private-note-text-color {
+//       color: #fff !important;
+//     }
+  
+//     // <----------------------- APPROVE WORKFLOW ------------------------->
+//     .approve-workflow-save-btn {
+//       position: absolute;
+//       right: 40px;
+//       top: 13.9px;
+//       z-index: 9;
+//     }
+  
+//     .ms-DetailsRow-cell {
+//       div {
+//         .is-disabled {
+//           .ms-Icon {
+//             color: #d3d3d3;
+//           }
+//         }
+//       }
+  
+//     }
+  
+//     .ms-List-page .ms-List-cell .ms-FocusZone .ms-DetailsRow-fields .ms-DetailsRow-cell .is-disabled .ms-Button-flexContainer .ms-Icon {
+//       color: #d3d3d3 !important;
+//     }
+  
+//     .approve-workflow-arrow-above-btn-color {
+//       .ms-Label {
+//         // color:  var(--lightdarkBGGray) !important;
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     // <--------------------- LOCAL COLUMN SETTINGS -------------------->
+//     .columns-tooltip-align {
+//       display: flex;
+//     }
+  
+//     .local-column-tooltip-align {
+//       position: relative;
+//       top: 3px;
+//     }
+  
+//     #field161 {
+//       color: var(--lightThemePivotTextBlack) !important;
+  
+//     }
+  
+//     .ms-TooltipHost {
+//       #field161 {
+//         color: var(--lightThemePivotTextBlack) !important;
+  
+//       }
+  
+//       color: var(--lightThemePivotTextBlack) !important;
+//     }
+  
+  
+//     // <------------------------ TICKET CUSTOMIZATION --------------------------------------------------------->
+  
+//     .ticket-customize-save-btn-color {
+//       button[title="Save"] {
+//         .ms-Button-flexContainer {
+//           .ms-Icon {
+//             color: var(--lightThemePivotTextBlack) !important
+//           }
+//         }
+//       }
+//     }
+  
+//     .customOverflowSet {
+//       background-color: var(--lightdarkBGGray);
+//       color: var(--pivotSelectedTextColor) !important;
+//       display: flex;
+//       align-items: center;
+  
+//       button[title="More options"] .ms-Button-flexContainer .ms-Icon {
+//         color: var(--pivotSelectedTextColor) !important;
+//       }
+//     }
+  
+//     // <--------------------- COMMENTS PAGE - PERSONA HOVER COLOR -------------------->
+//     .persona-icon-hover-color {
+//       .ms-Button {
+//         &:hover {
+//           background-color: var(--lightThemeHoverBGColor) !important;
+//         }
+//       }
+//     }
+  
+//     // <---------------------------------------- HOMEPAGE SWEET ALERT ------------------------------> 
+  
+//     // .homepage-custom-sweet-alert-message{
+//     //   .sweet-custom-popup-class .swal2-content {
+//     //     font-size: 20px !important;
+//     //   }
+//     //   .sweet-custom-popup-class{
+//     //     height: 260px;
+//     //   }
+//     //   .div:where(.swal2-container) div:where(.swal2-popup) {
+//     //     width: 21em;
+//     //   }
+//     // }
+  
+//     .sweet-custom-popup-class {
+//       width: 21em;
+  
+//       .swal2-html-container {
+//         font-size: 20px !important;
+//       }
+  
+//       div:where(.swal2-icon).swal2-success {
+//         font-size: 14px !important;
+//       }
+  
+//       .div:where(.swal2-container) div:where(.swal2-popup) {
+//         width: 21em;
+//       }
+//     }
+  
+//     // <---------------------------------------- FEATURES - DASHBOARD-SETTINGS ------------------------------> 
+  
+//     .panel-dashboard-setting {
+//       .ms-Panel-scrollableContent {
+//         overflow: hidden;
+//       }
+//     }
+  
+//     // <---------------------------------------- NO DATA AVAILABLE TEXT COLOR GLOBALLY ------------------------------> 
+//     .no-data-text-color {
+//       text-align: center;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // <---------------------------------------- CUSTOM FORM - INPUT BG COLOR ------------------------------> 
+//     .custom-form-input-bg {
+//       i {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+  
+//       .ms-TextField-fieldGroup {
+//         .ms-TextField-field {
+//           background: var(--lightThemeBGcolorWhite) !important;
+//         }
+//       }
+  
+//       .custom-form-note-color {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // <----------------------------------------DASHBOARD DATA - BG - COLORS  ------------------------------> 
+//     .bar-parcentage-color {
+//       display: block;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // <----------------------------------------KB INPUT - BG - COLORS  ------------------------------> 
+//     .view-kb-input-bg-color {
+//       .ms-TextField {
+//         .ms-TextField-fieldGroup {
+//           .ms-TextField-field {
+//             background-color: var(--lightThemePanelBGSwitcher) !important;
+//           }
+//         }
+//       }
+//     }
+  
+//     // <---------------------------------------- COMMENTS PAGE - QUIL COLORS  ------------------------------> 
+  
+//     .comments-auto-mail-desc {
+//       .quill {
+//         .ql-container {
+//           .ql-editor {
+//             p {
+//               span {
+//                 background-color: unset !important;
+//               }
+//             }
+//           }
+//         }
+  
+//       }
+//     }
+  
+//     // <---------------------------------------- INTEGRATIONS - ALIGNMENTS ------------------------------> 
+//     .integration-input-filed-style {
+//       .ms-TextField-wrapper {
+//         .ms-TextField-fieldGroup {
+//           width: 22rem !important;
+  
+//           .ms-TextField-field {
+//             width: 22rem !important;
+  
+//           }
+//         }
+//       }
+//     }
+  
+//     .integration-label-color-lightMode {
+//       .ms-Label {
+//         color: #333333bd !important;
+//       }
+//     }
+  
+//     .integration-label-color-darkMode {
+//       .ms-Label {
+//         color: #eeeeee7d !important;
+//       }
+//     }
+  
+//     .homepage-detailslist-hover-active {
+//       &:hover {
+//         color: #333 !important
+//       }
+//     }
+  
+//     // <------------------ SWEET ALERT CUSTOM POPUP CLASSES [ COMPONENTS BASED ] ----------------------------->
+//     .ms-Panel-commands {
+//       position: relative; // Globally Triggering.
+//     }
+  
+//     .swal2-container {
+//       // z-index: 99999999999999999999999999999999999;
+//       // z-index: 9999999999999999999999999999999999999999999999999999999999999999999;
+//       z-index: 99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;
+//     }
+  
+//     body.swal2-no-backdrop .swal2-container {
+//       background-color: rgba(0, 0, 0, 0.5) !important;
+//       pointer-events: unset !important;
+//     }
+//   .general-settings {
+//     width: 21em;
+//     background: var(--lightThemeBGcolorWhite) !important;
+  
+//     .div:where(.swal2-container) div:where(.swal2-popup) {
+//       width: 21em;
+//     }
+  
+//     .swal2-success-circular-line-left {
+//       background: var(--lightThemeBGcolorWhite) !important;
+//     }
+  
+//     .swal2-success-circular-line-right {
+//       background: var(--lightThemeBGcolorWhite) !important;
+  
+//     }
+  
+//     .swal2-html-container {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     .swal2-success-fix {
+//       background: var(--lightThemeBGcolorWhite) !important;
+  
+//     }
+//       .swal2-icon.swal2-success {
+//         border-color: #338703 !important;
+//         color: #338703 !important;
+//       }
+  
+//       .swal2-html-container {
+//         // color: var(--color-body-contentColor) !important;
+//         color: #333;
+//         font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system,
+  
+//           BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+//       }
+//     }
+  
+//     // -------------------- SWEET ALERT SWAL DIRECT TARGETING  ---------------------
+  
+//     .swal2-popup {
+//       border-radius: 0px !important;
+//     }
+  
+//     .swal2-icon.swal2-warning {
+//       border-color: #f9a825 !important;
+//       color: #f9a825 !important;
+//     }
+  
+//     .swal2-icon.swal2-success {
+//       border-color: #338703 !important;
+//       color: #338703 !important;
+//     }
+  
+//     .swal2-icon.swal2-success .swal2-success-ring {
+//       border: 0.25em solid rgb(59 158 2 / 94%) !important;
+//     }
+  
+//     .swal2-icon.swal2-success [class^="swal2-success-line"] {
+//       background-color: #3e9b0a !important;
+//     }
+  
+//     .swal2-html-container {
+//       color: var(--color-body-contentColor) !important;
+//       font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system,
+//         BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+//     }
+  
+//     .swal2-popup .swal2-modal .swal2-icon-warning .swal2-show {
+//       .swal2-popup {
+//         display: none;
+//         position: relative;
+//         box-sizing: border-box;
+//         grid-template-columns: minmax(0, 100%);
+//         width: 32em;
+//         max-width: 100%;
+//         padding: 0 0 1.25em;
+//         border: none;
+//         border-radius: 15px;
+//         background: #fff;
+//         color: #545454;
+//         font-family: inherit;
+//         font-size: 1rem;
+//       }
+//     }
+  
+//     .swal2-styled.swal2-confirm {
+//       background-color: var(--lightdarkBGGray) !important;
+//       border: var(--lightdarkBGGray) !important;
+//       min-width: 90px !important;
+//       max-width: 10px !important;
+//       -ms-flex-align: center !important;
+//       align-items: center !important;
+//       color: var(--lightdarkColor) !important;
+//       font-size: 14px;
+  
+//       &:focus {
+//         box-shadow: 0 0 0 1px rgb(138, 136, 134) !important;
+//       }
+//     }
+  
+//     .swal2-styled {
+//       border-radius: 0px !important;
+//     }
+  
+//     .swal2-styled.swal2-cancel {
+//       // background-color:  !important;
+//       border: 1px solid rgb(138, 136, 134) !important;
+//       background-color: #ffffff !important;
+//       color: var(--color-body-contentColor) !important;
+//       border-radius: -0.75em !important;
+//       font-size: 14px;
+  
+//       &:focus {
+//         box-shadow: 0 0 0 3px rgb(138, 136, 134) !important;
+//       }
+//     }
+  
+//     // ------------- COMMENTS PAGE - REQUSTER EMAIL EDIT BUTTON -------------->
+//     .RequestorMailIDDisable {
+//       .ms-TextField {
+//         .ms-TextField-wrapper {
+//           .ms-TextField-fieldGroup {
+//             .ms-TextField-field {
+//               background: var(--lightThemePanelBGSwitcher);
+//             }
+//           }
+//         }
+//       }
+//     }
+  
+//     //<--------------------Apply-SLA-Policies-Div-------------------->//
+//     .Apply-SLA-Policies-Div {
+//       .ms-Icon {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+  
+//       button[title=Save] .ms-Button-flexContainer .ms-Icon {
+//         color: var(--lightThemePivotTextBlack) !important;
+//       }
+//     }
+  
+//     // <----------------------------- Integration ms Form Border ------------------>
+//     .integrations-ms-form-border {
+//       display: -webkit-box;
+//       display: -ms-flexbox;
+//       display: flex;
+//       width: 100%;
+//       -webkit-box-sizing: border-box;
+//       box-sizing: border-box;
+//       float: left;
+//       padding: 1% 0;
+//       -webkit-box-align: center;
+//       -ms-flex-align: center;
+//       align-items: center;
+//       -webkit-box-pack: justify;
+//       -ms-flex-pack: justify;
+//       justify-content: space-between;
+//     }
+  
+//     // <----------------------------- Homepage SweetAlert Raise Ticket ------------->
+  
+//     .custom-swal-container {
+//       height: 138px !important;
+//       width: 323px;
+//       background-color: unset !important;
+  
+//       body.swal2-no-backdrop .swal2-container {
+//         background-color: unset !important;
+//       }
+//     }
+  
+//     // <----------------------------- COMMENTS / APPROVAL OVERFLOW MODAL HIDDEN ------------->
+  
+//     .modal-overflow-hidden {
+//       .ms-Dialog-main {
+//         .ms-Modal-scrollableContent {
+//           overflow-y: unset !important;
+//         }
+//       }
+  
+//       .ms-Dialog-main .ms-Modal-scrollableContent {
+//         overflow-y: unset !important;
+//       }
+//     }
+  
+//     // <------------------------- HOMEPAGE - SNIPPER ------------->
+//     .homepage-snipper-border {
+//       border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//       padding: 5px;
+//       background-color: var(--lightThemeBGcolorWhite) !important;
+//     }
+  
+//     // < ---------------  SETTINGS PAGE  ADD  / EDIT REMOVE BUTTON ---------------->
+//     .ms-PickerItem-removeButton {
+//       background-color: unset !important;
+  
+//       .ms-Button-icon {
+//         color: var(--lightThemeTextColorBlack) !important;
+//       }
+//     }
+  
+//     // < ---------------  SETTINGS PAGE CUSTOM COLUMNS - CHOICE GROUP ---------------->
+  
+//     .editChoiceType {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // <---------------------- KANBAN VIEW ADD NEW TICKET --------------------->
+//     .kanban-text-color-NewTicket {
+//       .ms-Button {
+//         .ms-Button-flexContainer {
+//           .ms-Button-textContainer {
+//             .ms-Button-label {
+//               color: var(--lightThemeTextColorBlack) !important;
+  
+//           }
+//         }
+//       }
+//     }
+//   }
+  
+//   // <-------------- CUSTOM MODEL ------------------------------>
+  
+//   body.modal-open {
+//     overflow: hidden;
+//   }
+//   .modal-visible-transition{
+//     opacity: 1 !important;
+//     transition: opacity 0.5s ease-out !important ;
+//   }
+  
+//   .modal-style {
+//     @include common-modal-styles;
+//   }
+//   // <------------------------------- COMMENTS PAGE - POPUP CUSTOM MODAL DIALOGBOX ---------------------->
+//   .modal-style-split-button {
+//     @include common-modal-styles;
+//     width: 510px;
+//     height: 370px;
+//   }
+//   .modal-style-tracktime{
+//     @include common-modal-styles;
+//     height: 190px;
+//   }
+//   .modal-style-merge-ticket {
+//     @include common-modal-styles;
+//     width: 600px;
+//     height: 370px;
+//     padding: 30px;
+//   }
+//   .modal-style-unassigned-closed{
+//     @include common-modal-styles;
+//     height: 80px;
+//   }
+//   .modal-style-blank-reply{
+//     @include common-modal-styles;
+//       padding: 20px;
+//       padding-top: 30px;
+//       height: 160px;
+//   }
+//   // <--------------------------- APPROVAL COMMENTS - ASSIGN TO POPUP ------------------------->
+//   .modal-style-AssignPopup{
+//     @include common-modal-styles;
+//     padding: 14px;
+//     width: 365px;
+//     height: 100%;
+//     max-height: 250px;
+//     padding-top: 0px;
+//   }
+//   .modal-style-For-Cancel-Request{
+//     @include common-modal-styles;
+//     width: 279px;
+//     height: 102px;
+//   }
+//   // <--------------------- DATE PICKER GLOBAL TARGETING BLUR ISSUE ------------->
+//   .ms-DatePicker {
+//     .ms-TextField {
+//       .ms-TextField-wrapper {
+//         .ms-TextField-fieldGroup {
+//           .ms-TextField-field:focus {
+//             &::after {
+//               content: unset !important;
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+//   // < ------------------------ HR365 DASHBOARD - CUSTOM WEEK CALENDAR -------------->
+//   .custom-week{
+//   margin-top: 10px;
+//   }
+  
+//   // <------------------------------------- EMAIL NOTIFICATION - EDIT ----------------------------->
+//   .edit-email-input-style{
+//     .ms-TextField-wrapper{
+//       .ms-TextField-fieldGroup {
+//       background: var(--lightThemeBGcolorWhite) !important;
+  
+//         .ms-TextField-field {
+//       background: var(--lightThemeBGcolorWhite) !important;
+  
+//         }
+//       }
+//     }
+//   }
+  
+//   //<--------------------- AddForUsers ------------------------------>
+//   .AddForUsersStyle{
+//     width: 21em;
+  
+//     .div:where(.swal2-container) div:where(.swal2-popup) {
+//       width: 21em;
+//     }
+  
+//     .swal2-icon.swal2-success {
+//       border-color: #338703 !important;
+//       color: #338703 !important;
+//     }
+  
+//     .swal2-html-container {
+//       // color: var(--color-body-contentColor) !important;
+//       color: #333;
+//       font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system,
+  
+//         BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+//     }
+//     .swal2-close:focus{
+//       box-shadow: none;
+//     }
+//   }
+  
+//   .cc-modal-style {
+//     .ms-Dialog-main .ms-Modal-scrollableContent {
+//       max-height: 100vh;
+//       max-width: 320px !important;
+//       width: 100%;
+//       padding: 6px;
+//     }
+  
+//     .ms-Dialog-main {
+//       padding: 6px;
+//     }
+//   }
+  
+//   // <------------- REACT SELECT - OVERFLOW EFFECT ------------------->
+//   .react-select__option:hover {
+//     white-space: normal;
+//     overflow: visible;
+//     text-overflow: clip;
+//     max-width: none;
+//   }
+  
+//   .react-select__option {
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     max-width: 100%;
+//     position: relative;
+//   }
+  
+//   .react-select__option::before {
+//     content: attr(label); 
+//     display: none;
+//     position: absolute;
+//     color: white;
+//     padding: 4px;
+//     border-radius: 4px;
+//     bottom: 100%; 
+//     left: 50%;
+//     transform: translateX(-50%);
+//     white-space: nowrap;
+//   }
+  
+//   .react-select__option:hover::before {
+//     display: block;
+//   }
+
+// //   .AddNewTicketsStyle{
+// //     // background: var(--lightThemeBGcolorWhite) !important;
+// //     background: red !important;
+// // }
+
+  
+//     // background-color: rgb(255, 255, 255); hover gray color and active color
+//     // END
+//     // anish127
+//     .datePickerAbstraction {
+//       display: flex;
+//       gap: 4px;
+//     }
+  
+//     .kb-view-bg-color {
+//       .ms-Dropdown-container .is-disabled .ms-Dropdown-title {
+//         background-color: var(--lightThemePanelBGSwitcher) !important;
+//       }
+//     }
+  
+//     .kb-tags-text-color {
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     //  .datePickerAbstraction .datepicker  .ms-TextField-field{
+//     //     padding: 5px;
+//     //   }
+//     //  .datePickerAbstraction .ms-TextField-field{
+//     //     padding: 5px;
+//     //   }
+  
+//     //   .datePickerAbstraction .ms-DatePicker .ms-TextField .ms-TextField-wrapper .ms-TextField-fieldGroup .ms-TextField-field{
+//     //     padding:5px
+//     //   }
+  
+  
+//     .ms-DetailsRow .ms-DetailsRow-fields .is-row-header {
+//       font-size: 13px !important;
+//     }
+  
+//     .swal2-popup.swal2-toast .swal2-close {
+//       display: flex;
+//       position: absolute;
+//       right: 13px;
+//       top: 12px;
+//       font-size: 20px;
+//       padding: 10px 10px;
+//     }
+  
+//     .swal2-popup.swal2-toast.swal2-show {
+//       display: FLEX !IMPORTANT;
+//       align-items: flex-start;
+//       padding: 10px 0px 5px 15px;
+//       background-color: var(--lightdarkBGGray);
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .swal2-container.swal2-top-end>.swal2-popup {
+//       display: flex !important;
+//     }
+  
+//     .swal2-image {
+//       width: 50px !important;
+//       height: 50px !important;
+//       border-radius: 50%;
+//       margin: 10px 10px 0px 0px;
+//     }
+  
+//     .swal2-html-container {
+//       font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+//       display: block;
+//       margin: 8px 10px !important;
+//       font-size: 17px !important;
+//     }
+  
+//     .notificationHeading {
+//       font-size: 16px !important;
+//       margin-bottom: 2px !important;
+//       font-weight: 600;
+//     }
+  
+//     .MainDiv {
+//       font-size: 12px;
+//       --fontFamily: "Segoe UI WPC Regular", "Segoe UI", Tahoma, "Microsoft Sans Serif", Verdana, sans-serif !important;
+//       font-weight: 400;
+//     }
+  
+//     .richTextToolboxDisableQuill .quill .ql-toolbar .ql-snow {
+//       display: none !important;
+//     }
+  
+//     .ms-groupMemberButton-div {
+//       display: flex;
+//       align-items: center;
+//       justify-content: space-between;
+//     }
+  
+//     .ms-Persona-primaryText {
+//       font-size: 14px !important;
+//     }
+  
+//     button {
+//       margin-left: 0px !important;
+//     }
+  
+//     // .swal-overlay{
+//     //   z-index: 9999999 !important;
+//     // }
+//     // .swal-footer{
+//     //   text-align: center;
+//     //   margin-top: 0px;
+//     //   padding: 10px 0px;
+//     // }
+//     // .swal-button-container{
+//     //   margin: 0px 0px 10px;
+//     // }
+//     // .swal-button {
+//     //   color: var(--lightdarkColor)  !important;
+//     //   background-color: var(--lightdarkBGGray)  !important;
+//     //   padding: 10px 30px;
+//     // }
+//     // .swal-icon{
+//     //   margin: 20px auto 0px;
+//     // }
+//     // .swal-title , .swal-text{
+//     //   color: #333;
+//     // }
+  
+  
+//     // .ms-ContextualMenu-item{
+//     //   background-color: var(--lightdarkBGGray);
+//     //   color: var(--lightdarkColor) !important;
+//     // }
+//     // .ms-ContextualMenu-item i{
+//     //   // background-color: var(--lightdarkBGGray);
+//     //   color: var(--lightdarkColor);
+//     // }
+//     .formattingPaneTitle {
+//       color: var(--lightdarkColor) !important;
+//       background-color: var(--lightdarkBGGray) !important;
+//     }
+  
+//     .ms-MessageBar-content {
+//       justify-content: center;
+//       position: relative;
+//       align-items: center;
+//     }
+  
+//     .ms-MessageBar-content i,
+//     .ms-MessageBar-dismissSingleLine i {
+//       font-weight: 600;
+//     }
+  
+//     .ms-MessageBar-dismissSingleLine {
+//       // position: absolute;
+//       right: 2px;
+//     }
+  
+//     .ms-MessageBar-text {
+//       flex-grow: 0;
+//       margin: 6px 4px;
+//     }
+  
+//     .ms-MessageBar-innerText {
+//       font-weight: 600;
+//       font-size: 13px;
+//       // max-width: calc(100% - 20px);
+//     }
+  
+//     .is-row-header {
+//       // text-align: center;
+//       // padding: 5px;
+//       font-size: 14px;
+//       padding: 8px 8px;
+//     }
+  
+//     // .ms-Button-menuIcon{
+//     //   color: #ffffff;
+//     // }
+//     .ms-DetailsRow-fields {
+//       align-items: center !important;
+//     }
+  
+//     .ms-DetailsRow-cell .ms-Link {
+//       font-size: 14px !important;
+//     }
+  
+//     .ms-Persona-primaryText {
+//       font-size: 12px;
+//       --fontFamily: "Segoe UI WPC Regular", "Segoe UI", Tahoma, "Microsoft Sans Serif", Verdana, sans-serif !important;
+//       font-weight: 400;
+//     }
+  
+//     // .ms-Icon, .toolbarSubmenuCaret{
+//     //   font-family: "Fluent MDL2 Hybrid Icons" !important;
+//     // }
+  
+//     // .ms-Icon{
+//     //   font-family: "FabricMDL2Icons" !important;
+//     // }
+  
+//     .toolbarSubmenuCaret {
+//       font-family: "Fluent MDL2 Hybrid Icons" !important;
+//     }
+  
+//     .calloutMain {
+//       background-color: var(--lightdarkColor);
+//     }
+  
+//     .ms-Callout-beak {
+//       background-color: var(--lightdarkColor);
+  
+//     }
+  
+//     .ms-ComboBox .ms-ComboBox-CaretDown-button:hover {
+//       background-color: var(--lightdarkBGGray);
+//     }
+  
+//     .previousandnext>span {
+//       // color: var(--lightdarkColor)  !important;
+//       // background-color: var(--lightdarkBGGray)  !important;
+//       // background-color: var(--lightThemeHoverBGColor) !important;
+//       background-color: var(--lightThemeHoverBGColor) !important;
+//       color: var(--lightThemeTextColorBlack) !important;
+//     }
+  
+//     // ----custom styles for commandbar buttons start here-----
+//     .CustomCommandBarStyles .ms-Button-flexContainer {
+//       // color: var(--lightdarkBGGray);
+//       // color: var(--pivotSelectedTextColor);
+//       // background-color: var(--lightdarkBGTable);
+//       //THEMES1
+//       // CONFLICT
+//       background-color: var(--lightThemeActionButtonBGBlack) !important;
+//       height: 30px;
+//       padding: 0px 2px;
+//     }
+  
+//     // .CustomCommandBarStyles .ms-Button-flexContainer:hover{
+//     //   // background-color: var(--lightdarkBGGray); // CONFLICT
+//     // //  color: var(--lightdarkColor)
+//     // }
+//     .CustomCommandBarStyles .ms-Button .ms-Button--commandBar:active {
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .CustomCommandBarStyles .ms-Button-flexContainer .ms-Button-icon {
+//       color: var(----lightdarkHoverBG);
+//       font-size: 14px !important;
+//     }
+  
+//     .CustomCommandBarStyles .ms-Button-flexContainer .ms-Button-icon :hover {
+//       color: var(--lightdarkColor);
+//       font-size: 14px !important;
+//     }
+  
+//     // .TeamsAddButton 
+//     //   .CustomCommandBarStyles .ms-Button-flexContainer .ms-Icon :hover {
+//     //   color: red;
+//     //   font-size: 14px !important;
+//     // }
+  
+  
+  
+  
+  
+//     .CustomCommandBarStyles .ms-CommandBar {
+//       height: 30px !important;
+//       background-color: transparent;
+//     }
+  
+//     .CustomCommandBarStyles .ms-Button--commandBar {
+//       //background-color: var(--lightdarkBGGray);
+//       // background-color: var(--lightdarkBGTable);
+//       color: var(--textIconColor);
+//       padding: 0px;
+//       margin-right: 4px;
+//     }
+  
+//     .HideMBFull {
+//       display: none;
+//     }
+  
+  
+  
+//     .ActionButtonStyles .ms-Button--command {
+//       // background-color: var(--pivotSelectedBGColor);
+//       background-color: var(--lightThemeActionButtonBGBlack) !important;
+//       // color: var(--pivotSelectedTextColor) !important;
+//       color: var(--lightThemePivotTextBlack) !important;
+//       height: 30px !important;
+//     }
+  
+//     .ActionButtonStyles .ms-Button-icon {
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .ActionButtonStyles .ms-Button--command:hover {
+//       background-color: var(--lightdarkHoverBG);
+//     }
+  
+  
+  
+//     .richTextToolbox .ql-toolbar {
+//       width: auto !important;
+//     }
+  
+//     .richTextToolbox {
+//       position: relative;
+//       margin-top: 10px;
+//     }
+  
+//     .richTextToolboxAddNew {
+//       margin-top: 0px;
+//     }
+  
+  
+//     // ----custom styles for commandbar buttons Ends here-----
+//     .pivotCustomBGcolorrr>.ms-Pivot .is-selected::before {
+//       background-color: rgb(232, 230, 230);
+//       background-color: var(--lightdarkBGGray);
+//       height: 2px;
+//     }
+  
+//     .ms-Panel-main {
+//       overflow: unset;
+//     }
+  
+//     .ms-Panel-navigation {
+//       background-color: var(--lightdarkBGGray);
+//       padding: 6px 0;
+//       height: 30px;
+  
+  
+//       //THEMES1
+//       .ms-Panel-closeButton {
+//         .ms-Icon {
+//           // color: var(--lightThemeSwitcherTextColor) !important;
+//           color: var(--pivotSelectedTextColor)!important;
+//         }
+//       }
+//     }
+  
+//     .ms-Panel-headerText {
+//       // color: #fff;
+//       color: var(--lightdarkColor) !important;
+//       font-size: 16px;
+//     }
+  
+//     .ms-Panel-closeButton {
+//       // color: #fff;
+//       color: var(--lightdarkColor);
+//     }
+  
+//     // ------------------
+//     .ms-Panel-closeButton:hover {
+//       // background-color: '[theme:themeLight]' !important;
+//       background-color: var(--lightdarkHoverBG) !important;
+//       color: var(--lightdarkColor);
+//       //display: none;
+//     }
+  
+//     // --------------------------------------
+//     // For Buttons:-
+  
+//     .ms-Button--primary {
+//       color: var(--lightdarkColor);
+//       background-color: var(--lightdarkBGGray);
+//       border: var(--lightdarkBGGray);
+//       border-radius: 2px;
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       max-height: auto !important;
+//       min-height: 32px !important;
+  
+//     }
+  
+//     .ms-Button--primary .ms-Button-flexContainer {
+//       margin-bottom: 1px;
+//     }
+  
+//     .ms-Button--default .ms-Button-label {
+//       margin-bottom: 1px;
+//     }
+  
+//     .ms-Button--default {
+//       max-height: auto !important;
+//       min-height: 32px !important;
+//     }
+  
+//     .ms-Button--primary:hover {
+//       color: var(--lightdarkColor);
+//       background-color: var(--lightdarkHoverBG);
+//       border: var(--lightdarkBGGray);
+//     }
+  
+//     // ------------------------------------
+//     .ms-Panel-closeButton {
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .ms-BasePicker-text {
+//       min-width: auto;
+//     }
+  
+  
+  
+  
+//     //***********Darkmode****************//
+  
+//     // .ms-Dropdown-label{
+//     //   color: #333 !important;
+  
+//     // }
+//     .ms-Panel-contentInner .ms-Label {
+//       color: #333;
+//     }
+  
+//     .ms-Panel-contentInner .ms-ChoiceFieldLabel {
+//       color: #333;
+//     }
+  
+//     .ms-Panel-contentInner .ms-Checkbox-text {
+//       color: #333;
+//     }
+  
+//     //***********---Darkmode---****************//
+  
+  
+//     //To change border color//
+  
+//     .ms-TextField-field::after {
+//       border-color: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-BasePicker-text text::after {
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-SearchBox {
+//       border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-ChoiceField-field .field::before {
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-Checkbox-checkbox {
+//       border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//       background: #fff;
+//     }
+  
+//     .ms-TextField-fieldGroup {
+//       // border-color:var(--lightThemeDropDownBorderColor) !important;
+//       // border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//       border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-Dropdown-title {
+//       // border-color: #d3d1ce!important;
+//       // border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//       border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+//     }
+  
+//     .ms-BasePicker-text {
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//       background: #fff;
+//     }
+  
+//     .ms-Toggle .is-checked .pill-268 {
+//       background: #ddd !important;
+//     }
+  
+//     //******************//
+  
+  
+//     // for dashboard select//
+  
+//     // .dashboard365dropdownStyles {
+//     //   width: 70%;
+//     // }
+//     .dashboard365dropdownStyles .css-yk16xz-control {
+//       min-height: 25px !important;
+//     }
+  
+//     .dashboard365dropdownStyles .css-1pahdxg-control {
+//       min-height: 25px !important;
+//     }
+  
+//     .dashboard365dropdownStyles .css-1uccc91-singleValue {
+//       color: hsl(0, 0%, 50%) !important
+//     }
+  
+//     .dashboard365dropdownStyles_1982f902 .css-1uccc91-singleValue {
+//       color: hsl(0, 0%, 50%) !important
+//     }
+  
+//     .css-yk16xz-control .css-1uccc91-singleValue {
+//       color: hsl(0, 0%, 50%) !important
+//     }
+  
+  
+  
+  
+//     //for select//
+//     .css-yk16xz-control {
+//       min-height: 32px !important;
+//       // border-color:  hsl(40deg 1% 45%);
+//       border-color: var(--lightThemeDropDownBorderColor) !important;
+//       border-radius: 2px !important;
+//       cursor: pointer;
+  
+//     }
+  
+//     .css-tlfecz-indicatorContainer {
+//       padding: 0px !important;
+//     }
+  
+//     .css-1okebmr-indicatorSeparator {
+//       display: none !important;
+//     }
+  
+//     .css-1pahdxg-control {
+//       min-height: 32px !important;
+//       border-radius: 2px !important;
+//       box-shadow: none !important;
+//     }
+  
+//     .css-g1d714-ValueContainer {
+//       padding: 0px 5px !important;
+//     }
+  
+//     .css-1gtu0rj-indicatorContainer {
+//       padding: 0px !important;
+//     }
+  
+//     .css-1wa3eu0-placeholder {
+//       text-overflow: ellipsis;
+//       overflow: hidden;
+//       white-space: nowrap;
+//     }
+  
+//     //
+  
+//     // .pivotCustomBGcolor>.ms-Pivot{
+//     //   background-color: var(--lightdarkBGGray);
+//     // }
+//     .pivotCustomBGcolor>.ms-Pivot .ms-Pivot-link {
+//       margin-right: 4px;
+//       background-color: var(--lightdarkBGGray);
+//       //background-color: var(--lightdarkBGTable);
+//       height: 35px;
+//       border-width: 0px !important;
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .ms-Pivot-linkInMenu {
+//       background-color: var(--lightdarkBGGray);
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .ms-Pivot-linkContent {
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .ms-Pivot-link:hover {
+//       //background-color: var(--pivotSelectedBGColor);
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .pivotCustomBGcolor .ms-Pivot-count {
+//       font-size: 16px;
+//       font-weight: 500;
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .is-selected {
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .is-selected::before {
+//       height: 0 !important;
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot {
+//       width: 100%;
+//       margin-left: 0px;
+//       height: 35px;
+//     }
+  
+//     .pivotCustomBGcolor>.ms-Pivot .ms-Pivot-overflowMenuButton {
+//       // color: var(--lightdarkColor);
+//       color: var(--lightThemeSwitcherTextColor) !important;
+//     }
+  
+  
+//     // Dashboard styles 
+  
+//     .pivotCustomDashboard>.ms-Pivot .ms-Pivot-link {
+//       margin-right: 4px;
+//       background-color: var(--lightdarkBGGray);
+//       height: 35px;
+//       width: 80px;
+//       border-width: 0px !important;
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .ms-Pivot-linkInMenu {
+//       background-color: var(--lightdarkBGGray);
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .ms-Pivot-linkContent {
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .ms-Pivot-link:hover {
+//       //background-color: var(--lightdarkHoverBG);
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .pivotCustomDashboard .ms-Pivot-count {
+//       font-size: 16px;
+//       font-weight: 500;
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .is-selected {
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//       // margin-right: 9px;
+//       overflow: hidden;
+  
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .is-selected::before {
+//       height: 0 !important;
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot {
+//       width: 100%;
+//       margin-left: 0px;
+//       height: 35px;
+//     }
+  
+//     .pivotCustomDashboard>.ms-Pivot .ms-Pivot-overflowMenuButton {
+//       color: var(--lightdarkColor);
+//     }
+  
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .ms-Pivot-link {
+//       margin-right: 4px;
+//       background-color: var(--lightdarkBGGray);
+//       height: 40px;
+//       border-width: 0px !important;
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .ms-Pivot-linkInMenu {
+//       background-color: var(--lightdarkBGGray);
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .ms-Pivot-linkContent {
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .ms-Pivot-link:hover {
+//       //background-color: var(--lightdarkHoverBG);
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .pivotCustomBGcolorHome .ms-Pivot-count {
+//       font-size: 16px;
+//       font-weight: 500;
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .is-selected {
+//       background-color: var(--pivotSelectedBGColor);
+//       color: var(--pivotSelectedTextColor) !important;
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .is-selected::before {
+//       height: 0 !important;
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot .ms-Pivot-overflowMenuButton {
+//       color: var(--lightdarkColor);
+//     }
+  
+//     .pivot>.ms-Pivot {
+//       width: 100%;
+//     }
+  
+//     .pivotCustomBGcolorHome>.ms-Pivot {
+//       width: 90% !important;
+//       margin-left: 0px;
+//       height: 40px;
+//     }
+  
+//     // .ql-toolbar{
+//     //   display: block !important;
+//     // }
+  
+  
+//     /* Workbench Styles*/
+//     .ms-DetailsHeader {
+//       padding-top: 0px;
+//     }
+  
+//     .ms-DetailsHeader-cell:hover {
+//       color: unset;
+//       background-color: unset !important;
+//     }
+  
+//     .ms-DetailsHeader-cell {
+//       white-space: 'normal';
+//       text-overflow: 'clip';
+//       line-height: 'normal';
+//     }
+  
+//     .ms-DetailsHeader-cellTitle {
+//       height: 100%;
+//       align-items: 'center',
+//     }
+  
+//     #workbenchPageContent,
+//     .CanvasComponent.LCS .CanvasZone {
+//       max-width: 100% !important;
+//     }
+  
+//     /**/
+//     .CanvasComponent.LCS .CanvasSection--read:not(.CanvasSection--fullWidth) .ControlZone:last-of-type {
+//       min-height: 400px;
+//       height: 100%;
+//     }
+  
+//     // .sp-appBar-linkContainer {
+//     // display: none;
+//     // }
+  
+//     .CanvasComponent.LCS .CanvasZone.CanvasZone--controlSelected .CanvasSection--edit {
+//       min-height: 300px;
+//     }
+  
+//     .CanvasComponent.LCS .CanvasZone:not(.CanvasZone--fullWidth) .ControlZone {
+//       padding: 0px;
+//     }
+  
+//     .CanvasZone>div {
+//       max-width: 100% !important;
+//     }
+  
+//     .CanvasComponent.LCS .ControlZone.ControlZone--edit,
+//     .CanvasComponent.LCS .ControlZone .ControlZone--position,
+//     .ControlZone-control,
+//     .ControlZone-control>div,
+//     .ms-SPLegacyFabricBlock {
+//       height: 100%;
+//     }
+  
+//     .CanvasComponent.LCS .CanvasSection-col {
+//       padding: 0px;
+//     }
+  
+//     [dir="ltr"] .CanvasComponent.LCS .CanvasZone.CanvasZone--edit {
+//       padding-left: 0px;
+//     }
+  
+//     .selected-65::after {
+//       border: 0px;
+//     }
+  
+//     .CanvasComponent.LCS .CanvasToolboxHint:not(.AlignedHint) {
+//       display: none;
+//     }
+  
+//     .spAppAndPropertyPanelContainer .sp-appBar {
+//       display: var(--spappBarhide);
+//     }
+  
+//     // .spAppAndPropertyPanelContainer .sp-appBar {
+//     // min-width: 0px;
+//     // max-width: 0px;
+//     // }
+  
+  
+  
+//     .CanvasComponent.LCS .Canvas--edit.Canvas--withLayout {
+//       margin-left: 0px !important;
+//     }
+  
+  
+  
+//     #workbenchPageContent>div:nth-child(3) {
+//       padding: 0px !important;
+//     }
+  
+  
+  
+//     .CanvasZone {
+//       max-width: 100%;
+//     }
+  
+//     .ms-DetailsHeader {
+//       border-bottom: 1.5px solid rgb(199, 188, 188);
+//     }
+  
+//     .ms-DetailsRow {
+//       border-bottom: 1px solid var(--lightThemeBorderBottomColor) !important;
+//     }
+  
+//     .ql-editor,
+//     .ql-snow .ql-editor {
+//       background-color: #fff !important;
+//       // border: 1px solid #ddd!important;
+//     }
+  
+//     // <----------- LEFT SIDE BAR REACT QUIL -------------------------> 
+//     .ql-editor,
+//     .ql-snow .ql-editor {
+//       border-color: 1px solid var(--lightThemeBorderColor) !important;
+//     }
+  
+//     .ql-toolbar.ql-snow {
+//       padding: 0;
+//       font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+//       border: none;
+//       margin-bottom: -4px;
+//       z-index: 3;
+//       animation-name: ms-fadeIn, ms-slideUpIn10;
+//       animation-duration: 167ms;
+//       animation-timing-function: cubic-bezier(.1, .25, .75, .9);
+//       animation-fill-mode: both;
+//       transition: all 367ms cubic-bezier(.1, .9, .2, 1);
+//       display: flex !important;
+//       align-items: center !important;
+//       flex-wrap: wrap !important;
+//       background: #e9e9e9;
+//     }
+  
+//     .ql-toolbar.ql-snow .ql-formats {
+//       margin-right: 0px !important;
+//     }
+  
+//     .ql-toolbar {
+//       display: block !important;
+//     }
+  
+//     .ql-active .ql-toolbar {
+//       position: static !important;
+//       box-shadow: 0 0 0 0 #ffffff !important;
+//     }
+  
+  
+//     .ql-editor blockquote,
+//     .ql-editor div,
+//     .ql-editor h2,
+//     .ql-editor h3,
+//     .ql-editor h4,
+//     .ql-editor ol,
+//     .ql-editor p,
+//     .ql-editor ul,
+//     .ql-snow .ql-editor blockquote,
+//     .ql-snow .ql-editor div,
+//     .ql-snow .ql-editor h2,
+//     .ql-snow .ql-editor h3,
+//     .ql-snow .ql-editor h4,
+//     .ql-snow .ql-editor ol,
+//     .ql-snow .ql-editor p,
+//     .ql-snow .ql-editor ul {
+//       -webkit-font-smoothing: antialiased;
+//       color: #323130;
+//       line-height: 1.3;
+//       margin: 0px 0 0px !important;
+//       word-wrap: break-word;
+//       font-size: 14px;
+//     }
+  
+//     .ql-editor div,
+//     .ql-editor ol,
+//     .ql-editor p,
+//     .ql-editor ul {
+//       font-size: 14px !important;
+//       font-weight: 300;
+//       line-height: 1.3;
+//     }
+  
+//     .ql-editor,
+//     .ql-snow .ql-editor {
+//       font-size: 14px !important;
+//     }
+  
+//     // .ql-toolbar .ms-TooltipHost{
+//     //   color: #000000 !important;
+//     // }
+//     .ql-toolbar .ms-Dropdown-title,
+//     .ql-snow.ql-toolbar button {
+//       // background-color: #e9e9e9 !important;
+//       // color: #000000 !important;
+//       border: none !important;
+//     }
+  
+//     .ql-toolbar .ms-Dropdown-caretDownWrapper i {
+//       // color: #000000 !important;
+//       font-family: "Fluent MDL2 Hybrid Icons" !important;
+//       ;
+//     }
+  
+//     // .ql-toolbar  .ms-Dropdown-item{
+//     //     background-color: #e9e9e9!important;
+//     //     color: #000000!important;
+//     // }
+//     // .ql-toolbar .ms-Dropdown-title,.ql-snow.ql-toolbar button{
+//     //   background-color: #e9e9e9 !important;
+//     // }
+//     .formattingPaneTitle {
+//       background-color: '[theme:themePrimary]' !important;
+//     }
+  
+//     .hideMBCancel .ms-ChoiceFieldGroup-flexContainer {
+//       display: inline-flex;
+//       width: 100%;
+//     }
+  
+//     .hideMBCancel .ms-ChoiceField {
+//       flex: 0 1 20%;
+  
+//     }
+  
+//     .hideMBCancel .ms-ChoiceFieldLabel {
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//       max-width: 110px;
+//     }
+  
+//     //for Customer Satisfaction
+//     .hideMBCancel2 .ms-ChoiceFieldGroup-flexContainer {
+//       display: inline-flex;
+//       width: 100%;
+//     }
+  
+//     .hideMBCancel2 .ms-ChoiceField {
+//       flex: 0 1 10%;
+//     }
+  
+//     .hideMBCancel2 .ms-ChoiceFieldLabel {
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//       max-width: 110px;
+//     }
+  
+//     //for Users
+  
+//     .hideMBCancel3 .ms-ChoiceFieldGroup-flexContainer {
+//       display: inline-flex;
+//       width: 100%;
+//     }
+  
+//     .hideMBCancel3 .ms-ChoiceField {
+//       flex: 0 1 30%;
+//     }
+  
+//     .hideMBCancel3 .ms-ChoiceFieldLabel {
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//       max-width: 110px;
+//     }
+  
+//     // class for new add ticket panel (scrolling in one row) Start
+//     .hideMBCancelnew .ms-ChoiceFieldGroup-flexContainer {
+//       display: inline-flex;
+//       overflow: auto;
+//       width: 100%;
+  
+//       ::-webkit-scrollbar {
+//         padding-top: 10px;
+//       }
+//     }
+  
+//     .hideMBCancelnew .ms-ChoiceField {
+//       flex: 0 1 0%;
+//       padding-bottom: 3px;
+//       margin-top: 0px;
+//     }
+  
+//     .hideMBCancelnew .ms-ChoiceFieldLabel {
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//       max-width: 110px;
+//     }
+  
+//     .hideMBCancelnew .ms-ChoiceField-wrapper {
+//       color: #333;
+//       border-radius: 18px;
+//       margin-right: 5px;
+//       background: #fff;
+//       padding: 3px 6px 1.5px 4px;
+//       border: 1px solid #dadada;
+//     }
+  
+//     // class for new add ticket panel (scrolling in one row) End
+  
+  
+//     //for advance setting
+  
+  
+//     .hideMBCancelset .ms-ChoiceFieldGroup-flexContainer {
+//       display: inline-flex;
+//       width: 100%;
+//     }
+  
+//     .hideMBCancelset .ms-ChoiceField {
+//       flex: 0 1 30%;
+//     }
+  
+//     .hideMBCancelset .ms-ChoiceFieldLabel {
+//       overflow: hidden;
+//       white-space: nowrap;
+//       text-overflow: ellipsis;
+//       max-width: 150px;
+//     }
+  
+//     .ms-Panel-content,
+//     .ms-Panel-scrollableContent {
+//       height: 100%;
+//       padding-bottom: 0;
+//     }
+  
+//     .ms-Panel-commands {
+//       margin-top: 0px;
+//       margin-bottom: 0px;
+//     }
+  
+//     .ms-Panel-commands .richTextPropertyPane .formattingPaneTitle {
+//       background-color: '[theme:themePrimary]' !important;
+//     }
+  
+//     .ms-Panel-content {
+//       padding-top: 5px;
+//       box-sizing: border-box;
+//     }
+  
+//     .ms-Panel-scrollableContent {
+//       padding-top: 0px;
+//       box-sizing: border-box;
+//       background: #f5f5f5;
+//     }
+  
+//     // .ms-Panel-closeButton:hover{
+//     //   background-color: '[theme:themeLight]' !important;
+//     //   //display: none;
+//     // }
+//     .ms-Panel-header {
+//       padding-left: 12px;
+//       padding-right: 24px;
+//       align-self: flex-start;
+//       flex-grow: 1;
+//     }
+  
+//     .ms-Panel-content {
+//       padding-left: 12px;
+//       padding-right: 12px;
+//     }
+  
+  
+//     @media screen and (min-width: 1365px) {
+//       .ms-Panel-content {
+//         padding-left: 12px;
+//         padding-right: 12px;
+//       }
+//     }
+  
+//     @media screen and (max-width: 768px) {
+//       .richTextToolbox .ql-toolbar {
+//         display: none !important;
+//       }
+  
+//       .richTextToolboxAddNew .ql-toolbar {
+//         display: none !important;
+//       }
+//     }
+  
+//     /*Workbench Styles*/
+//     button[title="More options"]:hover {
+//       background-color: unset !important;
+//     }
+  
+//     .ms-OverflowSet:hover {
+//       background-color: unset !important;
+  
+//     }
+  
+  
+  
+//   }
+  
+  
+//   .helpDesk {
+//     min-height: calc(100vh - 5px);
+//     margin-top: 5px;
+  
+//     .isMultiline-237 {
+//       outline: transparent !important;
+//       position: relative !important;
+//       display: inline-block !important;
+//       box-sizing: border-box !important;
+//       min-height: 42px !important;
+//       vertical-align: top !important;
+//       white-space: normal !important;
+//       overflow: hidden !important;
+//       text-overflow: clip !important;
+//       padding-top: 11px !important;
+//       padding-bottom: 11px !important;
+//       padding-left: 12px !important;
+//       word-break: break-word;
+//     }
+  
+//     .cell-231 {
+//       outline: transparent;
+//       position: relative;
+//       display: inline-block;
+//       box-sizing: border-box;
+//       min-height: 42px;
+//       vertical-align: top;
+//       white-space: nowrap;
+//       overflow: hidden;
+//       text-overflow: ellipsis;
+//       padding-top: 11px;
+//       padding-bottom: 11px;
+//       padding-left: 12px;
+//       font-size: 14px;
+//     }
+  
+//     .container {
+//       max-width: 700px;
+//       margin: 0px auto;
+//       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+//     }
+  
+//     .row {
+//       // @include ms-Grid-row;
+//       // @include ms-fontColor-white;
+  
+//       padding: 20px;
+//     }
+  
+//     // .column {
+//     //   // @include ms-Grid-col;
+//     //   @include ms-lg10;
+//     //   @include ms-xl8;
+//     //   @include ms-xlPush2;
+//     //   @include ms-lgPush1;
+//     // }
+  
+//     // .title {
+//     //   @include ms-font-xl;
+//     //   @include ms-fontColor-white;
+//     // }
+  
+//     // .subTitle {
+//     //   @include ms-font-l;
+//     //   @include ms-fontColor-white;
+//     // }
+  
+//     // .description {
+//     //   @include ms-font-l;
+//     //   @include ms-fontColor-white;
+//     // }
+  
+  
+//     .button {
+//       // Our button
+//       text-decoration: none;
+//       height: 32px;
+  
+//       // Primary Button
+//       min-width: 80px;
+//       // background-color: $ms-color-themePrimary;
+//       // border-color: $ms-color-themePrimary;
+//       // color: $ms-color-white;
+  
+//       // Basic Button
+//       outline: transparent;
+//       position: relative;
+//       font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+//       -webkit-font-smoothing: antialiased;
+//       // font-size: $ms-font-size-m;
+//       // font-weight: $ms-font-weight-regular;
+//       border-width: 0;
+//       text-align: center;
+//       cursor: pointer;
+//       display: inline-block;
+//       padding: 0 16px;
+  
+//       .label {
+//         // font-weight: $ms-font-weight-semibold;
+//         // font-size: $ms-font-size-m;
+//         height: 32px;
+//         line-height: 32px;
+//         margin: 0 4px;
+//         vertical-align: top;
+//         display: inline-block;
+//       }
+  
+//     }
+//   }
+  
+//   .elementToFadeInAndOut {
+//     -webkit-animation: fadeinout 2s linear forwards infinite;
+//     animation: fadeinout 2s linear forwards infinite;
+//     opacity: 0;
+//   }
+  
+//   .glimmer {
+//     position: absolute;
+//     left: -12px;
+//     top: -6px;
+//     font-size: 12px;
+//   }
+  
+//   .bellIcon {
+//     display: flex;
+//     align-items: center;
+//     position: relative;
+  
+//     // THEMES1
+//     .ms-Button {
+//       background-color: var(--lightThemeHoverBGColor) !important;
+//     }
+//   }
+  
+//   .bellIcon i {
+//     font-size: 20px;
+//   }
+  
+//   .bellspan {
+//     font-size: 13px;
+//     background: red;
+//     padding: 2px 7px;
+//     border-radius: 50%;
+//     position: absolute;
+//     font-weight: 600;
+//     color: #fff;
+//     top: -8px;
+//     right: -3px;
+//   }
+  
+//   .PleaseWait {
+//     color: var(--lightThemeSwitcherTextColor);
+//     font-size: 16px;
+//     margin-left: 5px;
+//   }
+  
+//   .swal2-icon.swal2-warning {
+  
+//     border-color: #f9a825 !important;
+  
+//     color: #f9a825 !important;
+  
+//   }
+  
+  
+  
+  
+//   .swal2-icon.swal2-success {
+  
+//     border-color: #338703 !important;
+  
+//     color: #338703 !important;
+  
+//   }
+  
+  
+  
+  
+//   .swal2-icon.swal2-success .swal2-success-ring {
+  
+//     border: 0.25em solid rgb(59 158 2 / 94%) !important;
+  
+//   }
+  
+  
+  
+  
+//   .swal2-icon.swal2-success [class^="swal2-success-line"] {
+  
+//     background-color: #3e9b0a !important;
+  
+//   }
+  
+  
+  
+  
+//   .swal2-html-container {
+  
+//     color: var(--color-body-contentColor) !important;
+  
+//     font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system,
+  
+//       BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  
+//   }
+  
+//   .swal2-popup .swal2-modal .swal2-icon-warning .swal2-show {
+  
+//     .swal2-popup {
+  
+//       display: none;
+  
+//       position: relative;
+  
+//       box-sizing: border-box;
+  
+//       grid-template-columns: minmax(0, 100%);
+  
+//       width: 32em;
+  
+//       max-width: 100%;
+  
+//       padding: 0 0 1.25em;
+  
+//       border: none;
+  
+//       border-radius: 15px;
+  
+//       background: #fff;
+  
+//       color: #545454;
+  
+//       font-family: inherit;
+  
+//       font-size: 1rem;
+  
+//     }
+  
+//   }
+  
+  
+//   .swal2-container .swal2-styled.swal2-confirm {
+  
+//     background-color: var(--lightThemePivotTextBlack) !important;
+  
+  
+//     border: var(--lightdarkBGGray) !important;
+  
+//     min-width: 90px !important;
+  
+//     max-width: 10px !important;
+  
+//     -ms-flex-align: center !important;
+  
+//     align-items: center !important;
+  
+//     color: var(--lightThemeSwitcherTextColor) !important;
+//     ;
+  
+//     font-size: 14px;
+  
+//     // &:focus {
+  
+//     //   box-shadow: 0 0 0 1px rgb(138, 136, 134) !important;
+  
+//     // }
+  
+//   }
+  
+  
+  
+  
+//   .swal2-styled {
+  
+//     border-radius: 0px !important;
+  
+//   }
+  
+  
+  
+  
+//   .swal2-styled.swal2-cancel {
+  
+//     // background-color:  !important;
+  
+//     border: 1px solid rgb(138, 136, 134) !important;
+  
+//     background-color: #ffffff !important;
+  
+//     color: var(--color-body-contentColor) !important;
+  
+//     border-radius: -0.75em !important;
+  
+//     font-size: 14px;
+  
+//     &:focus {
+  
+//       box-shadow: 0 0 0 3px rgb(138, 136, 134) !important;
+  
+//     }
+  
+//   }
+  
+//   .swal2-popup {
+  
+//     border-radius: 0px !important;
+  
+//   }
+//   .AddNewTicketsStyle{
+//     // background: var(--lightThemeBGcolorWhite) !important;
+//     background-color: var(--lightThemePanelBGSwitcher) !important;
+//     padding-left: 12px;
+//     padding-right: 12px;
+
+// }

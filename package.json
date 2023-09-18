@@ -1,0 +1,56 @@
+{
+  "name": "helpdesk",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=16.13.0 <17.0.0"
+  },
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "gulp bundle --custom-serve --max_old_space_size=6500 && fast-serve",
+    "Bundle": "gulp clean && gulp build && gulp bundle --ship && gulp package-solution --ship"
+  },
+  "dependencies": {
+    "@fluentui/react": "^8.111.2",
+    "@fluentui/react-hooks": "^8.6.29",
+    "@microsoft/sp-component-base": "1.17.4",
+    "@microsoft/sp-core-library": "1.17.4",
+    "@microsoft/sp-http": "^1.17.4",
+    "@microsoft/sp-lodash-subset": "1.17.4",
+    "@microsoft/sp-office-ui-fabric-core": "1.17.4",
+    "@microsoft/sp-property-pane": "1.17.4",
+    "@microsoft/sp-webpart-base": "1.17.4",
+    "@pnp/sp": "^2.11.0",
+    "@pnp/spfx-controls-react": "^3.6.0",
+    "html-react-parser": "^3.0.16",
+    "immer": "^10.0.2",
+    "min-jquery": "^1.7.0",
+    "moment": "^2.29.4",
+    "office-ui-fabric-react": "^7.204.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-localization": "^1.0.19",
+    "react-quill": "^2.0.0",
+    "react-select": "^5.7.4",
+    "sp-pnp-js": "^3.0.10",
+    "sweetalert2": "^11.7.27",
+    "tslib": "2.3.1",
+    "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@microsoft/rush-stack-compiler-4.5": "0.5.0",
+    "@microsoft/sp-build-web": "1.17.4",
+    "@microsoft/sp-module-interfaces": "1.17.4",
+    "@types/react": "17.0.45",
+    "@types/react-dom": "17.0.17",
+    "@types/webpack-env": "~1.15.2",
+    "ajv": "^6.12.5",
+    "gulp": "4.0.2",
+    "spfx-fast-serve-helpers": "~1.17.0",
+    "typescript": "4.5.5"
+  }
+}
