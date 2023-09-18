@@ -938,7 +938,7 @@ const Home = () => {
 
             {/* Single Layout  */}
             <div className='single-layout-add-new-ticket-style'>
-              <SingleLayoutHeader />
+              {/* <SingleLayoutHeader /> */}
               <SingleLayoutAddNewTicket />
             </div>
           </>

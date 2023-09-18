@@ -3,7 +3,7 @@
   "serve": {
     "eslint": false,
     "open": true,
-    "hotRefresh": false,
+    "hotRefresh": true,
     "reactProfiling": false,
     "openUrl": "https://localhost:5432/workbench"
   },
