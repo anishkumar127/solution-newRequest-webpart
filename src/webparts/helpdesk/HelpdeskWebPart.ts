@@ -95,8 +95,10 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
     let empcolEN = [];
     var XMLIsInstalled = '<Field Name="IsInstalled" ID="{466A69DA-738D-4C44-9E9F-F96980EA2D22}" DisplayName="IsInstalled" Type="Note"></Field>';
     var XMLSiteUrl = '<Field Name="SiteUrl" ID="{1C16E3C5-3834-48EB-AFE4-FA0138470BE2}" DisplayName="SiteUrl" Type="Note"></Field>';
-
-    empcolEN = [XMLIsInstalled, XMLSiteUrl];
+    var XMLRequestTicketsDefaultSettings = '<Field Name="RequestTicketsDefaultSettings" ID="{A413E4E0-F8A2-48AF-9973-CB9F4060D44C}" DisplayName="RequestTicketsDefaultSettings" Type="Note"></Field>';
+    var XMLRequestTicketsCheckedFields= '<Field Name="RequestTicketsCheckedFields" ID="{6535A109-34B2-4F86-97B6-96A93D7E34BD}" DisplayName="RequestTicketsCheckedFields" Type="Note"></Field>';
+    var XMLRequestTickets= '<Field Name="RequestTickets" ID="{AC318277-129E-44A2-8B95-64F3113FA385}" DisplayName="RequestTickets" Type="Note"></Field>';
+    empcolEN = [XMLIsInstalled, XMLSiteUrl,XMLRequestTicketsDefaultSettings,XMLRequestTicketsCheckedFields,XMLRequestTickets];
     let web = new Web(ContextService.GetUrl());
     return web.lists.ensure("HR365HDMAddNewTicketsWebpart").then((ler: ListEnsureResult) => {
       const batch = web.createBatch();
