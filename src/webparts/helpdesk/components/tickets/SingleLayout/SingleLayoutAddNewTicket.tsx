@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { IChoiceGroupOption, TextField } from "@fluentui/react";
+import { TextField } from "@fluentui/react";
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
 import SingleLayoutHeader from "./SingleLayoutHeader";
+import { useStore } from "../../../store/zustand";
 
 // TEAMS DEPARTMENT
 let defaultteamCode = "";
@@ -12,7 +13,8 @@ let defaultPriority = ''
 // REQUEST TYPE
 let DefaultRequestType = ''
 
-
+// DEFAULT ORDER
+let DefaultLayoutItemsNames = []
 const SingleLayoutAddNewTicket = () => {
   // store
   // <-------------------------- FETCHING DATA ---------------------->
@@ -30,6 +32,9 @@ const SingleLayoutAddNewTicket = () => {
   const getTeamsDepartmentApi = useAddNewApiStore((state) =>
     state.getTeamsDepartmentApi()
   );
+  const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
+  const getSettingsCollection = useStore((state) => state.getSettingsCollection());
+
   const getPriorityApi = useAddNewApiStore((state) => state.getPriorityApi());
   const getRequestType = useAddNewApiStore((state) => state.getRequestType());
   const getService = useAddNewApiStore((state) => state.getService());
@@ -67,7 +72,9 @@ const SingleLayoutAddNewTicket = () => {
 
   const [Suboptions, setSuboptions] = React.useState([]);
 
+  const [layoutOrder, setLayoutOrder] = useState<any[]>([]);
 
+  const [closePanel,setClosePanel] = useState<boolean>(false);
 
   // VALIDATOR FUNCTION
 
@@ -157,6 +164,41 @@ const SingleLayoutAddNewTicket = () => {
   }, [getTeamsDepartmentApi, getPriorityApi, getRequestType, getSubService, getService]);
 
 
+  //  ALL USEEFFECT WILL BE HERE.
+
+  useEffect(() => {
+    if (getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length > 0) {
+      const checkboxFields = getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields
+      const data: any[] = JSON.parse(checkboxFields);
+      if (data && data?.length > 0) {
+        console.log("%c checkbox SET TO ORDER","background-color:red", data);
+        setLayoutOrder(data);
+      }
+    }
+  }, [getRequestFieldsCheckbox]);
+
+  //
+
+  useEffect(() => {
+    // if (getSettingsCollection) {
+      const DraggableTemplate = [
+        { id: 6, Name: "Title", isChecked: true },
+        { id: 0, Name: "Teams", isChecked: true },
+        { id: 1, Name: "Services", isChecked: true },
+        { id: 2, Name:"Sub Services", isChecked: true },
+        { id: 3, Name: 'Priority', isChecked: false },
+        { id: 4, Name: 'Request Type', isChecked: false },
+        { id: 5, Name: 'Description', isChecked: true }
+      ]
+      DefaultLayoutItemsNames = DraggableTemplate;
+      setLayoutOrder(DraggableTemplate);
+      console.log("DraggableTemplate", DraggableTemplate);
+    // }
+  }, [])
+
+  //
+  
+
   // <-------------------- TEAMS DEPARTMENT FUNCTION ------------------->
   // IT'S TEAMS BASED PRIORITY & REQUEST TYPE.
   function getTeamDetails(data) {
@@ -169,8 +211,8 @@ const SingleLayoutAddNewTicket = () => {
       ProcessTypeoptions3.push({
         text: data[y].Title,
         key: data[y].Onqueue,
-        label:data[y].Title,
-        value:data[y].Title,
+        label: data[y].Title,
+        value: data[y].Title,
         name: data[y].Title,
       });
     }
@@ -245,7 +287,7 @@ const SingleLayoutAddNewTicket = () => {
       });
     }
     setSuboptions(ProcessTypeoptions1);
-  } 
+  }
   // <------------------ TEAMS DEPARTMENT ONCHANGE -------------->
   const handleTeamsOnChange = (event,
     item) => {
@@ -299,61 +341,74 @@ const SingleLayoutAddNewTicket = () => {
   };
   // <------------------ PRIORITY ONCHANGE -------------->
 
-  const handlePriorityOnChange =( event: React.FormEvent<HTMLDivElement>,
-    item: IDropdownOption)=>{
+  const handlePriorityOnChange = (event: React.FormEvent<HTMLDivElement>,
+    item: IDropdownOption) => {
     setDefltPriority(item.key as string);
   }
 
   // <------------------ REQUEST TYPE ONCHANGE -------------->
-  const handleRequestTypeOnChange =( event: React.FormEvent<HTMLDivElement>,
-    item: IDropdownOption)=>{
+  const handleRequestTypeOnChange = (event: React.FormEvent<HTMLDivElement>,
+    item: IDropdownOption) => {
     setDefltReq(item.key as string);
   }
   return (
     <>
       <SingleLayoutHeader
-       propsData={{teamsoptionarray,handleTeamsOnChange,serviceOption,handleServiceOnChange,defltService,subserviceOption,handleSubServiceOnChange,defltSubService,priorityoptions,
-        defltPriority,handlePriorityOnChange,handleRequestTypeOnChange,
-        requestoptions,defltTeam,defltReq
-       }}/>
-    <div className="add-new-ticket-ui-style">
-      {/* Title ui */}
-      <TextField
-        placeholder="Enter request title"
-        multiline={isMultiline}
-        onChange={onChangeRequestTitle}
-      />
-      {/* Teams ui */}
-      <Dropdown
-        options={teamsoptionarray}
-        onChange={handleTeamsOnChange}
-        placeholder="Select teams"
-        selectedKey={defltTeam}
-      />
+        propsData={{
+          teamsoptionarray, handleTeamsOnChange, serviceOption, handleServiceOnChange, defltService, subserviceOption, handleSubServiceOnChange, defltSubService, priorityoptions,
+          defltPriority, handlePriorityOnChange, handleRequestTypeOnChange,
+          requestoptions, defltTeam, defltReq,closePanel,setClosePanel
+        }} />
+      <div className="add-new-ticket-ui-style">
+        {layoutOrder?.map((item, index) => {
+          console.log(item);
+          return (
+            // {item?.Name}
+            <>
+              {item?.Name === "Title" && item?.isChecked===true ? <TextField
+                placeholder="Enter request title"
+                multiline={isMultiline}
+                onChange={onChangeRequestTitle}
+              /> : item?.Name === "Teams" && item?.isChecked===true ? <Dropdown
+                options={teamsoptionarray}
+                onChange={handleTeamsOnChange}
+                placeholder="Select teams"
+                selectedKey={defltTeam}
+              /> : item?.Name === "Services" && item?.isChecked===true ? <Dropdown
+                options={serviceOption}
+                onChange={handleServiceOnChange}
+                placeholder="Select services"
+                selectedKey={defltService}
+              /> : item?.Name === "Sub Services" && item?.isChecked===true ? <Dropdown
+                options={subserviceOption}
+                onChange={handleSubServiceOnChange}
+                placeholder="Select sub services"
+                selectedKey={defltSubService}
+              /> : item?.Name === "Description" && item?.isChecked===true ? <TextField
+                placeholder="Please Elaborate your query..."
+                multiline
+                rows={3}
+              /> : item?.Name === "Request Type" && item?.isChecked===true ? <Dropdown
+                options={requestoptions}
+                onChange={handleRequestTypeOnChange}
+                placeholder="Select request type"
+                selectedKey={defltReq}
+              /> : item?.Name === "Priority" && item?.isChecked===true ? <Dropdown
+                options={priorityoptions}
+                onChange={handlePriorityOnChange}
+                placeholder="Select priority"
+                selectedKey={defltPriority}
+              /> : null}
+            </>
 
-      {/* Service ui */}
-      <Dropdown
-        options={serviceOption}
-        onChange={handleServiceOnChange}
-        placeholder="Select services"
-        selectedKey={defltService}
-      />
-      {/* Sub Service ui */}
-      <Dropdown
-        options={subserviceOption}
-        onChange={handleSubServiceOnChange}
-        placeholder="Select sub services"
-        selectedKey={defltSubService}
-      />
-      {/* Description ui */}
-      <TextField
-        placeholder="Please Elaborate your query..."
-        multiline
-        rows={3}
-      />
-    </div>
+          )
+        })}
+      </div>
+
+
     </>
   );
 };
 
 export default SingleLayoutAddNewTicket;
+

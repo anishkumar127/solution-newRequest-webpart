@@ -55,7 +55,7 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
     fetchRequestFieldsCheckboxData();
 
-  }, []);
+  }, [openModel]);
 
   useEffect(()=>{
     if(getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length>0){
@@ -66,7 +66,7 @@ const SingleLayoutHeader = ({ propsData }) => {
         setDraggedOrderData(data);
       }
     }
-  },[])
+  },[getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields,openModel])
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {
     console.log("clicked")
@@ -97,7 +97,8 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
   }
 
-  //
+// <---------------------------------- CHECKBOX ON CHANGE HANDLER ---------------------------->
+
   const onChangeCheckbox = (ev: React.FormEvent<HTMLInputElement>, isChecked: boolean) => {
 
     console.log("Checkbox =>", ev, "isChecked => ", isChecked);
@@ -136,27 +137,28 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
   }
 
-  //
+// <----------------------------------   SUBMIT CHECKBOX SETTINGS ---------------------------->
+
   const onSubmit = (e) => {
-   console.log("e checkbox submit",e);
-   console.log("onSubmit",draggedOrderData);
    if(draggedOrderData && draggedOrderData?.length>0){
-    // FILTERING MANDATORY FIELDS.
-    //  const filteredData = draggedOrderData?.filter((item)=> {
-    //   const isPresent = mandatoryFields?.some((items)=>items === item?.Name);
-    //     return !isPresent;
-    //  });
-    //  console.log("filteredData",filteredData);
-
-     // MERGE & POST 
-    //  if(filteredData && filteredData?.length>0){
-       setRequestFieldsCheckbox(draggedOrderData);
-    //  }
-
+    // COUNT CHECK CHECKED 
+    const checkedCount = draggedOrderData?.reduce((curr,item)=>{
+      return item?.isChecked===true ? curr+1 : curr;
+    },0);
+    console.log('checkedCount',checkedCount);
+    if(checkedCount<=5){
+      setRequestFieldsCheckbox(draggedOrderData);
+      // if(propsData){
+      //   const {closePanel,setClosePanel} = propsData;
+      //   setClosePanel(!closePanel)
+      // }
+    }else{
+      console.log("you only able to select 5 items.")
+    }
    }
   }
 
-// 
+// <----------------------------------   SUBMIT DEFAULT SETTINGS ---------------------------->
   const onDefaultSubmit = (e) => {
 
     console.log("propsData", propsData);
@@ -213,7 +215,6 @@ const SingleLayoutHeader = ({ propsData }) => {
       }
     }
   };
-  console.log("draggedOrderData =>", draggedOrderData);
   return (
     <>
       <div className='add-new-ticket-header-style header-single-layout-add-new-ticket'>
