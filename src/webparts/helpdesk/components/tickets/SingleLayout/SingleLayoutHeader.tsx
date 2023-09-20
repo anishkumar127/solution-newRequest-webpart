@@ -29,6 +29,9 @@ const SingleLayoutHeader = ({ propsData }) => {
   const [draggedOrderData, setDraggedOrderData] = useState<any[]>();
 
   // <----------------------- UPDATE SWEET ALERT STATES --------------->
+  const [configureRequestUpdate, setConfigureRequestUpdate] = useState<boolean>(false);
+  const [maxSelect, setMaxSelect] = useState<boolean>(false);
+  const [selectDefaultValue, setSelectDefaultValue] = useState<boolean>(false);
 
   useEffect(() => {
     if (getSettingsCollection) {
@@ -150,34 +153,57 @@ const SingleLayoutHeader = ({ propsData }) => {
         return item?.isChecked === true ? curr + 1 : curr;
       }, 0);
       console.log('checkedCount', checkedCount);
+      console.log("%c submitData", 'color:purple', draggedOrderData);
+
+      // FILTER NOT SELECTED ITEM & MAKE IT DEFAULT SELECT VALUE;
+      const notSelected = draggedOrderData?.filter((item) => !item.isChecked)
+      console.log("notSelected", notSelected);
+
       if (checkedCount <= 5) {
-        setRequestFieldsCheckbox(draggedOrderData);
-        // if(propsData){
-        //   const {closePanel,setClosePanel} = propsData;
-        //   setClosePanel(!closePanel)
-        // }
+        onDefaultSubmit(draggedOrderData, notSelected);
+        setConfigureRequestUpdate(true);
+        setTimeout(() => {
+          setConfigureRequestUpdate(false);
+        }, 2000);
       } else {
+        setMaxSelect(true);
+        setTimeout(() => {
+          setMaxSelect(false);
+        }, 2000);
         console.log("you only able to select 5 items.")
       }
     }
   }
 
   // <----------------------------------   SUBMIT DEFAULT SETTINGS ---------------------------->
-  const onDefaultSubmit = (e) => {
-
+  const onDefaultSubmit = async (draggedOrderData, notSelected) => {
     console.log("propsData", propsData);
     const { defltTeam, defltService, defltSubService, defltReq, defltPriority } = propsData;
-    if (defltTeam && defltService && defltSubService && defltReq && defltPriority) {
-      const defaultData = {
-        Teams: defltTeam,
-        Service: defltService,
-        'Sub Service': defltSubService,
-        'Request Type': defltReq,
-        Priority: defltPriority
-      }
-      console.log("defaultData", defaultData);
-      if (defaultData) {
-        setDefaultRequestSettings(defaultData);
+    // if (defltTeam && defltService && defltSubService && defltReq && defltPriority) 
+    const defaultData = {
+      Teams: defltTeam,
+      Services: defltService,
+      'Sub Services': defltSubService,
+      'Request Type': defltReq,
+      Priority: defltPriority
+    }
+
+    const isValue = !notSelected.some((item) => {
+      const defaultItem = defaultData[item?.Name];
+      return defaultItem === undefined || defaultItem === null;
+    });
+    if (!isValue) {
+      setSelectDefaultValue(true);
+      setTimeout(() => {
+        setSelectDefaultValue(false);
+      }, 2000);
+    } else {
+      try {
+        await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
+        await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
+        await setDefaultRequestSettings(defaultData); // POSTING Default Data.
+      } catch (error) {
+        console.error("api post calls error", error);
       }
     }
   }
@@ -251,123 +277,127 @@ const SingleLayoutHeader = ({ propsData }) => {
               }
             }}
           >
-         <div style={{display:"flex"}}>
-         <span className='configure-request-title'>Configure Request</span>
-            <IconButton
-              styles={iconButtonStyles}
-              className='draggable-model-close-btn'
-              iconProps={cancelIcon}
-              ariaLabel="Close popup modal"
-              onClick={() => setOpenModel(false)}
-            />
-         </div>
+            <div style={{ display: "flex" }}>
+              <span className='configure-request-title'>Configure Request</span>
+              <IconButton
+                styles={iconButtonStyles}
+                className='draggable-model-close-btn'
+                iconProps={cancelIcon}
+                ariaLabel="Close popup modal"
+                onClick={() => setOpenModel(false)}
+              />
+            </div>
             {/* <div className='draggble-container'> */}
-              {/* DRAGGABLE CONTENT */}
-              <div className='draggable-one'>
-                <DragDropContext onDragEnd={handleDragEnd}>
-                  {/* HI from another side. */}
-                  <Droppable droppableId={"ROOT"} type={"group"}>
-                    {
-                      (provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef}>
-                          {draggedOrderData && draggedOrderData?.length > 0 && draggedOrderData?.map((item, index) =>
-                            <Draggable draggableId={item?.id + ""} key={item?.id} index={index}>
-                              {(provided) => (
-                                <div
-                                  {...provided.dragHandleProps}
-                                  {...provided.draggableProps}
-                                  ref={provided.innerRef}
+            {/* DRAGGABLE CONTENT */}
+            <div className='draggable-one'>
+              <DragDropContext onDragEnd={handleDragEnd}>
+                {/* HI from another side. */}
+                <Droppable droppableId={"ROOT"} type={"group"}>
+                  {
+                    (provided) => (
+                      <div {...provided.droppableProps} ref={provided.innerRef}>
+                        {draggedOrderData && draggedOrderData?.length > 0 && draggedOrderData?.map((item, index) =>
+                          <Draggable draggableId={item?.id + ""} key={item?.id} index={index}>
+                            {(provided) => (
+                              <div
+                                {...provided.dragHandleProps}
+                                {...provided.draggableProps}
+                                ref={provided.innerRef}
 
-                                >
-                                  <div className='draggble-content-label'>
-                                    {item?.Name}
+                              >
+                                <div className='draggble-content-label'>
+                                  {item?.Name}
+                                </div>
+                                <div className='draggble-content-root'>
+
+                                  <div style={{ width: "10px" }}>
+                                    <Icon iconName="GripperDotsVertical"></Icon>
                                   </div>
-                                  <div className='draggble-content-root'>
+                                  <div style={{ width: "20px" }}>
+                                    <Checkbox
+                                      styles={checkboxStyle}
+                                      checked={
+                                        item?.isChecked
+                                        // mandatoryFields?.some((items) => items === item?.Name)
+                                      }
+                                      title={item?.Name}
+                                      id={item?.id + ""}
+                                      onChange={onChangeCheckbox}
+                                    />
+                                  </div>
+                                  <div style={{ width: "calc(100% - 40px)" }} className='draggable-model-dropdown'>
+                                    {item?.Name === "Teams" ? <Dropdown
+                                      // label={"Teams"}
+                                      options={propsData?.teamsoptionarray}
+                                      onChange={propsData?.handleTeamsOnChange}
+                                      placeholder="Select teams"
+                                      selectedKey={propsData?.defltTeam}
+                                    /> : item?.Name === "Services" ? <Dropdown
+                                      // label={"Service"}
 
-                                    <div style={{width:"10px"}}>
-                                      <Icon iconName="GripperDotsVertical"></Icon>
-                                    </div>
-                                    <div style={{width:"20px"}}>
-                                      <Checkbox
-                                        styles={checkboxStyle}
-                                        checked={
-                                          item?.isChecked
-                                          // mandatoryFields?.some((items) => items === item?.Name)
-                                        }
-                                        title={item?.Name}
-                                        id={item?.id + ""}
-                                        onChange={onChangeCheckbox}
+                                      options={propsData?.serviceOption}
+                                      onChange={propsData?.handleServiceOnChange}
+                                      placeholder="Select services"
+                                      selectedKey={propsData?.defltService}
+                                    /> : item?.Name === "Sub Services" ?
+                                      <Dropdown
+                                        // label={"Sub Service"}
+
+                                        options={propsData?.subserviceOption}
+                                        onChange={propsData?.handleSubServiceOnChange}
+                                        placeholder="Select sub services"
+                                        selectedKey={propsData?.defltSubService}
                                       />
-                                    </div>
-                                    <div style={{width:"calc(100% - 40px)"}} className='draggable-model-dropdown'>
-                                      {item?.Name === "Teams" ? <Dropdown
-                                        // label={"Teams"}
-                                        options={propsData?.teamsoptionarray}
-                                        onChange={propsData?.handleTeamsOnChange}
-                                        placeholder="Select teams"
-                                        selectedKey={propsData?.defltTeam}
-                                      /> : item?.Name === "Services" ? <Dropdown
-                                        // label={"Service"}
+                                      : item?.Name === "Priority" ? <Dropdown
+                                        //  label={"Priority"}
 
-                                        options={propsData?.serviceOption}
-                                        onChange={propsData?.handleServiceOnChange}
-                                        placeholder="Select services"
-                                        selectedKey={propsData?.defltService}
-                                      /> : item?.Name === "Sub Services" ?
-                                        <Dropdown
-                                          // label={"Sub Service"}
+                                        options={propsData?.priorityoptions}
+                                        onChange={propsData?.handlePriorityOnChange}
+                                        placeholder="Select priority"
+                                        // defaultSelectedKey={propsData?.defltPriority}
+                                        selectedKey={propsData?.defltPriority}
+                                      /> : item?.Name === "Request Type" ? <Dropdown
+                                        //  label={"Request Type"}
 
-                                          options={propsData?.subserviceOption}
-                                          onChange={propsData?.handleSubServiceOnChange}
-                                          placeholder="Select sub services"
-                                          selectedKey={propsData?.defltSubService}
-                                        />
-                                        : item?.Name === "Priority" ? <Dropdown
-                                          //  label={"Priority"}
-
-                                          options={propsData?.priorityoptions}
-                                          onChange={propsData?.handlePriorityOnChange}
-                                          placeholder="Select priority"
-                                          // defaultSelectedKey={propsData?.defltPriority}
-                                          selectedKey={propsData?.defltPriority}
-                                        /> : item?.Name === "Request Type" ? <Dropdown
-                                          //  label={"Request Type"}
-
-                                          options={propsData?.requestoptions}
-                                          onChange={propsData?.handleRequestTypeOnChange}
-                                          placeholder="Select request type"
-                                          selectedKey={propsData?.defltReq}
-                                        /> : item?.Name ==="Description" ? <Dropdown
+                                        options={propsData?.requestoptions}
+                                        onChange={propsData?.handleRequestTypeOnChange}
+                                        placeholder="Select request type"
+                                        selectedKey={propsData?.defltReq}
+                                      /> : item?.Name === "Description" ? <Dropdown
                                         disabled
                                         options={propsData?.requestoptions}
                                         onChange={propsData?.handleRequestTypeOnChange}
                                         placeholder="Description"
                                         selectedKey={"Description"}
-                                      />: item?.Name  === "Title" ?<Dropdown
-                                      options={propsData?.requestoptions}
-                                      onChange={propsData?.handleRequestTypeOnChange}
-                                      placeholder="Title"
-                                      disabled
-                                      selectedKey={"Title"}
-                                    /> : null}
+                                      /> : item?.Name === "Title" ? <Dropdown
+                                        options={propsData?.requestoptions}
+                                        onChange={propsData?.handleRequestTypeOnChange}
+                                        placeholder="Title"
+                                        disabled
+                                        selectedKey={"Title"}
+                                      /> : null}
 
-                                    </div>
                                   </div>
                                 </div>
-                              )}
-                            </Draggable>
+                              </div>
+                            )}
+                          </Draggable>
 
-                          )}
-                          {provided?.placeholder}
-                        </div>
-                      )
-                    }
-                  </Droppable>
-                </DragDropContext>
-              </div>
+                        )}
+                        {provided?.placeholder}
+                      </div>
+                    )
+                  }
+                </Droppable>
+              </DragDropContext>
+            </div>
             {/* </div> */}
             {/* NOTES: */}
-            {/* <div>Notes: HI</div> */}
+            <div style={{padding: "10px 20px",display:"flex"}}><strong>Note:</strong>
+            <div className='draggble-model-short-note'>
+              You can select a maximum of 5 fields at a time. For any field you do not select, please ensure you set its default value.</div>
+              </div>
+
             {/* Submit & Cancel Button */}
             <div style={{ gap: "20px", paddingBottom: "12px" }} className='add-new-installation-common-style-btn-input'>
               <button className='add-new-installation-submit-btn' onClick={onSubmit}>Save</button>
@@ -377,20 +407,52 @@ const SingleLayoutHeader = ({ propsData }) => {
         </div>
       }
 
+<div id="ConfigureRequest"/>
+      {/* POPUP SWEET ALETS */}
+      {
+        configureRequestUpdate && <ReusableSweetAlerts
+          type="success"
+          title="Skip"
+          text={
+            "Updated successfully!"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
 
-{/* POPUP SWEET ALETS */}
-<ReusableSweetAlerts
-              type="success"
-              title="Skip"
-              text={
-              "Updated successfully!"
-              }
-              isBehindVisible={false}
-              isConfirmBtn={false}
-              id={"#InsideDialog5"}
-              countdown={2000}
-              popupCustomClass={"general-settings"}
-            />
+      }
+      {
+        maxSelect && <ReusableSweetAlerts
+          type="warning"
+          title="Skip"
+          text={
+            "Please select up to 5."
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+      }
+
+      {
+        selectDefaultValue && <ReusableSweetAlerts
+          type="warning"
+          title="Skip"
+          text={
+            "Please select default value"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+      }
     </>
   )
 }
