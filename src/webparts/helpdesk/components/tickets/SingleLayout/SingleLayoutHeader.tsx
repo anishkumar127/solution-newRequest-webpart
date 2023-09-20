@@ -157,19 +157,24 @@ const SingleLayoutHeader = ({ propsData }) => {
   }
 
 // 
-const onDefaultSubmit = (e)=>{
+  const onDefaultSubmit = (e) => {
 
-console.log("propsData",propsData);
-  // setDefaultRequestSettings();
-  const defaultData ={
-    Teams:propsData?.defltTeam,
-    Service:propsData?.defltService,
-    'Sub Service':propsData?.defltSubService,
-    'Request Type':propsData?.defltReq,
-    Priority:propsData?.defltPriority
+    console.log("propsData", propsData);
+    const { defltTeam, defltService, defltSubService, defltReq, defltPriority } = propsData;
+    if (defltTeam && defltService && defltSubService && defltReq && defltPriority) {
+      const defaultData = {
+        Teams: defltTeam,
+        Service: defltService,
+        'Sub Service': defltSubService,
+        'Request Type': defltReq,
+        Priority: defltPriority
+      }
+      console.log("defaultData", defaultData);
+      if (defaultData) {
+        setDefaultRequestSettings(defaultData);
+      }
+    }
   }
-  console.log("defaultData",defaultData);
-}
 
   //
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
