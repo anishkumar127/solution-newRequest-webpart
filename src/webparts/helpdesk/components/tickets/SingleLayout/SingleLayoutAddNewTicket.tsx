@@ -240,7 +240,7 @@ const SingleLayoutAddNewTicket = () => {
       });
     }
     setSuboptions(ProcessTypeoptions1);
-  }
+  } 
   // <------------------ TEAMS DEPARTMENT ONCHANGE -------------->
   const handleTeamsOnChange = (event,
     item) => {
