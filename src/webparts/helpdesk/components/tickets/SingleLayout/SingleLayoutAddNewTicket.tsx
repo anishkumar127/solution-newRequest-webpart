@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TextField } from "@fluentui/react";
+import { IChoiceGroupOption, TextField } from "@fluentui/react";
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
 import SingleLayoutHeader from "./SingleLayoutHeader";
@@ -169,6 +169,8 @@ const SingleLayoutAddNewTicket = () => {
       ProcessTypeoptions3.push({
         text: data[y].Title,
         key: data[y].Onqueue,
+        label:data[y].Title,
+        value:data[y].Title,
         name: data[y].Title,
       });
     }
@@ -295,9 +297,25 @@ const SingleLayoutAddNewTicket = () => {
       setIsMultiline(!isMultiline);
     }
   };
+  // <------------------ PRIORITY ONCHANGE -------------->
+
+  const handlePriorityOnChange =( event: React.FormEvent<HTMLDivElement>,
+    item: IDropdownOption)=>{
+    setDefltPriority(item.key as string);
+  }
+
+  // <------------------ REQUEST TYPE ONCHANGE -------------->
+  const handleRequestTypeOnChange =( event: React.FormEvent<HTMLDivElement>,
+    item: IDropdownOption)=>{
+    setDefltReq(item.key as string);
+  }
   return (
     <>
-      <SingleLayoutHeader/>
+      <SingleLayoutHeader
+       propsData={{teamsoptionarray,handleTeamsOnChange,serviceOption,handleServiceOnChange,defltService,subserviceOption,handleSubServiceOnChange,defltSubService,priorityoptions,
+        defltPriority,handlePriorityOnChange,handleRequestTypeOnChange,
+        requestoptions
+       }}/>
     <div className="add-new-ticket-ui-style">
       {/* Title ui */}
       <TextField

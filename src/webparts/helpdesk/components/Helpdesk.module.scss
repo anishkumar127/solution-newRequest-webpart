@@ -2856,6 +2856,40 @@
     font-size: 12px;
     margin-top: 5px;
   }
+
+  // <---------------------------------- DRAG & DROP ADD NEW WEBPART ------------------------>
+  .draggble-content-root{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 10px;
+}
+  
+.draggble-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* display: flex; */
+  align-items: baseline;
+  // height: 200px;
+}
+.draggable-model-root{
+  // .ms-Overlay{
+  //   padding: 400px;
+  // }
+  .ms-Dialog-main{
+    .ms-Modal-scrollableContent{
+      // height: calc(100vh - 140px);
+      overflow-y: unset !important;
+    }
+  }
+  .ms-Dialog-main .ms-Modal-scrollableContent {
+    overflow-y: unset !important;
+}
+  
+}
+.ms-Dialog-main .ms-Modal-scrollableContent {
+  overflow-y: unset !important;
+}
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END
   // anish127
