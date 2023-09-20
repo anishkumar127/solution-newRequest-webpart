@@ -14,11 +14,7 @@ import { IHelpdeskProps } from "./components/IHelpdeskProps";
 import SettingService from "./loc/Services/SettingService";
 import ContextService from "./loc/Services/ContextService";
 import { ListEnsureResult, Web } from "sp-pnp-js";
-import {
-  ISPHttpClientOptions,
-  SPHttpClient,
-  SPHttpClientResponse,
-} from "@microsoft/sp-http";
+import { ISPHttpClientOptions, SPHttpClient, SPHttpClientResponse } from "@microsoft/sp-http";
 export interface IHelpdeskWebPartProps {
   description: string;
 }
@@ -131,6 +127,7 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
 
   protected onInit(): Promise<void> {
     ContextService.Init(
+      // @ts-ignore
       this.context.spHttpClient,
       this.context.httpClient,
       this.context.msGraphClientFactory,
@@ -154,12 +151,16 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
     };
 
     this.context.spHttpClient
+    // @ts-ignore
       .post(url, SPHttpClient.configurations.v1, spHttpClientOptionsstSetting)
+      // @ts-ignore
       .then((response: SPHttpClientResponse) => {
         this.createColumnsAddNewWebpart().then(() => {
           this.setDefaultValueAddNewTicketsWebparts();
           console.log("List Created!", Date.now());
         });
+      })  .catch((error: any) => {
+        console.error("Error List Creation ?:", error);
       });
 
     return this._getEnvironmentMessage().then((message) => {

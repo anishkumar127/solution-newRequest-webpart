@@ -450,7 +450,6 @@ const SingleLayoutAddNewTicket = () => {
                   selectedKey={defltPriority}
                 /> : null}
             </Fragment>
-
           )
         })}
       </div>

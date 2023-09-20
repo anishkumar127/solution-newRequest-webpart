@@ -2289,6 +2289,7 @@
   body.swal2-no-backdrop .swal2-container {
     background-color: rgba(0, 0, 0, 0.5) !important;
     pointer-events: unset !important;
+    z-index: 300000000000 !important;
   }
 
   .general-settings {
@@ -2946,7 +2947,10 @@
     font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     margin-left: 5px;
   }
-
+  // Swal container Z-Index.
+.swal2-container .swal2-center .swal2-backdrop-show{
+  z-index: 300000000000 !important;
+}
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END
   // anish127
