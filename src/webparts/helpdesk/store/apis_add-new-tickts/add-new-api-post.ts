@@ -33,15 +33,15 @@ export const useRequestPost = create(
                 body: JSON.stringify(TemplateData),
               }
             )
-            .then((response: SPHttpClientResponse) => {
-              if (response.ok) {
-                return response.json();
-              } else {
-                throw new Error(
-                  `Request failed with status: ${response.status}`
-                );
-              }
-            });
+            // .then((response: SPHttpClientResponse) => {
+            //   if (response.ok) {
+            //     return response.json();
+            //   } else {
+            //     throw new Error(
+            //       `Request failed with status: ${response.status}`
+            //     );
+            //   }
+            // });
         }
       } catch (error) {
         console.error("Posting RequestCheckbox Error", error);
@@ -71,15 +71,15 @@ export const useRequestPost = create(
                     body: JSON.stringify(TemplateData),
                   }
                 )
-                .then((response: SPHttpClientResponse) => {
-                  if (response.ok) {
-                    return response.json();
-                  } else {
-                    throw new Error(
-                      `Request failed with status: ${response.status}`
-                    );
-                  }
-                });
+                // .then((response: SPHttpClientResponse) => {
+                //   if (response.ok) {
+                //     return response.json();
+                //   } else {
+                //     throw new Error(
+                //       `Request failed with status: ${response.status}`
+                //     );
+                //   }
+                // });
             }
           } catch (error) {
             console.error("Posting RequestCheckbox Error", error);
