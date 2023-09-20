@@ -159,7 +159,7 @@ const SingleLayoutHeader = ({ propsData }) => {
       const notSelected = draggedOrderData?.filter((item) => !item.isChecked)
       console.log("notSelected", notSelected);
 
-      if (checkedCount <= 5) {
+      if (checkedCount == 5) {
         onDefaultSubmit(draggedOrderData, notSelected);
         setConfigureRequestUpdate(true);
         setTimeout(() => {
@@ -188,27 +188,461 @@ const SingleLayoutHeader = ({ propsData }) => {
       Priority: defltPriority
     }
 
-    const isValue = !notSelected.some((item) => {
-      const defaultItem = defaultData[item?.Name];
-      return defaultItem === undefined || defaultItem === null;
-    });
-    if (!isValue) {
-      setSelectDefaultValue(true);
-      setTimeout(() => {
-        setSelectDefaultValue(false);
-      }, 2000);
-    } else {
+    // const isValue = !notSelected.some((item) => {
+    //   const defaultItem = defaultData[item?.Name];
+    //   return defaultItem === undefined || defaultItem === null;
+    // });
+    // if (!isValue) {
+    //   setSelectDefaultValue(true);
+    //   setTimeout(() => {
+    //     setSelectDefaultValue(false);
+    //   }, 2000);
+    // } else {
       try {
         await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
         await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
         await setDefaultRequestSettings(defaultData); // POSTING Default Data.
+        setOpenModel(false);
       } catch (error) {
         console.error("api post calls error", error);
       }
-    }
+    // }
   }
 
-  //
+  // <----------------------------------   SUBMIT TICKETS  ---------------------------->
+  // const SubmitTicket = () => {
+  //   let AlldesccolumnsValues = []
+  //   let autoAssignEmailId = null;
+  //   let requester = " ";
+  //   let requesterDisplayName = "";
+  //   let internalexternal = "";
+  //   if (requestername.length > 0) {
+  //     requester = requestername[0].id;
+  //     requesterDisplayName = requestername[0].name;
+  //   } else {
+  //     requester = null;
+  //     // requesterDisplayName = "";
+  //   }
+  //   TicketPropertiesValue.push({
+  //     TicketOpenDate: "",
+  //     InternalExtrenal: "Internal",
+  //     CCMail: ccemailid,
+  //     Read: "Unread",
+  //     DepartmentCode: teamname,
+  //     SubTickets: "",
+  //     LastSubTicketCharacter: "",
+  //     MediaSource: mediaChoosed,
+  //     CustomFormID: isStringValidated(CustomFormID) ? CustomFormID : '',
+  //     PushNotification: 'Active',
+  //     TicketDescription: "Inside"
+  //   });
+
+  //   //for SLAResponse:
+  //   SLAResponseInfo.push({
+  //     SLAResponseBreach: "No",
+  //     SLAResponseBreachOn: '',
+  //     SLAResponseReplyTime: '',
+  //     SLAResponseReplyDate: '',
+  //     SLAResponseReplyDay: '', //(ex:Monday...)
+  //     SLAResponseEscalateTime: '', //from Define SLAsettings
+  //     SLAResponseAlertTime: '',
+  //     SLAResponseNotifyType: '',
+  //     SLAResponseAlertTo: '',
+  //     SLAResponseMailSub: '', //from email notification subject
+  //     SLAResponseMailBody: '',
+  //   })
+  //   //for SLAResponse:
+  //   SLAResolveInfo.push({
+  //     SLAResolveBreach: "No",
+  //     SLAResolveBreachOn: '',
+  //     SLAResolveReplyTime: '',
+  //     SLAResolveReplyDate: '',
+  //     SLAResolveReplyDay: '', //(ex:Monday...)
+  //     SLAResolveEscalateTime: '', //from Define SLAsettings
+  //     SLAResolveAlertTime: '',
+  //     SLAResolveNotifyType: '',
+  //     SLAResolveAlertTo: '',
+  //     SLAResolveMailSub: '', //from email notification subject
+  //     SLAResolveMailBody: '',
+  //   })
+
+
+
+  //   let flag = false;
+  //   let flag1 = false;
+  //   let flag2 = false;
+  //   let flag3 = false;
+  //   let flag4 = false;
+  //   let flag5 = false;
+  //   let flag6 = false;
+  //   let flag7 = false;
+  //   if (
+  //     (Titlename == null ||
+  //       Titlename == "" ||
+  //       Titlename == undefined ||
+  //       Titlename.trim() == null ||
+  //       Titlename.trim() == "" ||
+  //       Titlename.trim() == undefined) && MandatoryFields.includes("Title")
+  //   ) {
+  //     setNewerror2(true);
+  //     settitlename("");
+     
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag = true;
+  //   }
+  //   if (requestname == null || requestname == "" || requestname == undefined) {
+  //     setNewerror3(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag1 = true;
+  //   }
+  //   if (
+  //     (priorityName == null ||
+  //       priorityName == "" ||
+  //       priorityName == undefined) && MandatoryFields.includes("Priority")
+  //   ) {
+  //     setNewerror4(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag2 = true;
+  //   }
+  //   if (
+  //     (servicename == null ||
+  //       servicename == "" ||
+  //       servicename == undefined) && MandatoryFields.includes("Services")
+  //   ) {
+  //     setNewerrorService(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag6 = true;
+  //   }
+  //   if (
+  //     (subservicename == null ||
+  //       subservicename == "" ||
+  //       subservicename == undefined) && MandatoryFields.includes("Sub Services")
+  //   ) {
+  //     setNewerrorSubService(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag6 = true;
+  //   }
+  //   if (requester == null || requester == "" || requester == undefined) {
+  //     setNewerror5(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag3 = true;
+  //   }
+  //   if (
+  //     (globalMessage == null ||
+  //       globalMessage == "" ||
+  //       globalMessage == undefined) && MandatoryFields.includes("Ticket Description")
+  //   ) {
+  //     setNewerror6(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag4 = true;
+
+  //   }
+  //   if (
+  //     (team == null ||
+  //       team == "" ||
+  //       team == undefined) && MandatoryFields.includes("Teams")
+  //   ) {
+  //     setNewerror7(true);
+  //     setTimeout(() => {
+  //       messageDismiss();
+  //     }, 2000);
+  //     flag5 = true;
+  //   }
+
+  //   if (AutoAssignTicket !== "Off") {
+  //     if (AutoAssignTicketMethod == "RoundRobin") {
+  //       RoundRobin();
+  //     } else if (AutoAssignTicketMethod == "WeightedRoundRobin") {
+  //       weightRound();
+  //     }
+
+  //     var filtered = userList.filter((item) => {
+  //       return (item.UsersId == lastAssignid);
+  //     });
+  //     filtered.map((i) => {
+  //       autoAssignEmailId = i.Email;
+  //     });
+  //   }
+  //   let FilterWorkFlowFilterData;
+  //   if (WorkFlowData != null && WorkFlowData.length > 0 && WorkFlowData != undefined) {
+  //     // let withoutsubserviceWorkflow = WorkFlowData.filter(x => !isStringValidated(x.SubServiceName))      
+  //     FilterWorkFlowFilterData = WorkFlowData.findIndex((i) => {
+  //       if (!isStringValidated(i.SubServiceName)) {
+
+  //         return (i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename))
+  //       }
+  //     })
+  //     if (subservicename != null && subservicename != '' && subservicename != undefined) {
+  //       let subserviceWorkflow = WorkFlowData.filter(x => isStringValidated(x.SubServiceName))
+
+
+  //       let index = subserviceWorkflow.findIndex((i) => {
+  //         if (isStringValidated(i.SubServiceName)) {
+  //           return i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename) &&
+  //             i.SubServiceNames?.startsWith(',') ? i.SubServiceName?.slice(1)?.split(',')?.includes(subservicename) :
+  //             i.SubServiceName?.split(',')?.includes(subservicename)
+  //         }
+  //       })
+  //       if (index > -1) {
+  //         FilterWorkFlowFilterData = index
+
+  //       }
+
+
+
+  //     }
+  //   }
+
+  //   groups.forEach((e) => {
+  //     if (e.name === "HDM365Admin" || e.name === "HDM365PowerUser" || e.name === "HDM365" + teamname) {
+  //       allid.push(e.id)
+  //     }
+  //   })
+  //   allid.push(requester)
+  //   let finalTemplate;
+  //   if (AutoAssignTicket == "Off" || FilterWorkFlowFilterData > -1) {
+  //     finalTemplate = {
+  //       Title:
+  //         Titlename == "" || Titlename == null || Titlename == undefined
+  //           ? Titlename
+  //           : Titlename.trim(),
+  //       DepartmentName: team,
+  //       Services: servicename,
+  //       SubServices: subservicename,
+  //       SubServicesL2: level2SubServicedefault,
+  //       SubServicesL3: level3Subservicedefault,
+  //       Priority: priorityName,
+  //       RequestType: requestname,
+  //       RequesterId: requester,
+  //       TicketDescription: globalMessage,
+  //       TicketDescInTextformat: globalMessage.replace(/<[^>]*>/g, ''),
+  //       //DepartmentCode: teamname,
+  //       TicketProperties: JSON.stringify(TicketPropertiesValue),
+  //       RequesterEmail: requesterEmailId,
+  //       RequesterName: requesterDisplayName,
+  //       TicketCreatedDate: new (Date),
+  //       SLAResponseDone: "No",
+  //       SLAResolveDone: "No",
+  //       SLAResponseInfo: JSON.stringify(SLAResponseInfo),
+  //       SLAResolveInfo: JSON.stringify(SLAResolveInfo),
+  //       ...CustomDateData,
+  //       ReadStatus: '',
+  //       // ItemPermissionId:allid
+  //     };
+  //   } else {
+  //     finalTemplate = {
+  //       Title:
+  //         Titlename == "" || Titlename == null || Titlename == undefined
+  //           ? Titlename
+  //           : Titlename.trim(),
+  //       DepartmentName: team,
+  //       Services: servicename,
+  //       SubServices: subservicename,
+  //       Priority: priorityName,
+  //       RequestType: requestname,
+  //       RequesterId: requester,
+  //       SubServicesL2: level2SubServicedefault,
+  //       SubServicesL3: level3Subservicedefault,
+  //       TicketDescription: globalMessage,
+  //       TicketDescInTextformat: globalMessage.replace(/<[^>]*>/g, ''),
+  //       //DepartmentCode: teamname,
+  //       TicketProperties: JSON.stringify(TicketPropertiesValue),
+  //       AssignedToId: lastAssignid.length == 0 ? null : lastAssignid,
+  //       // assignedT0:
+  //       // finalTemplate.AssignedTo == null ? null : finalTemplate.AssignedTo.Title,
+  //       RequesterEmail: requesterEmailId,
+  //       RequesterName: requesterDisplayName,
+  //       AssignedTomail: autoAssignEmailId,
+  //       TicketCreatedDate: new (Date),
+  //       SLAResponseDone: "No",
+  //       SLAResolveDone: "No",
+  //       SLAResponseInfo: JSON.stringify(SLAResponseInfo),
+  //       SLAResolveInfo: JSON.stringify(SLAResolveInfo),
+  //       ...CustomDateData,
+  //       ReadStatus: '',
+  //       // ItemPermissionId:allid
+  //     };
+  //   }
+
+  //   if (dataText != null) {
+  //     var key;
+  //     for (let value of Object.entries(dataText)) {
+  //       // finalTemplate[value[0].replace(' ','_x0020_')] = value[1];
+  //       finalTemplate[value[0]] = value[1];
+  //     }
+
+  //   }
+  //   if (dataNote != null) {
+  //     var key;
+  //     for (let value of Object.entries(dataNote)) {
+  //       finalTemplate[value[0]] = value[1];
+  //     }
+  //   }
+  //   if (dataNumber != null) {
+  //     var key;
+  //     for (let value of Object.entries(dataNumber)) {
+  //       finalTemplate[value[0]] = value[1];
+  //     }
+  //   }
+
+
+  //   if (dataChoice2 != null) {
+  //     var key;
+  //     for (let value of Object.entries(dataChoice2)) {
+  //       finalTemplate[value[0]] = value[1];
+  //     }
+  //   }
+  //   if (dataChoiceforsub != null) {
+  //     var key;
+  //     for (let value of Object.entries(dataChoiceforsub)) {
+  //       finalTemplate[value[0]] = value[1];
+  //     }
+  //   }
+  
+  //   var Errmessage = "";
+
+
+  //   ColumnProperties.map((item) => {
+  //     const ExistingMainColumn = ticketOrder.filter((elem) => {
+  //       return item[0].InternalName == elem.InternalName;
+  //     });
+  //     if (LicenseType.toLowerCase() == "p4" || LicenseType.toLowerCase() == "trial") {
+  //       if (!isStringValidated(finalTemplate[item[0].InternalName]) && ((ExistingMainColumn.length > 0 && MandatoryFields.includes(item[0].InternalName)))) {
+  //         Errmessage = "Please fill the " + item[0].DisplayName;
+  //         RequiredColumnName = item[0].DisplayName;
+  //       }
+  //     }
+  //   })
+
+  //   for (let i = 0; i < allTicketDescriptionColumns.length; i++) {
+  //     if (isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])) {
+  //       if (allTicketDescriptionColumns[i].Type1 == "DateTime") {
+  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${moment(finalTemplate[allTicketDescriptionColumns[i]['Title']]).format(dateFormart)}</p>`)
+  //       }
+  //       else if (allTicketDescriptionColumns[i].Type1 == "User") {
+  //         let UserCulmData = isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']]) ? JSON.parse(finalTemplate[allTicketDescriptionColumns[i]['Title']]) : "";
+  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${UserCulmData[0].Name}</p>`)
+  //       }
+  //       else {
+
+  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
+  //       }
+  //     }
+  //   }
+
+  //   if (AlldesccolumnsValues.length) {
+  //     finalTemplate.TicketDescription = finalTemplate.TicketDescription + AlldesccolumnsValues.join('')
+  //   }
+  //   if (!flag && !flag1 && !flag2 && !flag3 && !flag4 && !flag5 && !flag6 && !flag7 && Errmessage == "") {
+  //     setLoading(true);
+  //     setButtonSaveText("");
+  //     var updateurl =
+  //       getIsInstalled?.SiteUrl +
+  //       "/_api/web/lists/getbytitle('HR365HDMTickets')/items";
+  //     ContextService.GetSPContext()
+  //       .post(
+  //         updateurl,
+  //         SPHttpClient.configurations.v1,
+  //         {
+  //           headers: {
+  //             Accept: "application/json;odata=nometadata",
+  //             "Content-type": "application/json;odata=nometadata",
+  //             "odata-version": "",
+  //           },
+  //           body: JSON.stringify(finalTemplate),
+  //         }
+  //       )
+  //       .then((response: SPHttpClientResponse) => {
+  //         return response.json();
+  //       })
+  //       .then((item: any) => {
+  //         // GETPriorityDropDown();
+  //         setGlobalMessage("");
+  //         ReactQuilRenderer((prev) => prev + "1");
+
+  //         if (item['odata.error']) {
+  //           if ((JSON.stringify(item['odata.error'])).includes("Access is denied")) {
+  //             showDialogAccessDenied();
+  //           };
+  //           setTimeout(() => {
+  //             setLoading(false);
+  //             messageDismiss();
+  //             setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
+
+  //           }, 2000);
+
+  //         } else {
+  //           if (attachFile2 || attachFile2 !== undefined) {
+  //             saveFile(item.Id);
+  //           }
+  //           setatt = [];
+  //           setatt1 = [];
+  //           setattachFile1([]);
+  //           setattachFile2([]);
+  //           setTicketId(item.Id);
+  //           WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
+  //           UpdateTicketsProperties = isStringValidated(item.TicketProperties) ? JSON.parse(item.TicketProperties) : [];
+  //           setTicketPropJOSNUpdate(UpdateTicketsProperties);
+
+  //           rowId = item.Id;
+
+  //           window.scrollTo(0, 0);
+  //           setSaved(true);
+  //           setTimeout(() => {
+  //             setLoading(false);
+  //             setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
+  //             // saveTicketId();
+  //             messageDismiss();
+  //           }, 1000);
+  //           setTimeout(() => {
+  //             getAutomationData(item);
+  //             saveTicketId();
+
+
+  //           }, 1200);
+  //           setTimeout(() => {
+  //           }, 2000);
+  //           setTimeout(() => {
+  //             CustomDateData = {};
+  //             ResetFields();
+
+  //           }, 1400);
+  //         }
+  //       })
+  //       .catch((error) => {
+
+  //         window.scrollTo(0, 0);
+  //         setError(true);
+  //         setLoading(false);
+  //         setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
+  //         setTimeout(() => {
+  //           messageDismiss();
+  //         }, 2000);
+  //       });
+  //   } else if (Errmessage != "") {
+  //     setRequiredColumnMessage(true);
+  //     setLoading(false);
+  //     setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
+  //     setTimeout(() => {
+  //       setRequiredColumnMessage(false);
+  //     }, 2000);
+  //   }
+  // }
+
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
   const iconButtonStyles: Partial<IButtonStyles> = {
     root: {
@@ -278,7 +712,7 @@ const SingleLayoutHeader = ({ propsData }) => {
             }}
           >
             <div style={{ display: "flex" }}>
-              <span className='configure-request-title'>Configure Request</span>
+              <span className='configure-request-title'>Configure Request Form</span>
               <IconButton
                 styles={iconButtonStyles}
                 className='draggable-model-close-btn'
@@ -393,10 +827,11 @@ const SingleLayoutHeader = ({ propsData }) => {
             </div>
             {/* </div> */}
             {/* NOTES: */}
-            <div style={{padding: "10px 20px",display:"flex"}}><strong>Note:</strong>
-            <div className='draggble-model-short-note'>
-              You can select a maximum of 5 fields at a time. For any field you do not select, please ensure you set its default value.</div>
-              </div>
+            <div style={{ padding: "10px 20px", display: "flex" }}><strong>Note:</strong>
+              <div className='draggble-model-short-note'>
+                {/* You can select a maximum of 5 fields at a time. For any field you do not select, please ensure you set its default value.</div> */}
+                You can select upto 5 fields, for remaining fields you can select default values to be sent.</div> 
+            </div>
 
             {/* Submit & Cancel Button */}
             <div style={{ gap: "20px", paddingBottom: "12px" }} className='add-new-installation-common-style-btn-input'>
@@ -407,7 +842,7 @@ const SingleLayoutHeader = ({ propsData }) => {
         </div>
       }
 
-<div id="ConfigureRequest"/>
+      <div id="ConfigureRequest" />
       {/* POPUP SWEET ALETS */}
       {
         configureRequestUpdate && <ReusableSweetAlerts
