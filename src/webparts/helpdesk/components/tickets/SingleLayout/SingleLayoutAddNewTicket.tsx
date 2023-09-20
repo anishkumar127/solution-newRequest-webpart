@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { TextField } from "@fluentui/react";
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
@@ -74,7 +74,7 @@ const SingleLayoutAddNewTicket = () => {
 
   const [layoutOrder, setLayoutOrder] = useState<any[]>([]);
 
-  const [closePanel,setClosePanel] = useState<boolean>(false);
+  const [closePanel, setClosePanel] = useState<boolean>(false);
 
   // VALIDATOR FUNCTION
 
@@ -169,11 +169,14 @@ const SingleLayoutAddNewTicket = () => {
   useEffect(() => {
     if (getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length > 0) {
       const checkboxFields = getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields
+      if(checkboxFields){
       const data: any[] = JSON.parse(checkboxFields);
       if (data && data?.length > 0) {
-        console.log("%c checkbox SET TO ORDER","background-color:red", data);
+        console.log("%c checkbox SET TO ORDER", "background-color:red", data);
         setLayoutOrder(data);
       }
+    }
+
     }
   }, [getRequestFieldsCheckbox]);
 
@@ -181,23 +184,23 @@ const SingleLayoutAddNewTicket = () => {
 
   useEffect(() => {
     // if (getSettingsCollection) {
-      const DraggableTemplate = [
-        { id: 6, Name: "Title", isChecked: true },
-        { id: 0, Name: "Teams", isChecked: true },
-        { id: 1, Name: "Services", isChecked: true },
-        { id: 2, Name:"Sub Services", isChecked: true },
-        { id: 3, Name: 'Priority', isChecked: false },
-        { id: 4, Name: 'Request Type', isChecked: false },
-        { id: 5, Name: 'Description', isChecked: true }
-      ]
-      DefaultLayoutItemsNames = DraggableTemplate;
-      setLayoutOrder(DraggableTemplate);
-      console.log("DraggableTemplate", DraggableTemplate);
+    const DraggableTemplate = [
+      { id: 6, Name: "Title", isChecked: true },
+      { id: 0, Name: "Teams", isChecked: true },
+      { id: 1, Name: "Services", isChecked: true },
+      { id: 2, Name: "Sub Services", isChecked: true },
+      { id: 3, Name: 'Priority', isChecked: false },
+      { id: 4, Name: 'Request Type', isChecked: false },
+      { id: 5, Name: 'Description', isChecked: true }
+    ]
+    DefaultLayoutItemsNames = DraggableTemplate;
+    setLayoutOrder(DraggableTemplate);
+    console.log("DraggableTemplate", DraggableTemplate);
     // }
   }, [])
 
   //
-  
+
 
   // <-------------------- TEAMS DEPARTMENT FUNCTION ------------------->
   // IT'S TEAMS BASED PRIORITY & REQUEST TYPE.
@@ -357,49 +360,49 @@ const SingleLayoutAddNewTicket = () => {
         propsData={{
           teamsoptionarray, handleTeamsOnChange, serviceOption, handleServiceOnChange, defltService, subserviceOption, handleSubServiceOnChange, defltSubService, priorityoptions,
           defltPriority, handlePriorityOnChange, handleRequestTypeOnChange,
-          requestoptions, defltTeam, defltReq,closePanel,setClosePanel
+          requestoptions, defltTeam, defltReq, closePanel, setClosePanel
         }} />
       <div className="add-new-ticket-ui-style">
         {layoutOrder?.map((item, index) => {
           console.log(item);
           return (
             // {item?.Name}
-            <>
-              {item?.Name === "Title" && item?.isChecked===true ? <TextField
+            <React.Fragment key={index}>
+              {item?.Name === "Title" && item?.isChecked === true ? <TextField
                 placeholder="Enter request title"
                 multiline={isMultiline}
                 onChange={onChangeRequestTitle}
-              /> : item?.Name === "Teams" && item?.isChecked===true ? <Dropdown
+              /> : item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
                 options={teamsoptionarray}
                 onChange={handleTeamsOnChange}
                 placeholder="Select teams"
                 selectedKey={defltTeam}
-              /> : item?.Name === "Services" && item?.isChecked===true ? <Dropdown
+              /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
                 options={serviceOption}
                 onChange={handleServiceOnChange}
                 placeholder="Select services"
                 selectedKey={defltService}
-              /> : item?.Name === "Sub Services" && item?.isChecked===true ? <Dropdown
+              /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
                 options={subserviceOption}
                 onChange={handleSubServiceOnChange}
                 placeholder="Select sub services"
                 selectedKey={defltSubService}
-              /> : item?.Name === "Description" && item?.isChecked===true ? <TextField
-                placeholder="Please Elaborate your query..."
+              /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
+                placeholder="Please elaborate your query..."
                 multiline
                 rows={3}
-              /> : item?.Name === "Request Type" && item?.isChecked===true ? <Dropdown
+              /> : item?.Name === "Request Type" && item?.isChecked === true ? <Dropdown
                 options={requestoptions}
                 onChange={handleRequestTypeOnChange}
                 placeholder="Select request type"
                 selectedKey={defltReq}
-              /> : item?.Name === "Priority" && item?.isChecked===true ? <Dropdown
+              /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
                 options={priorityoptions}
                 onChange={handlePriorityOnChange}
                 placeholder="Select priority"
                 selectedKey={defltPriority}
               /> : null}
-            </>
+            </React.Fragment>
 
           )
         })}
