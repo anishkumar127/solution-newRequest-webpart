@@ -4,7 +4,7 @@ import { immer } from "zustand/middleware/immer";
 import { persist } from "zustand/middleware";
 import { SPHttpClient, SPHttpClientResponse } from "@microsoft/sp-http";
 import ContextService from "../loc/Services/ContextService";
-
+import { devtools } from 'zustand/middleware';
 interface State {
   SettingsCollection: any;
   ThemesColor: string;
@@ -24,6 +24,7 @@ interface State {
 
 export const useStore = create(
   // persist(
+    devtools(
   immer<State>((set, get) => ({
     SettingsCollection: [],
     ThemesColor: "",
@@ -168,7 +169,7 @@ export const useStore = create(
       }
       console.log("called store fetch data");
     },
-  }))
+  })),{name:"zustand-store"})
   //   {
   //     name: "SettingsCollection-storage",
   //     getStorage: () => localStorage, // by default

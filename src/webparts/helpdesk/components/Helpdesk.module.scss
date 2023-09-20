@@ -2849,6 +2849,7 @@
     font-size: 20px;
     font-weight: 700;
   }
+
   .dia3rdheader {
     display: block;
     text-align: center;
@@ -2858,38 +2859,70 @@
   }
 
   // <---------------------------------- DRAG & DROP ADD NEW WEBPART ------------------------>
-  .draggble-content-root{
+  .draggble-content-root {
     display: flex;
     align-items: center;
     gap: 6px;
     padding-bottom: 10px;
-}
-  
-.draggble-container{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* display: flex; */
-  align-items: baseline;
-  // height: 200px;
-}
-.draggable-model-root{
-  // .ms-Overlay{
-  //   padding: 400px;
-  // }
-  .ms-Dialog-main{
-    .ms-Modal-scrollableContent{
-      // height: calc(100vh - 140px);
+  }
+
+  .draggble-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* display: flex; */
+    align-items: baseline;
+    margin-top: 10px;
+    // height: 200px;
+  }
+
+  .draggable-model-root {
+
+    // .ms-Overlay{
+    //   padding: 400px;
+    // }
+    .ms-Dialog-main {
+      .ms-Modal-scrollableContent {
+        // height: calc(100vh - 140px);
+        overflow-y: unset !important;
+      }
+    }
+
+    .ms-Dialog-main .ms-Modal-scrollableContent {
       overflow-y: unset !important;
     }
+
   }
+
   .ms-Dialog-main .ms-Modal-scrollableContent {
     overflow-y: unset !important;
-}
-  
-}
-.ms-Dialog-main .ms-Modal-scrollableContent {
-  overflow-y: unset !important;
-}
+  }
+
+  .draggable-model-close-btn {
+    margin-left: auto !important;
+    display: flex;
+    border: 1px solid gray;
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+
+  .draggable-one {
+    // border: 1px solid gray;
+    border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+    padding: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+  }
+
+  .draggable-two {
+    // border: 1px solid gray;
+    padding: 20px;
+    margin-right: 10px;
+    border: 1px solid var(--lightThemeDropDownBorderColor) !important;
+
+
+  }
+
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END
   // anish127

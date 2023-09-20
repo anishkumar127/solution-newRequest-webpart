@@ -1,6 +1,8 @@
 import { Web } from "sp-pnp-js";
 import { create } from "zustand";
 import { useStore as useBorrowDataStore } from "../zustand";
+import { devtools } from 'zustand/middleware'
+
 import { immer } from "zustand/middleware/immer";
 interface State {
   // INITIAL STATE
@@ -160,5 +162,5 @@ const storeData = (set, get) => ({
 });
 
 export const useAddNewApiStore = create(
-  immer<State>((set, get) => storeData(set, get))
+ devtools( immer<State>((set, get) => storeData(set, get)),{name:"add-new-api-store"})
 );

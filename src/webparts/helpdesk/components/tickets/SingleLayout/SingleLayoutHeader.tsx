@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useStore } from '../../../store/zustand';
 const helpDeskLog = require('../../../../../../assets/help-desk.png');
 const helpDeskLogDarkMode = require('../../../../../../assets/HD365-Icon-White-1200.png');
-import { Icon } from '@fluentui/react/lib/Icon';
+import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { Checkbox, Dropdown, ICheckboxStyles, Modal } from '@fluentui/react';
+import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal } from '@fluentui/react';
 
 let mandatoryFields = [];
 
@@ -24,27 +24,19 @@ const SingleLayoutHeader = ({ propsData }) => {
   useEffect(() => {
     if (getSettingsCollection) {
       mandatoryFields = []; // SET TO EMPTY.
-      // const DraggableTemplate = {
-      //   Teams: getSettingsCollection?.TeamDisplayName,
-      //   Service: getSettingsCollection?.ServiceName,
-      //   'Sub Service': getSettingsCollection?.SubServiceName,
-      //   Priority: 'Priority',
-      //   'Request Type': 'Request Type',
-      //   Desc: 'Description',
-      //   Title: getSettingsCollection?.TicketTitleName
-      // }
+
       const DraggableTemplate = [
-        { id: 0, Name: getSettingsCollection?.TeamDisplayName ,isChecked:true},
-        { id: 1, Name: getSettingsCollection?.ServiceName,isChecked:false },
-        { id: 2, Name: getSettingsCollection?.SubServiceName,isChecked:false },
-        { id: 3, Name: 'Priority' ,isChecked:false},
-        { id: 4, Name: 'Request Type' ,isChecked:false},
-        { id: 5, Name: 'Description',isChecked:true },
-        { id: 6, Name: getSettingsCollection?.TicketTitleName,isChecked:true }
+        { id: 0, Name: getSettingsCollection?.TeamDisplayName, isChecked: true },
+        { id: 1, Name: getSettingsCollection?.ServiceName, isChecked: false },
+        { id: 2, Name: getSettingsCollection?.SubServiceName, isChecked: false },
+        { id: 3, Name: 'Priority', isChecked: false },
+        { id: 4, Name: 'Request Type', isChecked: false },
+        { id: 5, Name: 'Description', isChecked: true },
+        { id: 6, Name: getSettingsCollection?.TicketTitleName, isChecked: true }
       ]
-      // mandatoryFields.push(getSettingsCollection?.TeamDisplayName)
-      // mandatoryFields.push(getSettingsCollection?.TicketTitleName);
-      // mandatoryFields.push('Description');
+      mandatoryFields.push(getSettingsCollection?.TeamDisplayName)
+      mandatoryFields.push(getSettingsCollection?.TicketTitleName);
+      mandatoryFields.push('Description');
       setDraggedOrderData(DraggableTemplate);
       console.log("DraggableTemplate", DraggableTemplate);
     }
@@ -83,13 +75,60 @@ const SingleLayoutHeader = ({ propsData }) => {
   //
   const onChangeCheckbox = (ev: React.FormEvent<HTMLInputElement>, isChecked: boolean) => {
 
-    console.log("Checkbox =>", ev, "isChecked => ", isChecked)
+    console.log("Checkbox =>", ev, "isChecked => ", isChecked);
+    if (isChecked) {
+      console.log(ev);
+      console.log(ev.target['title']);
+      if (draggedOrderData && draggedOrderData?.length > 0) {
+        let data = [...draggedOrderData];
+        console.log("data", data);
+        // const itemToModify = data?.find((item) => item?.Name?.includes(ev?.target['title']));
+        data?.forEach((item) => {
+          if (item?.Name === ev?.target['title']) {
+            console.log(item);
+            item.isChecked = true;
+          }
+        });
+        console.log("data after modify", data);
+        setDraggedOrderData(data);
+      }
+    } else {
+      console.log(ev);
+      if (!mandatoryFields?.includes(ev?.target['title'])) {
+        if (draggedOrderData && draggedOrderData?.length > 0) {
+          let data = [...draggedOrderData];
+          data?.forEach((item) => {
+            if (item?.Name?.includes(ev?.target['title'])) {
+              console.log(item);
+              item.isChecked = false;
+            }
+          });
+          console.log("data after modify", data);
+          setDraggedOrderData(data);
+        }
+
+      }
+    }
   }
 
   //
   const onSubmit = () => {
 
   }
+
+  //
+  const cancelIcon: IIconProps = { iconName: 'Cancel' };
+  const iconButtonStyles: Partial<IButtonStyles> = {
+    root: {
+      // color: theme.palette.neutralPrimary,
+      marginLeft: 'auto',
+      marginTop: '4px',
+      marginRight: '2px',
+    },
+    rootHovered: {
+      // color: theme.palette.neutralDark,
+    },
+  };
   // 
   const checkboxStyle: ICheckboxStyles = {
     text: {
@@ -141,63 +180,70 @@ const SingleLayoutHeader = ({ propsData }) => {
             isBlocking={true}
             styles={{
               main: {
-                padding: "27px",
                 minWidth: "600px",
                 height: "500px"
 
               }
             }}
           >
+            <IconButton
+              styles={iconButtonStyles}
+              className='draggable-model-close-btn'
+              iconProps={cancelIcon}
+              ariaLabel="Close popup modal"
+              onClick={() => setOpenModel(false)}
+            />
             <div className='draggble-container'>
               {/* DRAGGABLE CONTENT */}
-              <DragDropContext onDragEnd={handleDragEnd}>
-                {/* HI from another side. */}
-                <Droppable droppableId={"ROOT"} type={"group"}>
-                  {
-                    (provided) => (
-                      <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {draggedOrderData && draggedOrderData?.length > 0 && draggedOrderData?.map((item, index) =>
-                          <Draggable draggableId={item?.id + ""} key={item?.id} index={index}>
-                            {(provided) => (
-                              <div
-                                {...provided.dragHandleProps}
-                                {...provided.draggableProps}
-                                ref={provided.innerRef}
-                                className='draggble-content-root'
-                              >
-                                <div>
-                                  <Icon iconName="GripperDotsVertical"></Icon>
-                                </div>
-                                <div>
-                                  <Checkbox
-                                    styles={checkboxStyle}
-                                    checked={
-                                      item?.isChecked
-                                      // mandatoryFields?.some((items) => items === item?.Name)
-                                    }
-                                    title={item?.Name}
-                                    id={item?.id + ""}
-                                    onChange={onChangeCheckbox}
-                                  />
-                                </div>
-                                <div>
-                                  {item?.Name}
-                                </div>
+              <div className='draggable-one'>
+                <DragDropContext onDragEnd={handleDragEnd}>
+                  {/* HI from another side. */}
+                  <Droppable droppableId={"ROOT"} type={"group"}>
+                    {
+                      (provided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef}>
+                          {draggedOrderData && draggedOrderData?.length > 0 && draggedOrderData?.map((item, index) =>
+                            <Draggable draggableId={item?.id + ""} key={item?.id} index={index}>
+                              {(provided) => (
+                                <div
+                                  {...provided.dragHandleProps}
+                                  {...provided.draggableProps}
+                                  ref={provided.innerRef}
+                                  className='draggble-content-root'
+                                >
+                                  <div>
+                                    <Icon iconName="GripperDotsVertical"></Icon>
+                                  </div>
+                                  <div>
+                                    <Checkbox
+                                      styles={checkboxStyle}
+                                      checked={
+                                        item?.isChecked
+                                        // mandatoryFields?.some((items) => items === item?.Name)
+                                      }
+                                      title={item?.Name}
+                                      id={item?.id + ""}
+                                      onChange={onChangeCheckbox}
+                                    />
+                                  </div>
+                                  <div>
+                                    {item?.Name}
+                                  </div>
 
-                              </div>
-                            )}
-                          </Draggable>
+                                </div>
+                              )}
+                            </Draggable>
 
-                        )}
-                        {provided?.placeholder}
-                      </div>
-                    )
-                  }
-                </Droppable>
-              </DragDropContext>
-
+                          )}
+                          {provided?.placeholder}
+                        </div>
+                      )
+                    }
+                  </Droppable>
+                </DragDropContext>
+              </div>
               {/* DEFAULT CONTNET */}
-              <div className='draggable-default-content'>
+              <div className='draggable-two draggable-default-content'>
                 {/* <Label required>{"Teams"}</Label> */}
                 <Dropdown
                   label={"Teams"}
@@ -247,9 +293,9 @@ const SingleLayoutHeader = ({ propsData }) => {
               </div>
             </div>
             {/* Submit & Cancel Button */}
-            <div style={{ gap: "20px" }} className='add-new-installation-common-style-btn-input'>
+            <div style={{ gap: "20px", marginTop: "30px" }} className='add-new-installation-common-style-btn-input'>
               <button className='add-new-installation-submit-btn' onClick={onSubmit}>Save</button>
-              <button style={{ background: "gray" }} className='add-new-installation-submit-btn' onClick={onSubmit}>Cancel</button>
+              <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
             </div>
           </Modal>
         </div>
