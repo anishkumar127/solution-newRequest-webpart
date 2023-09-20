@@ -8,8 +8,15 @@ import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal }
 import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 import ReusableSweetAlerts from '../../../utils/SweetAlerts/ReusableSweetAlerts';
+import { isStringValidated } from '../../../utils/validator/isStringValidated';
+import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
+import ContextService from '../../../loc/Services/ContextService';
+import { useCustomSwalContainerStyle } from '../../../utils/SweetAlerts/useCustomSwalContainerStyle';
 
 let mandatoryFields = [];
+let finalticketID = '';
+let ticketSequence = "";
+let generatedIssueID;
 
 const SingleLayoutHeader = ({ propsData }) => {
   const ThemesColor = useStore((state) => state.ThemesColor)
@@ -21,6 +28,8 @@ const SingleLayoutHeader = ({ propsData }) => {
   const setDefaultRequestSettings = useRequestPost((state) => state.setDefaultRequestSettings);
   const fetchRequestFieldsCheckbox = useAddNewApiStore((state) => state.fetchRequestFieldsCheckbox);
   const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
+
+  const getIsInstalled = useStore((state) => state.getIsInstalled());
   // <----------------------- MODEL ON/OFF STATES --------------->
   const [openModel, setOpenModel] = useState<boolean>(false);
 
@@ -32,6 +41,21 @@ const SingleLayoutHeader = ({ propsData }) => {
   const [configureRequestUpdate, setConfigureRequestUpdate] = useState<boolean>(false);
   const [maxSelect, setMaxSelect] = useState<boolean>(false);
   const [selectDefaultValue, setSelectDefaultValue] = useState<boolean>(false);
+
+
+  // <----------------------- SUBMIT TICKET & SAVE TICKETS ID STATES --------------->
+  const [TicketPropertiesValue, setTicketPropertiesValue] = React.useState([]);
+
+  const [SLAResponseInfo, setSLAResponseInfo] = React.useState([]);
+  const [SLAResolveInfo, setSLAResolveInfo] = React.useState([]);
+
+  // <----------------------- SUBMIT TICKETS SWEET ALERT STATES --------------->
+  const [emptyTitleMsg, setEmptyTitleMsg] = useState<boolean>(false);
+  const [emptyDescriptionMsg, setEmptyDescriptionMsg] = useState<boolean>(false);
+  const [emptyTeamsMsg, setEmptyTeamsMsg] = useState<boolean>(false);
+
+  const [savedTicketsMsg, setSavedTicketsMsg] = useState<boolean>(false);
+
 
   useEffect(() => {
     if (getSettingsCollection) {
@@ -198,450 +222,260 @@ const SingleLayoutHeader = ({ propsData }) => {
     //     setSelectDefaultValue(false);
     //   }, 2000);
     // } else {
-      try {
-        await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
-        await setDefaultRequestSettings(defaultData); // POSTING Default Data.
-        setOpenModel(false);
-      } catch (error) {
-        console.error("api post calls error", error);
-      }
+    try {
+      await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
+      await setDefaultRequestSettings(defaultData); // POSTING Default Data.
+      setOpenModel(false);
+    } catch (error) {
+      console.error("api post calls error", error);
+    }
     // }
   }
 
   // <----------------------------------   SUBMIT TICKETS  ---------------------------->
-  // const SubmitTicket = () => {
-  //   let AlldesccolumnsValues = []
-  //   let autoAssignEmailId = null;
-  //   let requester = " ";
-  //   let requesterDisplayName = "";
-  //   let internalexternal = "";
-  //   if (requestername.length > 0) {
-  //     requester = requestername[0].id;
-  //     requesterDisplayName = requestername[0].name;
-  //   } else {
-  //     requester = null;
-  //     // requesterDisplayName = "";
-  //   }
-  //   TicketPropertiesValue.push({
-  //     TicketOpenDate: "",
-  //     InternalExtrenal: "Internal",
-  //     CCMail: ccemailid,
-  //     Read: "Unread",
-  //     DepartmentCode: teamname,
-  //     SubTickets: "",
-  //     LastSubTicketCharacter: "",
-  //     MediaSource: mediaChoosed,
-  //     CustomFormID: isStringValidated(CustomFormID) ? CustomFormID : '',
-  //     PushNotification: 'Active',
-  //     TicketDescription: "Inside"
-  //   });
+  const SubmitTicket = () => {
+    let currentuser = ContextService.GetCurrentUser();
+    let userid = ContextService.GetCurentUserId();
+    const { ticketTitle, descriptionValue, defltTeam, requestname, requestername,
+      defltService: servicename, defltSubService: subservicename, defltPriority: priorityName
+    } = propsData;
+    let AlldesccolumnsValues = []
+    let requester = " ";
+    let requesterDisplayName = "";
+    if (currentuser.length > 0) {
+      requester = currentuser[0].id;
+      requesterDisplayName = currentuser[0].name;
+    } else {
+      requester = null;
+    }
+    TicketPropertiesValue.push({
+      TicketOpenDate: "",
+      InternalExtrenal: "Internal",
+      CCMail: '',
+      Read: "Unread",
+      DepartmentCode: propsData?.defltTeam,
+      SubTickets: "",
+      LastSubTicketCharacter: "",
+      MediaSource: "Portal",
+      CustomFormID: '',
+      PushNotification: 'Active',
+      TicketDescription: "Inside"
+    });
 
-  //   //for SLAResponse:
-  //   SLAResponseInfo.push({
-  //     SLAResponseBreach: "No",
-  //     SLAResponseBreachOn: '',
-  //     SLAResponseReplyTime: '',
-  //     SLAResponseReplyDate: '',
-  //     SLAResponseReplyDay: '', //(ex:Monday...)
-  //     SLAResponseEscalateTime: '', //from Define SLAsettings
-  //     SLAResponseAlertTime: '',
-  //     SLAResponseNotifyType: '',
-  //     SLAResponseAlertTo: '',
-  //     SLAResponseMailSub: '', //from email notification subject
-  //     SLAResponseMailBody: '',
-  //   })
-  //   //for SLAResponse:
-  //   SLAResolveInfo.push({
-  //     SLAResolveBreach: "No",
-  //     SLAResolveBreachOn: '',
-  //     SLAResolveReplyTime: '',
-  //     SLAResolveReplyDate: '',
-  //     SLAResolveReplyDay: '', //(ex:Monday...)
-  //     SLAResolveEscalateTime: '', //from Define SLAsettings
-  //     SLAResolveAlertTime: '',
-  //     SLAResolveNotifyType: '',
-  //     SLAResolveAlertTo: '',
-  //     SLAResolveMailSub: '', //from email notification subject
-  //     SLAResolveMailBody: '',
-  //   })
+    //for SLAResponse:
+    SLAResponseInfo.push({
+      SLAResponseBreach: "No",
+      SLAResponseBreachOn: '',
+      SLAResponseReplyTime: '',
+      SLAResponseReplyDate: '',
+      SLAResponseReplyDay: '', //(ex:Monday...)
+      SLAResponseEscalateTime: '', //from Define SLAsettings
+      SLAResponseAlertTime: '',
+      SLAResponseNotifyType: '',
+      SLAResponseAlertTo: '',
+      SLAResponseMailSub: '', //from email notification subject
+      SLAResponseMailBody: '',
+    })
+    //for SLAResponse:
+    SLAResolveInfo.push({
+      SLAResolveBreach: "No",
+      SLAResolveBreachOn: '',
+      SLAResolveReplyTime: '',
+      SLAResolveReplyDate: '',
+      SLAResolveReplyDay: '', //(ex:Monday...)
+      SLAResolveEscalateTime: '', //from Define SLAsettings
+      SLAResolveAlertTime: '',
+      SLAResolveNotifyType: '',
+      SLAResolveAlertTo: '',
+      SLAResolveMailSub: '', //from email notification subject
+      SLAResolveMailBody: '',
+    })
 
+    let flag = false;
+    let flag1 = false;
+    let flag4 = false;
+    let flag5 = false;
 
+    // check if a field is empty or undefined
+    const isEmptyOrUndefined = (field) => field == null || field === "" || field === undefined;
+    // handle timeouts
+    const setTimedState = (setState, value, timeout) => {
+      setState(value);
+      setTimeout(() => {
+        setState(!value);
+      }, timeout);
+    };
+    if (isEmptyOrUndefined(ticketTitle) && mandatoryFields.includes("Title")) {
+      setEmptyTitleMsg(true);
+      setTimedState(setEmptyTitleMsg, true, 2000);
+      flag = true;
+    }
 
-  //   let flag = false;
-  //   let flag1 = false;
-  //   let flag2 = false;
-  //   let flag3 = false;
-  //   let flag4 = false;
-  //   let flag5 = false;
-  //   let flag6 = false;
-  //   let flag7 = false;
-  //   if (
-  //     (Titlename == null ||
-  //       Titlename == "" ||
-  //       Titlename == undefined ||
-  //       Titlename.trim() == null ||
-  //       Titlename.trim() == "" ||
-  //       Titlename.trim() == undefined) && MandatoryFields.includes("Title")
-  //   ) {
-  //     setNewerror2(true);
-  //     settitlename("");
-     
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag = true;
-  //   }
-  //   if (requestname == null || requestname == "" || requestname == undefined) {
-  //     setNewerror3(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag1 = true;
-  //   }
-  //   if (
-  //     (priorityName == null ||
-  //       priorityName == "" ||
-  //       priorityName == undefined) && MandatoryFields.includes("Priority")
-  //   ) {
-  //     setNewerror4(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag2 = true;
-  //   }
-  //   if (
-  //     (servicename == null ||
-  //       servicename == "" ||
-  //       servicename == undefined) && MandatoryFields.includes("Services")
-  //   ) {
-  //     setNewerrorService(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag6 = true;
-  //   }
-  //   if (
-  //     (subservicename == null ||
-  //       subservicename == "" ||
-  //       subservicename == undefined) && MandatoryFields.includes("Sub Services")
-  //   ) {
-  //     setNewerrorSubService(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag6 = true;
-  //   }
-  //   if (requester == null || requester == "" || requester == undefined) {
-  //     setNewerror5(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag3 = true;
-  //   }
-  //   if (
-  //     (globalMessage == null ||
-  //       globalMessage == "" ||
-  //       globalMessage == undefined) && MandatoryFields.includes("Ticket Description")
-  //   ) {
-  //     setNewerror6(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag4 = true;
+    if (isEmptyOrUndefined(requestname)) {
+      flag1 = true;
+    }
 
-  //   }
-  //   if (
-  //     (team == null ||
-  //       team == "" ||
-  //       team == undefined) && MandatoryFields.includes("Teams")
-  //   ) {
-  //     setNewerror7(true);
-  //     setTimeout(() => {
-  //       messageDismiss();
-  //     }, 2000);
-  //     flag5 = true;
-  //   }
+    if (isEmptyOrUndefined(descriptionValue) && mandatoryFields.includes("Description")) {
+      setEmptyDescriptionMsg(true);
+      setTimedState(setEmptyDescriptionMsg, true, 2000);
 
-  //   if (AutoAssignTicket !== "Off") {
-  //     if (AutoAssignTicketMethod == "RoundRobin") {
-  //       RoundRobin();
-  //     } else if (AutoAssignTicketMethod == "WeightedRoundRobin") {
-  //       weightRound();
-  //     }
+      flag4 = true;
+    }
 
-  //     var filtered = userList.filter((item) => {
-  //       return (item.UsersId == lastAssignid);
-  //     });
-  //     filtered.map((i) => {
-  //       autoAssignEmailId = i.Email;
-  //     });
-  //   }
-  //   let FilterWorkFlowFilterData;
-  //   if (WorkFlowData != null && WorkFlowData.length > 0 && WorkFlowData != undefined) {
-  //     // let withoutsubserviceWorkflow = WorkFlowData.filter(x => !isStringValidated(x.SubServiceName))      
-  //     FilterWorkFlowFilterData = WorkFlowData.findIndex((i) => {
-  //       if (!isStringValidated(i.SubServiceName)) {
+    if (isEmptyOrUndefined(defltTeam) && mandatoryFields.includes("Teams")) {
+      setEmptyTeamsMsg(true);
+      setTimedState(setEmptyTeamsMsg, true, 2000);
 
-  //         return (i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename))
-  //       }
-  //     })
-  //     if (subservicename != null && subservicename != '' && subservicename != undefined) {
-  //       let subserviceWorkflow = WorkFlowData.filter(x => isStringValidated(x.SubServiceName))
+      flag5 = true;
+    }
 
+    let finalTemplate;
+    finalTemplate = {
+      Title:
+        ticketTitle == "" || ticketTitle == null || ticketTitle == undefined
+          ? ticketTitle
+          : ticketTitle.trim(),
+      DepartmentName: defltTeam,
+      Services: servicename,
+      SubServices: subservicename,
 
-  //       let index = subserviceWorkflow.findIndex((i) => {
-  //         if (isStringValidated(i.SubServiceName)) {
-  //           return i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename) &&
-  //             i.SubServiceNames?.startsWith(',') ? i.SubServiceName?.slice(1)?.split(',')?.includes(subservicename) :
-  //             i.SubServiceName?.split(',')?.includes(subservicename)
-  //         }
-  //       })
-  //       if (index > -1) {
-  //         FilterWorkFlowFilterData = index
+      Priority: priorityName,
+      RequestType: requestname,
+      RequesterId: userid,
+      TicketDescription: descriptionValue,
+      TicketDescInTextformat: descriptionValue.replace(/<[^>]*>/g, ''),
+      TicketProperties: JSON.stringify(TicketPropertiesValue),
+      RequesterEmail: currentuser.email,
+      RequesterName: requesterDisplayName,
+      TicketCreatedDate: new (Date),
+      SLAResponseDone: "No",
+      SLAResolveDone: "No",
+      SLAResponseInfo: JSON.stringify(SLAResponseInfo),
+      SLAResolveInfo: JSON.stringify(SLAResolveInfo),
+      ReadStatus: '',
+    };
 
-  //       }
+    if (AlldesccolumnsValues.length) {
+      finalTemplate.TicketDescription = finalTemplate.TicketDescription + AlldesccolumnsValues.join('')
+    }
+    if (!flag && !flag1 && !flag4 && !flag5) {
+      var updateurl =
+        getIsInstalled?.SiteUrl +
+        "/_api/web/lists/getbytitle('HR365HDMTickets')/items";
+      ContextService.GetSPContext()
+        .post(
+          updateurl,
+          SPHttpClient.configurations.v1,
+          {
+            headers: {
+              Accept: "application/json;odata=nometadata",
+              "Content-type": "application/json;odata=nometadata",
+              "odata-version": "",
+            },
+            body: JSON.stringify(finalTemplate),
+          }
+        )
+        .then((response: SPHttpClientResponse) => {
+          return response.json();
+        })
+        .then((item: any) => {
+          setSavedTicketsMsg(true);
+          setTimeout(() => {
+            setSavedTicketsMsg(false);
+            saveTicketId(item?.Id);
+          }, 1200);
+          setTimeout(() => {
+            const { setDefltTeam, setDefltService, setDefltSubService, setDefltPriority, setDefltReq, setTicketTitle, setDescriptionValue } = propsData;
+            setDefltTeam(null);
+            setDefltService(null);
+            setDefltSubService(null);
+            setDefltPriority(null);
+            setTicketTitle(null);
+            setDescriptionValue(null);
+          }, 1700);
+        });
+    }
+  }
 
+  let TeamTicketSuffix = isStringValidated(getSettingsCollection?.SuffixDepartmentName) ? getSettingsCollection?.SuffixDepartmentName : "";
 
+  // <----------------------------------   SAVE TICKETS ID  ---------------------------->
+  const saveTicketId = (rowId) => {
+    let flag = false;
+    let PrefixandID;
+    PrefixandID = parseInt(getSettingsCollection?.TicketPrefix) + rowId;
+    finalticketID = `Ticket#${rowId}`;
+    let ticktsequencewithoutSuffix = `${getSettingsCollection?.SequenceTitle}#${PrefixandID}`;
 
-  //     }
-  //   }
+    if (TeamTicketSuffix == "On") {
+      ticketSequence = `${getSettingsCollection?.SequenceTitle}#${PrefixandID}-${propsData?.defltTeam}`;
+    } else {
+      ticketSequence = `${getSettingsCollection?.SequenceTitle}#${PrefixandID}`;
+    }
 
-  //   groups.forEach((e) => {
-  //     if (e.name === "HDM365Admin" || e.name === "HDM365PowerUser" || e.name === "HDM365" + teamname) {
-  //       allid.push(e.id)
-  //     }
-  //   })
-  //   allid.push(requester)
-  //   let finalTemplate;
-  //   if (AutoAssignTicket == "Off" || FilterWorkFlowFilterData > -1) {
-  //     finalTemplate = {
-  //       Title:
-  //         Titlename == "" || Titlename == null || Titlename == undefined
-  //           ? Titlename
-  //           : Titlename.trim(),
-  //       DepartmentName: team,
-  //       Services: servicename,
-  //       SubServices: subservicename,
-  //       SubServicesL2: level2SubServicedefault,
-  //       SubServicesL3: level3Subservicedefault,
-  //       Priority: priorityName,
-  //       RequestType: requestname,
-  //       RequesterId: requester,
-  //       TicketDescription: globalMessage,
-  //       TicketDescInTextformat: globalMessage.replace(/<[^>]*>/g, ''),
-  //       //DepartmentCode: teamname,
-  //       TicketProperties: JSON.stringify(TicketPropertiesValue),
-  //       RequesterEmail: requesterEmailId,
-  //       RequesterName: requesterDisplayName,
-  //       TicketCreatedDate: new (Date),
-  //       SLAResponseDone: "No",
-  //       SLAResolveDone: "No",
-  //       SLAResponseInfo: JSON.stringify(SLAResponseInfo),
-  //       SLAResolveInfo: JSON.stringify(SLAResolveInfo),
-  //       ...CustomDateData,
-  //       ReadStatus: '',
-  //       // ItemPermissionId:allid
-  //     };
-  //   } else {
-  //     finalTemplate = {
-  //       Title:
-  //         Titlename == "" || Titlename == null || Titlename == undefined
-  //           ? Titlename
-  //           : Titlename.trim(),
-  //       DepartmentName: team,
-  //       Services: servicename,
-  //       SubServices: subservicename,
-  //       Priority: priorityName,
-  //       RequestType: requestname,
-  //       RequesterId: requester,
-  //       SubServicesL2: level2SubServicedefault,
-  //       SubServicesL3: level3Subservicedefault,
-  //       TicketDescription: globalMessage,
-  //       TicketDescInTextformat: globalMessage.replace(/<[^>]*>/g, ''),
-  //       //DepartmentCode: teamname,
-  //       TicketProperties: JSON.stringify(TicketPropertiesValue),
-  //       AssignedToId: lastAssignid.length == 0 ? null : lastAssignid,
-  //       // assignedT0:
-  //       // finalTemplate.AssignedTo == null ? null : finalTemplate.AssignedTo.Title,
-  //       RequesterEmail: requesterEmailId,
-  //       RequesterName: requesterDisplayName,
-  //       AssignedTomail: autoAssignEmailId,
-  //       TicketCreatedDate: new (Date),
-  //       SLAResponseDone: "No",
-  //       SLAResolveDone: "No",
-  //       SLAResponseInfo: JSON.stringify(SLAResponseInfo),
-  //       SLAResolveInfo: JSON.stringify(SLAResolveInfo),
-  //       ...CustomDateData,
-  //       ReadStatus: '',
-  //       // ItemPermissionId:allid
-  //     };
-  //   }
+    const generateRandomString = (length = 10) => Math.random().toString(20).substr(2, length)
+    var ticketId = rowId.toString();
 
-  //   if (dataText != null) {
-  //     var key;
-  //     for (let value of Object.entries(dataText)) {
-  //       // finalTemplate[value[0].replace(' ','_x0020_')] = value[1];
-  //       finalTemplate[value[0]] = value[1];
-  //     }
+    var ylength = 12 - (4 + ticketId.length);
+    var ylengthString = ylength.toString();
+    let x = generateRandomString(4);
+    let y = generateRandomString(parseInt(ylengthString));
+    generatedIssueID = x.toUpperCase() + ticketId + y.toUpperCase();
 
-  //   }
-  //   if (dataNote != null) {
-  //     var key;
-  //     for (let value of Object.entries(dataNote)) {
-  //       finalTemplate[value[0]] = value[1];
-  //     }
-  //   }
-  //   if (dataNumber != null) {
-  //     var key;
-  //     for (let value of Object.entries(dataNumber)) {
-  //       finalTemplate[value[0]] = value[1];
-  //     }
-  //   }
+    if (
+      finalticketID == null ||
+      finalticketID == "" ||
+      finalticketID == undefined
+    ) {
+      flag = true;
+    }
+    let _AutoAssignTicket = "Unassigned";
+    let finalTemplate = {
+      TicketID: finalticketID,
+      TicketseqWOsuffix: ticktsequencewithoutSuffix,
+      TicketSeqnumber: ticketSequence,
+      Status: _AutoAssignTicket,
+      IssueId: generatedIssueID,
+    };
+    if (!flag) {
+      var updateurl =
+        getIsInstalled?.SiteUrl +
+        "/_api/web/lists/getbytitle('HR365HDMTickets')/items('" +
+        rowId +
+        "')";
+      ContextService.GetSPContext()
+        .post(
+          updateurl,
+          SPHttpClient.configurations.v1,
+          {
+            headers: {
+              Accept: "application/json;odata=nometadata",
+              "Content-type": "application/json;odata=nometadata",
+              "odata-version": "",
+              "IF-MATCH": "*",
+              "X-HTTP-Method": "MERGE",
+            },
+            body: JSON.stringify(finalTemplate),
+          }
+        )
+        .then(
+          (response: SPHttpClientResponse): void => {
+            // sendEmailWOAuto();
+          }
+        )
+    }
+  }
 
 
-  //   if (dataChoice2 != null) {
-  //     var key;
-  //     for (let value of Object.entries(dataChoice2)) {
-  //       finalTemplate[value[0]] = value[1];
-  //     }
-  //   }
-  //   if (dataChoiceforsub != null) {
-  //     var key;
-  //     for (let value of Object.entries(dataChoiceforsub)) {
-  //       finalTemplate[value[0]] = value[1];
-  //     }
-  //   }
-  
-  //   var Errmessage = "";
+  // <-------------------------------------- SWEET ALERT - SWAL CONTAINER [ANISH] ------------------------->
+  const customSwalPropsNormal = {
+    desiredWidth: '650px',
+    saved: savedTicketsMsg,
+    newerror: emptyTitleMsg ? emptyTitleMsg : emptyDescriptionMsg ? emptyDescriptionMsg : emptyTeamsMsg,
+  };
+  useCustomSwalContainerStyle(customSwalPropsNormal);
 
-
-  //   ColumnProperties.map((item) => {
-  //     const ExistingMainColumn = ticketOrder.filter((elem) => {
-  //       return item[0].InternalName == elem.InternalName;
-  //     });
-  //     if (LicenseType.toLowerCase() == "p4" || LicenseType.toLowerCase() == "trial") {
-  //       if (!isStringValidated(finalTemplate[item[0].InternalName]) && ((ExistingMainColumn.length > 0 && MandatoryFields.includes(item[0].InternalName)))) {
-  //         Errmessage = "Please fill the " + item[0].DisplayName;
-  //         RequiredColumnName = item[0].DisplayName;
-  //       }
-  //     }
-  //   })
-
-  //   for (let i = 0; i < allTicketDescriptionColumns.length; i++) {
-  //     if (isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])) {
-  //       if (allTicketDescriptionColumns[i].Type1 == "DateTime") {
-  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${moment(finalTemplate[allTicketDescriptionColumns[i]['Title']]).format(dateFormart)}</p>`)
-  //       }
-  //       else if (allTicketDescriptionColumns[i].Type1 == "User") {
-  //         let UserCulmData = isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']]) ? JSON.parse(finalTemplate[allTicketDescriptionColumns[i]['Title']]) : "";
-  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${UserCulmData[0].Name}</p>`)
-  //       }
-  //       else {
-
-  //         AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
-  //       }
-  //     }
-  //   }
-
-  //   if (AlldesccolumnsValues.length) {
-  //     finalTemplate.TicketDescription = finalTemplate.TicketDescription + AlldesccolumnsValues.join('')
-  //   }
-  //   if (!flag && !flag1 && !flag2 && !flag3 && !flag4 && !flag5 && !flag6 && !flag7 && Errmessage == "") {
-  //     setLoading(true);
-  //     setButtonSaveText("");
-  //     var updateurl =
-  //       getIsInstalled?.SiteUrl +
-  //       "/_api/web/lists/getbytitle('HR365HDMTickets')/items";
-  //     ContextService.GetSPContext()
-  //       .post(
-  //         updateurl,
-  //         SPHttpClient.configurations.v1,
-  //         {
-  //           headers: {
-  //             Accept: "application/json;odata=nometadata",
-  //             "Content-type": "application/json;odata=nometadata",
-  //             "odata-version": "",
-  //           },
-  //           body: JSON.stringify(finalTemplate),
-  //         }
-  //       )
-  //       .then((response: SPHttpClientResponse) => {
-  //         return response.json();
-  //       })
-  //       .then((item: any) => {
-  //         // GETPriorityDropDown();
-  //         setGlobalMessage("");
-  //         ReactQuilRenderer((prev) => prev + "1");
-
-  //         if (item['odata.error']) {
-  //           if ((JSON.stringify(item['odata.error'])).includes("Access is denied")) {
-  //             showDialogAccessDenied();
-  //           };
-  //           setTimeout(() => {
-  //             setLoading(false);
-  //             messageDismiss();
-  //             setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-
-  //           }, 2000);
-
-  //         } else {
-  //           if (attachFile2 || attachFile2 !== undefined) {
-  //             saveFile(item.Id);
-  //           }
-  //           setatt = [];
-  //           setatt1 = [];
-  //           setattachFile1([]);
-  //           setattachFile2([]);
-  //           setTicketId(item.Id);
-  //           WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
-  //           UpdateTicketsProperties = isStringValidated(item.TicketProperties) ? JSON.parse(item.TicketProperties) : [];
-  //           setTicketPropJOSNUpdate(UpdateTicketsProperties);
-
-  //           rowId = item.Id;
-
-  //           window.scrollTo(0, 0);
-  //           setSaved(true);
-  //           setTimeout(() => {
-  //             setLoading(false);
-  //             setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-  //             // saveTicketId();
-  //             messageDismiss();
-  //           }, 1000);
-  //           setTimeout(() => {
-  //             getAutomationData(item);
-  //             saveTicketId();
-
-
-  //           }, 1200);
-  //           setTimeout(() => {
-  //           }, 2000);
-  //           setTimeout(() => {
-  //             CustomDateData = {};
-  //             ResetFields();
-
-  //           }, 1400);
-  //         }
-  //       })
-  //       .catch((error) => {
-
-  //         window.scrollTo(0, 0);
-  //         setError(true);
-  //         setLoading(false);
-  //         setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-  //         setTimeout(() => {
-  //           messageDismiss();
-  //         }, 2000);
-  //       });
-  //   } else if (Errmessage != "") {
-  //     setRequiredColumnMessage(true);
-  //     setLoading(false);
-  //     setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-  //     setTimeout(() => {
-  //       setRequiredColumnMessage(false);
-  //     }, 2000);
-  //   }
-  // }
 
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
   const iconButtonStyles: Partial<IButtonStyles> = {
@@ -692,7 +526,7 @@ const SingleLayoutHeader = ({ propsData }) => {
             onClick={() => setOpenModel(true)}
           />
           <Icon className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="FullScreen" onClick={handleExpandScreen} />
-          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" />
+          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
 
         </span>
       </div>
@@ -830,7 +664,7 @@ const SingleLayoutHeader = ({ propsData }) => {
             <div style={{ padding: "10px 20px", display: "flex" }}><strong>Note:</strong>
               <div className='draggble-model-short-note'>
                 {/* You can select a maximum of 5 fields at a time. For any field you do not select, please ensure you set its default value.</div> */}
-                You can select upto 5 fields, for remaining fields you can select default values to be sent.</div> 
+                You can select upto 5 fields, for remaining fields you can select default values to be sent.</div>
             </div>
 
             {/* Submit & Cancel Button */}
@@ -887,6 +721,68 @@ const SingleLayoutHeader = ({ propsData }) => {
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
+      }
+      {/* SUBMIT TICKETS WARNINGS & ERROR MESSAGES */}
+      {
+        emptyTitleMsg && <ReusableSweetAlerts
+          type="warning"
+          title="Skip"
+          text={
+            "Please fill the title"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+      }
+
+      {
+        emptyDescriptionMsg && <ReusableSweetAlerts
+          type="warning"
+          title="Skip"
+          text={
+            "Please fill the description"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+      }
+
+      {
+        emptyTeamsMsg && <ReusableSweetAlerts
+          type="warning"
+          title="Skip"
+          text={
+            "Please select teams"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+      }
+
+      {/* Submit Tickets Alert */}
+      {
+        savedTicketsMsg && <ReusableSweetAlerts
+          type="success"
+          title="Skip"
+          text={
+            "Request submitted successfully!"
+          }
+          isBehindVisible={false}
+          isConfirmBtn={false}
+          id={"#ConfigureRequest"}
+          countdown={2000}
+          popupCustomClass={"general-settings"}
+        />
+
       }
     </>
   )

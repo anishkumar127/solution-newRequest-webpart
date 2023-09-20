@@ -4,6 +4,7 @@ import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
 import SingleLayoutHeader from "./SingleLayoutHeader";
 import { useStore } from "../../../store/zustand";
+import ContextService from "../../../loc/Services/ContextService";
 
 // TEAMS DEPARTMENT
 let defaultteamCode = "";
@@ -35,6 +36,7 @@ const SingleLayoutAddNewTicket = () => {
   const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
   const getSettingsCollection = useStore((state) => state.getSettingsCollection());
 
+  console.log("getSettingsCollection", getSettingsCollection);
   const getPriorityApi = useAddNewApiStore((state) => state.getPriorityApi());
   const getRequestType = useAddNewApiStore((state) => state.getRequestType());
   const getService = useAddNewApiStore((state) => state.getService());
@@ -58,7 +60,7 @@ const SingleLayoutAddNewTicket = () => {
   const [priorityName, setpriorityName] = React.useState<string>();
   const [defltPriority, setDefltPriority] = React.useState<string>(null);
   const [priorityoptions, setpriorityoptions] = React.useState([]);
-
+  const [requestername, setrequesterName] = React.useState([]);
   // < ----------- REQUEST TYPE STATES -------------------------->
 
   const [requestoptions, setrequestoptions] = React.useState([]);
@@ -76,6 +78,9 @@ const SingleLayoutAddNewTicket = () => {
 
   const [closePanel, setClosePanel] = useState<boolean>(false);
 
+  // 
+  const [ticketTitle, setTicketTitle] = useState<string>("");
+  const [descriptionValue, setDescriptionValue] = useState<string>("");
   // VALIDATOR FUNCTION
 
   function isStringValidated(value) {
@@ -169,13 +174,13 @@ const SingleLayoutAddNewTicket = () => {
   useEffect(() => {
     if (getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length > 0) {
       const checkboxFields = getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields
-      if(checkboxFields){
-      const data: any[] = JSON.parse(checkboxFields);
-      if (data && data?.length > 0) {
-        console.log("%c checkbox SET TO ORDER", "background-color:red", data);
-        setLayoutOrder(data);
+      if (checkboxFields) {
+        const data: any[] = JSON.parse(checkboxFields);
+        if (data && data?.length > 0) {
+          console.log("%c checkbox SET TO ORDER", "background-color:red", data);
+          setLayoutOrder(data);
+        }
       }
-    }
 
     }
   }, [getRequestFieldsCheckbox]);
@@ -240,6 +245,11 @@ const SingleLayoutAddNewTicket = () => {
     );
 
     setpriorityoptions(ProcessTypeoptions1);
+    let currentuser = ContextService.GetCurrentUser();
+    let userid = ContextService.GetCurentUserId();
+    let userdetails = [];
+    userdetails.push({ id: userid, name: currentuser.displayName });
+    setrequesterName(userdetails);
   }
   // <-------------------- REQUESTTYPE FUNCTION ------------------->
 
@@ -341,7 +351,14 @@ const SingleLayoutAddNewTicket = () => {
     if (newMultiline !== isMultiline) {
       setIsMultiline(!isMultiline);
     }
+    setTicketTitle(newText);
   };
+
+  const onChangeDescription = (e, newText: string) => {
+    setDescriptionValue(newText);
+  }
+
+
   // <------------------ PRIORITY ONCHANGE -------------->
 
   const handlePriorityOnChange = (event: React.FormEvent<HTMLDivElement>,
@@ -360,7 +377,9 @@ const SingleLayoutAddNewTicket = () => {
         propsData={{
           teamsoptionarray, handleTeamsOnChange, serviceOption, handleServiceOnChange, defltService, subserviceOption, handleSubServiceOnChange, defltSubService, priorityoptions,
           defltPriority, handlePriorityOnChange, handleRequestTypeOnChange,
-          requestoptions, defltTeam, defltReq, closePanel, setClosePanel
+          requestoptions, defltTeam, defltReq, closePanel, setClosePanel, ticketTitle,
+          descriptionValue, requestname, requestername, setDefltTeam,
+          setDefltService, setDefltSubService, setDefltPriority, setDefltReq, setTicketTitle, setDescriptionValue
         }} />
       <div className="add-new-ticket-ui-style">
         {layoutOrder?.map((item, index) => {
@@ -369,39 +388,43 @@ const SingleLayoutAddNewTicket = () => {
             // {item?.Name}
             <React.Fragment key={index}>
               {item?.Name === "Title" && item?.isChecked === true ? <TextField
-                placeholder="Enter request title"
+                placeholder="Enter request title"   // <--- TITLE --->
                 multiline={isMultiline}
+                value={ticketTitle}
                 onChange={onChangeRequestTitle}
-              /> : item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
-                options={teamsoptionarray}
-                onChange={handleTeamsOnChange}
-                placeholder="Select teams"
-                selectedKey={defltTeam}
-              /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
-                options={serviceOption}
-                onChange={handleServiceOnChange}
-                placeholder="Select services"
-                selectedKey={defltService}
-              /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
-                options={subserviceOption}
-                onChange={handleSubServiceOnChange}
-                placeholder="Select sub services"
-                selectedKey={defltSubService}
-              /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
-                placeholder="Please elaborate your query..."
-                multiline
-                rows={3}
-              /> : item?.Name === "Request Type" && item?.isChecked === true ? <Dropdown
-                options={requestoptions}
-                onChange={handleRequestTypeOnChange}
-                placeholder="Select request type"
-                selectedKey={defltReq}
-              /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
-                options={priorityoptions}
-                onChange={handlePriorityOnChange}
-                placeholder="Select priority"
-                selectedKey={defltPriority}
-              /> : null}
+              /> :
+                item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
+                  options={teamsoptionarray}   // <--- TEAMS --->
+                  onChange={handleTeamsOnChange}
+                  placeholder="Select teams"
+                  selectedKey={defltTeam}
+                /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
+                  options={serviceOption}           // <--- SERVICE --->
+                  onChange={handleServiceOnChange}
+                  placeholder="Select services"
+                  selectedKey={defltService}
+                /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
+                  options={subserviceOption}
+                  onChange={handleSubServiceOnChange}
+                  placeholder="Select sub services"      // <--- SUBSERVICE --->
+                  selectedKey={defltSubService}
+                /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
+                  placeholder="Please elaborate your query..."   // <--- DESCRIPTION --->
+                  multiline
+                  rows={3}
+                  value={descriptionValue}
+                  onChange={onChangeDescription}
+                /> : item?.Name === "Request Type" && item?.isChecked === true ? <Dropdown
+                  options={requestoptions}     // <--- REQUEST TYPE --->
+                  onChange={handleRequestTypeOnChange}
+                  placeholder="Select request type"
+                  selectedKey={defltReq}
+                /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
+                  options={priorityoptions}      // <--- PROIRTY --->
+                  onChange={handlePriorityOnChange}
+                  placeholder="Select priority"
+                  selectedKey={defltPriority}
+                /> : null}
             </React.Fragment>
 
           )
