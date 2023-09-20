@@ -12,6 +12,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const [isUrlValid, setIsUrlValid] = useState<boolean>(false);
     const [refreshUI, setRefreshUI] = useState<boolean>(false);
+    const [updateSubmit, setUpdateSubmit] = useState<boolean>(false);
     const [siteUrl, setSiteUrl] = useState<string>("");
     const isInstalledInfo = useStore((state) => state.getIsInstalled());
     const setIsInstalled = useStore((state) => state.setIsInstalled);
@@ -75,7 +76,11 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
     }
 
     const onSubmit = async () => {
-        await fetchSettingsCollection();
+        setUpdateSubmit(!updateSubmit);
+        setTimeout(async () => {
+            await fetchSettingsCollection();
+        }, 300);
+
     }
     useEffect(() => {
         console.log("Loading & All API Calls Again. After submit...");
@@ -83,8 +88,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
             await fetchIsInstalled();
         }
         fetchedIsInstalled();
-
-    }, [refreshUI]);
+    }, [refreshUI, updateSubmit]);
 
     const UrlValidatorMsg = () => (
         <MessageBar
