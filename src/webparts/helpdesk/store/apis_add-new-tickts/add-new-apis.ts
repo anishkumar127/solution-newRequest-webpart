@@ -4,6 +4,7 @@ import { useStore as useBorrowDataStore } from "../zustand";
 import { devtools } from 'zustand/middleware'
 
 import { immer } from "zustand/middleware/immer";
+import ContextService from "../../loc/Services/ContextService";
 interface State {
   // INITIAL STATE
   TeamsDepartmentData: any[];
@@ -12,7 +13,7 @@ interface State {
   PriorityData: any[];
   ServiceData: any[];
   SubServiceData: any[];
-
+  RequestFieldsCheckboxData:any[];
   // FETCH
   fetchTeamsDepartmentApi: () => Promise<void>;
   fetchPriorityApi: () => Promise<void>;
@@ -20,6 +21,7 @@ interface State {
   fetchService: () => Promise<void>;
   fetchSubService: () => Promise<void>;
   initializeDataAddNewWebPart: () => Promise<void>;
+  fetchRequestFieldsCheckbox:()=>Promise<void>;
 
   // GET
   getTeamsDepartmentApi: () => any[];
@@ -27,6 +29,7 @@ interface State {
   getPriorityApi: () => any[];
   getService: () => any[];
   getSubService: () => any[];
+  getRequestFieldsCheckbox:()=>any[];
 }
 
 const storeData = (set, get) => ({
@@ -37,7 +40,7 @@ const storeData = (set, get) => ({
   ServiceData: [],
   SubServiceData: [],
   AddNewWebPartInfo: null,
-
+  RequestFieldsCheckboxData:[],
   // <----------------- FETCHING DATA ------------------------->
   initializeDataAddNewWebPart: async () => {
     try {
@@ -153,6 +156,22 @@ const storeData = (set, get) => ({
       console.error("error subservice fetching", err);
     }
   },
+  fetchRequestFieldsCheckbox:async()=>{
+    try {
+      let web = new Web(ContextService.GetUrl());
+      web.lists
+        .getByTitle("HR365HDMAddNewTicketsWebpart").select('items/RequestTicketsCheckedFields')
+        .items.get()
+        .then((data) => {
+          console.log("RequestFieldsCheckboxData",data)
+          set({RequestFieldsCheckboxData:data})
+        });
+
+    } catch (error) {
+      console.error("Error fetching Request Fields Checkbox",error);
+    }
+  },
+  getRequestFieldsCheckbox: () => get().RequestFieldsCheckboxData,
   // <------------------- GETTING DATA ------------------------>
   getTeamsDepartmentApi: () => get().TeamsDepartmentData,
   getPriorityApi: () => get().PriorityData,

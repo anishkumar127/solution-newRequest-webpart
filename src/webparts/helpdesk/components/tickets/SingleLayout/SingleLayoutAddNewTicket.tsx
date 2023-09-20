@@ -314,7 +314,7 @@ const SingleLayoutAddNewTicket = () => {
       <SingleLayoutHeader
        propsData={{teamsoptionarray,handleTeamsOnChange,serviceOption,handleServiceOnChange,defltService,subserviceOption,handleSubServiceOnChange,defltSubService,priorityoptions,
         defltPriority,handlePriorityOnChange,handleRequestTypeOnChange,
-        requestoptions
+        requestoptions,defltTeam,defltReq
        }}/>
     <div className="add-new-ticket-ui-style">
       {/* Title ui */}

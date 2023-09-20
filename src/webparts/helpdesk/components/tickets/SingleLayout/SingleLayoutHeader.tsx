@@ -5,6 +5,8 @@ const helpDeskLogDarkMode = require('../../../../../../assets/HD365-Icon-White-1
 import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal } from '@fluentui/react';
+import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
+import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 
 let mandatoryFields = [];
 
@@ -14,7 +16,10 @@ const SingleLayoutHeader = ({ propsData }) => {
   const getSettingsCollection = useStore((state) => state.getSettingsCollection());
   console.log("SITE DATA", getSettingsCollection)
   console.log("theme", ThemesColor);
-
+  const setRequestFieldsCheckbox = useRequestPost((state)=>state.setRequestFieldsCheckbox);
+  const setDefaultRequestSettings = useRequestPost((state)=>state.setDefaultRequestSettings);
+  const fetchRequestFieldsCheckbox = useAddNewApiStore((state)=>state.fetchRequestFieldsCheckbox);
+  const getRequestFieldsCheckbox = useAddNewApiStore((state)=>state.getRequestFieldsCheckbox());
   // <----------------------- MODEL ON/OFF STATES --------------->
   const [openModel, setOpenModel] = useState<boolean>(false);
 
@@ -42,6 +47,26 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
   }, [getSettingsCollection])
 
+  // <----------------------- FETCH CHECKBOX FIELDS DATA --------------->
+
+  useEffect(() => {
+    const fetchRequestFieldsCheckboxData = async()=>{
+      await fetchRequestFieldsCheckbox();
+    }
+    fetchRequestFieldsCheckboxData();
+
+  }, []);
+
+  useEffect(()=>{
+    if(getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length>0){
+      const checkboxFields = getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields
+      const data:any[] =  JSON.parse(checkboxFields);
+      if(data && data?.length>0){
+        console.log("data checkbox get",data);
+        setDraggedOrderData(data);
+      }
+    }
+  },[])
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {
     console.log("clicked")
@@ -112,9 +137,39 @@ const SingleLayoutHeader = ({ propsData }) => {
   }
 
   //
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+   console.log("e checkbox submit",e);
+   console.log("onSubmit",draggedOrderData);
+   if(draggedOrderData && draggedOrderData?.length>0){
+    // FILTERING MANDATORY FIELDS.
+    //  const filteredData = draggedOrderData?.filter((item)=> {
+    //   const isPresent = mandatoryFields?.some((items)=>items === item?.Name);
+    //     return !isPresent;
+    //  });
+    //  console.log("filteredData",filteredData);
 
+     // MERGE & POST 
+    //  if(filteredData && filteredData?.length>0){
+       setRequestFieldsCheckbox(draggedOrderData);
+    //  }
+
+   }
   }
+
+// 
+const onDefaultSubmit = (e)=>{
+
+console.log("propsData",propsData);
+  // setDefaultRequestSettings();
+  const defaultData ={
+    Teams:propsData?.defltTeam,
+    Service:propsData?.defltService,
+    'Sub Service':propsData?.defltSubService,
+    'Request Type':propsData?.defltReq,
+    Priority:propsData?.defltPriority
+  }
+  console.log("defaultData",defaultData);
+}
 
   //
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
@@ -245,6 +300,7 @@ const SingleLayoutHeader = ({ propsData }) => {
               {/* DEFAULT CONTNET */}
               <div className='draggable-two draggable-default-content'>
                 {/* <Label required>{"Teams"}</Label> */}
+                <div onClick={onDefaultSubmit} style={{ textAlign: "end" }}> <Icon className='add-new-ticket-pointer' iconName="Save" /></div>
                 <Dropdown
                   label={"Teams"}
                   options={propsData?.teamsoptionarray}
