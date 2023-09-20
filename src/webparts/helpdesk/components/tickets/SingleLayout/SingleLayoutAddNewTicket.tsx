@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { TextField } from "@fluentui/react";
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
+import SingleLayoutHeader from "./SingleLayoutHeader";
 
 // TEAMS DEPARTMENT
 let defaultteamCode = "";
@@ -65,6 +66,8 @@ const SingleLayoutAddNewTicket = () => {
   // < ----------- SUB SERVICE STATES -------------------------->
 
   const [Suboptions, setSuboptions] = React.useState([]);
+
+
 
   // VALIDATOR FUNCTION
 
@@ -293,6 +296,8 @@ const SingleLayoutAddNewTicket = () => {
     }
   };
   return (
+    <>
+      <SingleLayoutHeader/>
     <div className="add-new-ticket-ui-style">
       {/* Title ui */}
       <TextField
@@ -329,6 +334,7 @@ const SingleLayoutAddNewTicket = () => {
         rows={3}
       />
     </div>
+    </>
   );
 };
 
