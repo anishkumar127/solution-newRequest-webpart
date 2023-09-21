@@ -1,7 +1,7 @@
 import { Web } from "sp-pnp-js";
 import { create } from "zustand";
 import { useStore as useBorrowDataStore } from "../zustand";
-import { devtools } from 'zustand/middleware'
+import { devtools } from "zustand/middleware";
 
 import { immer } from "zustand/middleware/immer";
 import ContextService from "../../loc/Services/ContextService";
@@ -14,9 +14,9 @@ interface State {
   PriorityData: any[];
   ServiceData: any[];
   SubServiceData: any[];
-  RequestFieldsCheckboxData:any[];
-  EmailTemplateData:any[];
-  UserListsData:any[];
+  RequestFieldsCheckboxData: any[];
+  EmailTemplateData: any[];
+  UserListsData: any[];
   // FETCH
   fetchTeamsDepartmentApi: () => Promise<void>;
   fetchPriorityApi: () => Promise<void>;
@@ -24,9 +24,9 @@ interface State {
   fetchService: () => Promise<void>;
   fetchSubService: () => Promise<void>;
   initializeDataAddNewWebPart: () => Promise<void>;
-  fetchRequestFieldsCheckbox:()=>Promise<void>;
-  fetchEmailTemplate:()=>Promise<void>;
-  fetchUserLists:()=>Promise<void>;
+  fetchRequestFieldsCheckbox: () => Promise<void>;
+  fetchEmailTemplate: () => Promise<void>;
+  fetchUserLists: () => Promise<void>;
 
   // GET
   getTeamsDepartmentApi: () => any[];
@@ -34,9 +34,9 @@ interface State {
   getPriorityApi: () => any[];
   getService: () => any[];
   getSubService: () => any[];
-  getRequestFieldsCheckbox:()=>any[];
-  getEmailTemplate:()=>any[];
-  getUserLists:()=>any[];
+  getRequestFieldsCheckbox: () => any[];
+  getEmailTemplate: () => any[];
+  getUserLists: () => any[];
 }
 
 const storeData = (set, get) => ({
@@ -47,9 +47,9 @@ const storeData = (set, get) => ({
   ServiceData: [],
   SubServiceData: [],
   AddNewWebPartInfo: null,
-  RequestFieldsCheckboxData:[],
-  EmailTemplateData:[],
-  UserListsData:[],
+  RequestFieldsCheckboxData: [],
+  EmailTemplateData: [],
+  UserListsData: [],
   // <----------------- FETCHING DATA ------------------------->
   initializeDataAddNewWebPart: async () => {
     try {
@@ -165,76 +165,78 @@ const storeData = (set, get) => ({
       console.error("error subservice fetching", err);
     }
   },
-  fetchRequestFieldsCheckbox:async()=>{
+  fetchRequestFieldsCheckbox: async () => {
     try {
       let web = new Web(ContextService.GetUrl());
       web.lists
-        .getByTitle("HR365HDMAddNewTicketsWebpart").select('items/RequestTicketsCheckedFields')
+        .getByTitle("HR365HDMAddNewTicketsWebpart")
+        .select("items/RequestTicketsCheckedFields")
         .items.get()
         .then((data) => {
-          console.log("RequestFieldsCheckboxData",data)
-          set({RequestFieldsCheckboxData:data})
+          console.log("RequestFieldsCheckboxData", data);
+          set({ RequestFieldsCheckboxData: data });
         });
-
     } catch (error) {
-      console.error("Error fetching Request Fields Checkbox",error);
+      console.error("Error fetching Request Fields Checkbox", error);
     }
   },
-  fetchEmailTemplate:async()=>{
+  fetchEmailTemplate: async () => {
     try {
       const data = get()?.AddNewWebPartInfo;
       if (data?.SiteUrl) {
-      let allItems = [];
-      ContextService.GetSPContext()
-        .get(
-          `${data?.SiteUrl}/_api/web/lists/getbytitle('HR365HDMEmailNotifications')/items`,
-          SPHttpClient.configurations.v1,
-          {
-            headers: {
-              Accept: "application/json;odata=nometadata",
-              "odata-version": "",
-            },
-          }
-        )
-        .then((response: SPHttpClientResponse) => {
-          return response.json();
-        })
-        .then((items: any) => {
-          items?.value?.map((templ) => {
-            let finaltemp = {
-              ID: templ.ID,
-              Title: templ.Title,
-              Body: templ.Body,
-              IsActive: templ.IsActive,
-              Subject: templ.Subject,
-              EmailSentTo: templ.EmailSentTo,
-              CustomFormTemplate: templ.CustomFormTemplate,
-            };
-            allItems.push(finaltemp);
+        let allItems = [];
+        ContextService.GetSPContext()
+          .get(
+            `${data?.SiteUrl}/_api/web/lists/getbytitle('HR365HDMEmailNotifications')/items`,
+            SPHttpClient.configurations.v1,
+            {
+              headers: {
+                Accept: "application/json;odata=nometadata",
+                "odata-version": "",
+              },
+            }
+          )
+          .then((response: SPHttpClientResponse) => {
+            return response.json();
+          })
+          .then((items: any) => {
+            items?.value?.map((templ) => {
+              let finaltemp = {
+                ID: templ.ID,
+                Title: templ.Title,
+                Body: templ.Body,
+                IsActive: templ.IsActive,
+                Subject: templ.Subject,
+                EmailSentTo: templ.EmailSentTo,
+                CustomFormTemplate: templ.CustomFormTemplate,
+              };
+              allItems.push(finaltemp);
+            });
+            console.log("fetching mail template...");
+            set({ EmailTemplateData: allItems });
           });
-          console.log("fetching mail template...");
-          set({ EmailTemplateData: allItems });
-
-        });
       }
     } catch (error) {
-      console.error("fetching email template error",error);
+      console.error("fetching email template error", error);
     }
   },
-  fetchUserLists:async()=>{
+  fetchUserLists: async () => {
     try {
       const data = get()?.AddNewWebPartInfo;
       if (data?.SiteUrl) {
         let web = new Web(data?.SiteUrl);
         web.lists
           .getByTitle("HR365HDMUsers")
-          .items.select('*,ID,Roles,Users/Id,Users/Title,UsersId,Email,Department,Roles,TicketCount&$expand=Users').get()
+          .items.select(
+            "*,ID,Roles,Users/Id,Users/Title,UsersId,Email,Department,Roles,TicketCount&$expand=Users"
+          )
+          .get()
           .then((data) => {
-            set({UserListsData:data})
-          })
+            set({ UserListsData: data });
+          });
       }
     } catch (error) {
-      console.error("Error fetching user lists",error);
+      console.error("Error fetching user lists", error);
     }
   },
 
@@ -245,10 +247,13 @@ const storeData = (set, get) => ({
   getRequestType: () => get().RequestTypeData,
   getService: () => get().ServiceData,
   getSubService: () => get().SubServiceData,
-  getEmailTemplate:()=>get().EmailTemplateData,
-  getUserLists:()=>get().UserListsData,
+  getEmailTemplate: () => get().EmailTemplateData,
+  getUserLists: () => get().UserListsData,
 });
 
 export const useAddNewApiStore = create(
- devtools( immer<State>((set, get) => storeData(set, get)),{name:"add-new-api-store"})
+  devtools(
+    immer<State>((set, get) => storeData(set, get)),
+    { name: "add-new-api-store" }
+  )
 );

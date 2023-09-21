@@ -28,20 +28,27 @@ let lastAssignid = [];
 
 const SingleLayoutHeader = ({ propsData }) => {
   const ThemesColor = useStore((state) => state.ThemesColor)
-  const setExpandMode = useStore((state) => state.setExpandMode);
-  const getSettingsCollection = useStore((state) => state.getSettingsCollection());
-  console.log("SITE DATA", getSettingsCollection)
   console.log("theme", ThemesColor);
+
+  // <-------------------------- SET DATA ---------------------->
+  const setExpandMode = useStore((state) => state.setExpandMode);
   const setRequestFieldsCheckbox = useRequestPost((state) => state.setRequestFieldsCheckbox);
   const setDefaultRequestSettings = useRequestPost((state) => state.setDefaultRequestSettings);
+
+  // <-------------------------- FETCHING DATA ---------------------->
+
   const fetchRequestFieldsCheckbox = useAddNewApiStore((state) => state.fetchRequestFieldsCheckbox);
+
+  // <-------------------------- GETTING DATA ---------------------->
+  const getSettingsCollection = useStore((state) => state.getSettingsCollection());
   const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
-  const getEmailTemplate = useAddNewApiStore((state)=>state.getEmailTemplate());
-  const getUserLists = useAddNewApiStore((state)=>state.getUserLists());
-  const getTeamsDepartmentApi = useAddNewApiStore((state)=>state.getTeamsDepartmentApi());
-
-
+  const getEmailTemplate = useAddNewApiStore((state) => state.getEmailTemplate());
+  const getUserLists = useAddNewApiStore((state) => state.getUserLists());
+  const getTeamsDepartmentApi = useAddNewApiStore((state) => state.getTeamsDepartmentApi());
   const getIsInstalled = useStore((state) => state.getIsInstalled());
+
+  console.log("SITE DATA", getSettingsCollection);
+
   // <----------------------- MODEL ON/OFF STATES --------------->
   const [openModel, setOpenModel] = useState<boolean>(false);
 
@@ -68,7 +75,7 @@ const SingleLayoutHeader = ({ propsData }) => {
 
   const [savedTicketsMsg, setSavedTicketsMsg] = useState<boolean>(false);
 
-
+  // <------------------------------------ ADDING THE DEFAULT CHECKBOXES ----------------------------->
   useEffect(() => {
     if (getSettingsCollection) {
       mandatoryFields = []; // SET TO EMPTY.
@@ -100,6 +107,7 @@ const SingleLayoutHeader = ({ propsData }) => {
 
   }, [openModel]);
 
+  // <----------------------- FETCHED GET & SET TO STATE CHECKBOX FIELDS DATA --------------->
   useEffect(() => {
     if (getRequestFieldsCheckbox && getRequestFieldsCheckbox?.length > 0) {
       const checkboxFields = getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields
@@ -109,7 +117,9 @@ const SingleLayoutHeader = ({ propsData }) => {
         setDraggedOrderData(data);
       }
     }
-  }, [getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields, openModel])
+  }, [getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields, openModel]);
+
+
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {
     console.log("clicked")
@@ -223,17 +233,6 @@ const SingleLayoutHeader = ({ propsData }) => {
       'Request Type': defltReq,
       Priority: defltPriority
     }
-
-    // const isValue = !notSelected.some((item) => {
-    //   const defaultItem = defaultData[item?.Name];
-    //   return defaultItem === undefined || defaultItem === null;
-    // });
-    // if (!isValue) {
-    //   setSelectDefaultValue(true);
-    //   setTimeout(() => {
-    //     setSelectDefaultValue(false);
-    //   }, 2000);
-    // } else {
     try {
       await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
       await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
@@ -242,7 +241,6 @@ const SingleLayoutHeader = ({ propsData }) => {
     } catch (error) {
       console.error("api post calls error", error);
     }
-    // }
   }
 
   // <----------------------------------   SUBMIT TICKETS  ---------------------------->
@@ -486,10 +484,10 @@ const SingleLayoutHeader = ({ propsData }) => {
 
   function sendEmailWOAuto() {
     console.log("sending mail...")
-    if(getEmailTemplate && getEmailTemplate?.length>0){
+    if (getEmailTemplate && getEmailTemplate?.length > 0) {
       // props destucturing.
-      const emailTemplate =  getEmailTemplate;
-      const {ticketTitle:Titlename , descriptionValue:globalMessage,defltService: servicename, defltSubService: subservicename, defltPriority: priorityName,requestname} = propsData;
+      const emailTemplate = getEmailTemplate;
+      const { ticketTitle: Titlename, descriptionValue: globalMessage, defltService: servicename, defltSubService: subservicename, defltPriority: priorityName, requestname } = propsData;
 
       // current email id & address
       let currentuser = ContextService.GetCurrentUser();
@@ -504,7 +502,7 @@ const SingleLayoutHeader = ({ propsData }) => {
       }
 
       // ReqName
-      let reqName ; 
+      let reqName;
       if (currentuser.displayName.indexOf("0#.f|membership|") > -1) {
         userName = currentuser.displayName.split('0#.f|membership|"')[1];
       } else {
@@ -512,104 +510,104 @@ const SingleLayoutHeader = ({ propsData }) => {
       }
       reqName = userName;
 
-    let AdminMails = [];
-    let agent = emailTemplate.filter((i) => {
-      return (i.Title == "Agent - New Ticket Created");
-    });
-    let superEmail = emailTemplate.filter((i) => {
-      return (i.Title == "Supervisor - New Ticket Created");
-    });
-    let SuperAgent = emailTemplate.filter((i) => {
-      return (i.Title == "All Supervisors & Agents - New Ticket Created");
-    });
-
-    let adminEmail = emailTemplate.filter((i) => {
-      return (i.Title == "Admin - New Ticket Generated");
-    });
-
-    let requesterEmailTemp = emailTemplate.filter((i) => {
-      return (i.Title == "Requester - New Ticket Created");
-    });
-    let supertitle = superEmail[0].Subject;
-    let supertitle1 = supertitle.replaceAll('[ticket.subject]', Titlename);
-    let supertitle2 = supertitle1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
-    supertitle2 = supertitle2.replaceAll('[ticket.url]', "").replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename);
-    supertitle2 = supertitle2.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.survey_rating]', '');
-    let currentContext = window.location.href.split("#")[0].split(".aspx")[0];
-    let body = superEmail[0].Body;
-    let body1 = body.replaceAll('[ticket.requester.name]', reqName);
-    body1 = body1.replaceAll('[ticket.subject]', Titlename).replaceAll('[ticket.id]', ticketSequence).replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email);;
-    body1 = body1.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename).replaceAll('[ticket.survey_rating]', '');
-    let taskUrl;
-
-    if (currentContext) {
-      taskUrl = currentContext + ".aspx#/Ticket/" + generatedIssueID;
-      if (taskUrl.indexOf('SitePages') == -1) {
-        taskUrl = taskUrl.split('.aspx')[0] + taskUrl.split('.aspx')[1]
-      }
-      if (currentContext.indexOf("teamshostedapp") != -1) {
-        taskUrl = "https://teams.microsoft.com/_#/apps//sections/4d8856e9-d2a6-493f-ba99-2b34a6ee5377/launcher/launcher.html?url=" + currentContext + ".aspx#/Ticket/" + generatedIssueID;
-      }
-    }
-
-    let body2 = body1.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`);
-    let requesterEmailTempArray = [];
-    let reqSub;
-    let reqbody;
-    if (requesterEmailTemp[0].CustomFormTemplate != null && requesterEmailTemp[0].CustomFormTemplate != undefined) {
-      requesterEmailTempArray = JSON.parse(requesterEmailTemp[0].CustomFormTemplate);
-      requesterEmailTempArray = requesterEmailTempArray.filter((IdV) => {
-        // return IdV.FormGuid == DefaultFormGuid
-        return IdV.FormGuid == ''
-      })
-      reqSub = isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].EmailSubject : requesterEmailTemp[0].Subject;
-      reqbody = isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].EmailBody : requesterEmailTemp[0].Body;
-    } else {
-      requesterEmailTempArray = requesterEmailTemp;
-      reqSub = requesterEmailTempArray[0].Subject;
-      reqbody = requesterEmailTempArray[0].Body;
-    }
-
-    let reqSub1 = reqSub.replaceAll('[ticket.subject]', Titlename);
-    let reqSub2 = reqSub1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
-    reqSub2 = reqSub2.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`).replaceAll('[ticket.description]', "").replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email);
-    reqSub2 = reqSub2.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename).replaceAll('[ticket.survey_rating]', '');
-
-    let reqbody1 = reqbody.replaceAll('[ticket.requester.name]', reqName);
-    let reqbody2 = reqbody1.replaceAll('[ticket.id]', ticketSequence);
-    reqbody2 = reqbody2.replaceAll('[ticket.subject]', Titlename).replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename);
-    reqbody2 = reqbody2.replaceAll(null, '').replaceAll(undefined, '');
-    let reqbody3 = reqbody2.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`).replaceAll('[ticket.survey_rating]', '');
-
-
-
-    let _teamdata = getTeamsDepartmentApi?.filter((ele) => {
-      return ele.Onqueue == propsData?.defltTeam;
-
-    });
-
-    if (adminEmail[0].IsActive == "Yes") {
-
-      var filtered = getUserLists?.filter((item) => {
-        return (item.Roles == "Admin");
+      let AdminMails = [];
+      let agent = emailTemplate.filter((i) => {
+        return (i.Title == "Agent - New Ticket Created");
+      });
+      let superEmail = emailTemplate.filter((i) => {
+        return (i.Title == "Supervisor - New Ticket Created");
+      });
+      let SuperAgent = emailTemplate.filter((i) => {
+        return (i.Title == "All Supervisors & Agents - New Ticket Created");
       });
 
-      let sendEmailIds = [];
-      filtered.map((i) => {
-        sendEmailIds.push(i.Email);
+      let adminEmail = emailTemplate.filter((i) => {
+        return (i.Title == "Admin - New Ticket Generated");
       });
 
+      let requesterEmailTemp = emailTemplate.filter((i) => {
+        return (i.Title == "Requester - New Ticket Created");
+      });
+      let supertitle = superEmail[0].Subject;
+      let supertitle1 = supertitle.replaceAll('[ticket.subject]', Titlename);
+      let supertitle2 = supertitle1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
+      supertitle2 = supertitle2.replaceAll('[ticket.url]', "").replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename);
+      supertitle2 = supertitle2.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.survey_rating]', '');
+      let currentContext = window.location.href.split("#")[0].split(".aspx")[0];
+      let body = superEmail[0].Body;
+      let body1 = body.replaceAll('[ticket.requester.name]', reqName);
+      body1 = body1.replaceAll('[ticket.subject]', Titlename).replaceAll('[ticket.id]', ticketSequence).replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email);;
+      body1 = body1.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename).replaceAll('[ticket.survey_rating]', '');
+      let taskUrl;
 
-      AdminMails = [...new Set(sendEmailIds)];
-      if (AdminMails.length > 0) {
-        let fromemail = "no-reply@sharepointonline.com";
-
-        if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
-          fromemail = "no-reply@sharepointonline.com";
-        } else {
-          fromemail = getSettingsCollection?.defaultAsignee;
+      if (currentContext) {
+        taskUrl = currentContext + ".aspx#/Ticket/" + generatedIssueID;
+        if (taskUrl.indexOf('SitePages') == -1) {
+          taskUrl = taskUrl.split('.aspx')[0] + taskUrl.split('.aspx')[1]
         }
-       
+        if (currentContext.indexOf("teamshostedapp") != -1) {
+          taskUrl = "https://teams.microsoft.com/_#/apps//sections/4d8856e9-d2a6-493f-ba99-2b34a6ee5377/launcher/launcher.html?url=" + currentContext + ".aspx#/Ticket/" + generatedIssueID;
+        }
+      }
+
+      let body2 = body1.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`);
+      let requesterEmailTempArray = [];
+      let reqSub;
+      let reqbody;
+      if (requesterEmailTemp[0].CustomFormTemplate != null && requesterEmailTemp[0].CustomFormTemplate != undefined) {
+        requesterEmailTempArray = JSON.parse(requesterEmailTemp[0].CustomFormTemplate);
+        requesterEmailTempArray = requesterEmailTempArray.filter((IdV) => {
+          // return IdV.FormGuid == DefaultFormGuid
+          return IdV.FormGuid == ''
+        })
+        reqSub = isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].EmailSubject : requesterEmailTemp[0].Subject;
+        reqbody = isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].EmailBody : requesterEmailTemp[0].Body;
+      } else {
+        requesterEmailTempArray = requesterEmailTemp;
+        reqSub = requesterEmailTempArray[0].Subject;
+        reqbody = requesterEmailTempArray[0].Body;
+      }
+
+      let reqSub1 = reqSub.replaceAll('[ticket.subject]', Titlename);
+      let reqSub2 = reqSub1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
+      reqSub2 = reqSub2.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`).replaceAll('[ticket.description]', "").replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email);
+      reqSub2 = reqSub2.replaceAll(null, '').replaceAll(undefined, '').replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename).replaceAll('[ticket.survey_rating]', '');
+
+      let reqbody1 = reqbody.replaceAll('[ticket.requester.name]', reqName);
+      let reqbody2 = reqbody1.replaceAll('[ticket.id]', ticketSequence);
+      reqbody2 = reqbody2.replaceAll('[ticket.subject]', Titlename).replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', "").replaceAll('[ticket.agent.email]', "").replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.Service]', servicename).replaceAll('[ticket.SubService]', subservicename);
+      reqbody2 = reqbody2.replaceAll(null, '').replaceAll(undefined, '');
+      let reqbody3 = reqbody2.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`).replaceAll('[ticket.survey_rating]', '');
+
+
+
+      let _teamdata = getTeamsDepartmentApi?.filter((ele) => {
+        return ele.Onqueue == propsData?.defltTeam;
+
+      });
+
+      if (adminEmail[0].IsActive == "Yes") {
+
+        var filtered = getUserLists?.filter((item) => {
+          return (item.Roles == "Admin");
+        });
+
+        let sendEmailIds = [];
+        filtered.map((i) => {
+          sendEmailIds.push(i.Email);
+        });
+
+
+        AdminMails = [...new Set(sendEmailIds)];
+        if (AdminMails.length > 0) {
+          let fromemail = "no-reply@sharepointonline.com";
+
+          if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
+            fromemail = "no-reply@sharepointonline.com";
+          } else {
+            fromemail = getSettingsCollection?.defaultAsignee;
+          }
+
           if (EmailsFromMailbox == "On") {
             postExternal(fromemail, AdminMails, body2, supertitle2, []);
 
@@ -617,201 +615,32 @@ const SingleLayoutHeader = ({ propsData }) => {
             sendEmailReply(supertitle2, body2, AdminMails, fromemail, AutoCCEmail);
           }
 
-        
-
-      }
 
 
-    }
-
-    if (agent[0].IsActive == "Yes") {
-      let sendEmailIds = [];
-      if (_teamdata[0].Teammembers1Id) {
-
-        var filtered = getUserLists?.filter((item) => {
-          return _teamdata[0].Teammembers1Id.indexOf(item.UsersId) !== -1;
-        });
-
-        filtered.map((i) => {
-          sendEmailIds.push(i.Email);
-        });
-        if (AutoAgentEmail != null && AutoAgentEmail != undefined && AutoAgentEmail != '') {
-          sendEmailIds.push(AutoAgentEmail)
         }
 
 
       }
 
-      let uniqueEmails = [...new Set(sendEmailIds)];
+      if (agent[0].IsActive == "Yes") {
+        let sendEmailIds = [];
+        if (_teamdata[0].Teammembers1Id) {
 
-      if (uniqueEmails.length > 0) {
-        let fromemail = "no-reply@sharepointonline.com";
+          var filtered = getUserLists?.filter((item) => {
+            return _teamdata[0].Teammembers1Id.indexOf(item.UsersId) !== -1;
+          });
 
-        if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
-          fromemail = "no-reply@sharepointonline.com";
-        } else {
-          fromemail = getSettingsCollection?.defaultAsignee;
-        }
-        if (uniqueEmails?.toString() != AdminMails?.toString()) {
-            if (EmailsFromMailbox == "On") {
-              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
-
-            } else {
-              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
-            }
-
-        }
-
-      }
-
-
-
-    }
-    if (superEmail[0].IsActive == "Yes") {
-      let sendEmailIds = [];
-      if (_teamdata[0].Supervisor1Id) {
-
-        var filtered = getUserLists?.filter((item) => {
-          return _teamdata[0].Supervisor1Id.indexOf(item.UsersId) !== -1;
-        });
-
-        filtered.map((i) => {
-          sendEmailIds.push(i.Email);
-        });
-
-
-      }
-      let uniqueEmails = [...new Set(sendEmailIds)];
-      if (uniqueEmails.length > 0) {
-        let fromemail = "no-reply@sharepointonline.com";
-
-        if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
-          fromemail = "no-reply@sharepointonline.com";
-        } else {
-          fromemail = getSettingsCollection?.defaultAsignee;
-        }
-        if (uniqueEmails?.toString() != AdminMails?.toString()) {
-            if (EmailsFromMailbox == "On") {
-              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
-
-            } else {
-              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
-            }
-
-        }
-
-      }
-
-    }
-    if (SuperAgent[0].IsActive == "Yes") {
-
-
-      let sendEmailIds = [];
-      if (_teamdata[0].Supervisor1Id) {
-
-        var filtered = getUserLists?.filter((item) => {
-          return _teamdata[0].Supervisor1Id.indexOf(item.UsersId) !== -1;
-        });
-        //
-        filtered.map((i) => {
-          sendEmailIds.push(i.Email);
-        });
-      }
-
-      if (_teamdata[0].Teammembers1Id) {
-
-        var filtered = getUserLists?.filter((item) => {
-          return _teamdata[0].Teammembers1Id.indexOf(item.UsersId) !== -1;
-        });
-        //
-        filtered.map((i) => {
-          sendEmailIds.push(i.Email);
-        });
-
-
-      }
-
-
-
-      let uniqueEmails = [...new Set(sendEmailIds)];
-
-      if (uniqueEmails.length > 0) {
-        let fromemail = "no-reply@sharepointonline.com";
-
-        if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
-          fromemail = "no-reply@sharepointonline.com";
-        } else {
-          fromemail = getSettingsCollection?.defaultAsignee;
-        }
-        if (uniqueEmails?.toString() != AdminMails?.toString()) {
-            if (EmailsFromMailbox == "On") {
-              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
-
-            } else {
-              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
-            }
-
-        }
-
-      }
-
-    }
-    if (isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].IsActive == "Yes" : requesterEmailTemp[0].IsActive == "Yes") {
-      let sendEmailIds = [currentuser.email];
-
-      let uniqueEmails = [...new Set(sendEmailIds)];
-      if (AutoCCEmail != '' && AutoCCEmail != undefined && AutoCCEmail != null) {
-        uniqueEmails.push([]);
-      }
-      if (uniqueEmails.length > 0) {
-        let fromemail = "no-reply@sharepointonline.com";
-
-        if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
-          fromemail = "no-reply@sharepointonline.com";
-        } else {
-          fromemail = getSettingsCollection?.defaultAsignee;
-        }
-          if (EmailsFromMailbox == "On") {
-            postExternal(fromemail, uniqueEmails, reqbody3, reqSub2, AutoCCEmail);
-
-          } else {
-            sendEmailReply(reqSub2, reqbody3, uniqueEmails, fromemail, AutoCCEmail);
+          filtered.map((i) => {
+            sendEmailIds.push(i.Email);
+          });
+          if (AutoAgentEmail != null && AutoAgentEmail != undefined && AutoAgentEmail != '') {
+            sendEmailIds.push(AutoAgentEmail)
           }
 
 
-      }
-
-    }
-    if (AutoAssignTicket == "On" && StopAutoAssignMail == 'No') {
-      let autoAssignEmal = emailTemplate.filter((i) => {
-        return (i.Title == "Assignee - Ticket Assigned To Agent");
-      });
-
-      if (autoAssignEmal[0].IsActive == "Yes") {
-
-        let autosub = autoAssignEmal[0].Subject;
-        let autosub1 = autosub.replaceAll('[ticket.subject]', Titlename);
-        let autosub2 = autosub1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
-        autosub2 = autosub2.replaceAll('[ticket.url]', "").replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', lastAssignid).replaceAll('[ticket.agent.email]', autoAssignEmal).replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.service]', servicename).replaceAll('[ticket.subservice]', subservicename);
-        autosub2 = autosub2.replaceAll(null, '').replaceAll(undefined, '');
-        let reqbody = requesterEmailTemp[0].Body;
-        let autobody = autoAssignEmal[0].Body;
-        autobody = autobody.replaceAll('[ticket.id]', ticketSequence);
-        autobody = autobody.replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', lastAssignid).replaceAll('[ticket.agent.email]', autoAssignEmal).replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.service]', servicename).replaceAll('[ticket.subservice]', subservicename);
-        autobody = autobody.replaceAll(null, '').replaceAll(undefined, '');
-        let autobody1 = autobody.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`);
-
-        let sendEmailIds = [];
-        var filtered = getUserLists?.filter((item) => {
-          return (item.UsersId == lastAssignid);
-        });
-        filtered.map((i) => {
-          sendEmailIds.push(i.Email);
-        });
-
+        }
 
         let uniqueEmails = [...new Set(sendEmailIds)];
-
 
         if (uniqueEmails.length > 0) {
           let fromemail = "no-reply@sharepointonline.com";
@@ -821,22 +650,191 @@ const SingleLayoutHeader = ({ propsData }) => {
           } else {
             fromemail = getSettingsCollection?.defaultAsignee;
           }
+          if (uniqueEmails?.toString() != AdminMails?.toString()) {
+            if (EmailsFromMailbox == "On") {
+              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
+
+            } else {
+              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
+            }
+
+          }
+
+        }
+
+
+
+      }
+      if (superEmail[0].IsActive == "Yes") {
+        let sendEmailIds = [];
+        if (_teamdata[0].Supervisor1Id) {
+
+          var filtered = getUserLists?.filter((item) => {
+            return _teamdata[0].Supervisor1Id.indexOf(item.UsersId) !== -1;
+          });
+
+          filtered.map((i) => {
+            sendEmailIds.push(i.Email);
+          });
+
+
+        }
+        let uniqueEmails = [...new Set(sendEmailIds)];
+        if (uniqueEmails.length > 0) {
+          let fromemail = "no-reply@sharepointonline.com";
+
+          if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
+            fromemail = "no-reply@sharepointonline.com";
+          } else {
+            fromemail = getSettingsCollection?.defaultAsignee;
+          }
+          if (uniqueEmails?.toString() != AdminMails?.toString()) {
+            if (EmailsFromMailbox == "On") {
+              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
+
+            } else {
+              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
+            }
+
+          }
+
+        }
+
+      }
+      if (SuperAgent[0].IsActive == "Yes") {
+
+
+        let sendEmailIds = [];
+        if (_teamdata[0].Supervisor1Id) {
+
+          var filtered = getUserLists?.filter((item) => {
+            return _teamdata[0].Supervisor1Id.indexOf(item.UsersId) !== -1;
+          });
+          //
+          filtered.map((i) => {
+            sendEmailIds.push(i.Email);
+          });
+        }
+
+        if (_teamdata[0].Teammembers1Id) {
+
+          var filtered = getUserLists?.filter((item) => {
+            return _teamdata[0].Teammembers1Id.indexOf(item.UsersId) !== -1;
+          });
+          //
+          filtered.map((i) => {
+            sendEmailIds.push(i.Email);
+          });
+
+
+        }
+
+
+
+        let uniqueEmails = [...new Set(sendEmailIds)];
+
+        if (uniqueEmails.length > 0) {
+          let fromemail = "no-reply@sharepointonline.com";
+
+          if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
+            fromemail = "no-reply@sharepointonline.com";
+          } else {
+            fromemail = getSettingsCollection?.defaultAsignee;
+          }
+          if (uniqueEmails?.toString() != AdminMails?.toString()) {
+            if (EmailsFromMailbox == "On") {
+              postExternal(fromemail, uniqueEmails, body2, supertitle2, AutoCCEmail);
+
+            } else {
+              sendEmailReply(supertitle2, body2, uniqueEmails, fromemail, AutoCCEmail);
+            }
+
+          }
+
+        }
+
+      }
+      if (isArrayValidated(requesterEmailTempArray) ? requesterEmailTempArray[0].IsActive == "Yes" : requesterEmailTemp[0].IsActive == "Yes") {
+        let sendEmailIds = [currentuser.email];
+
+        let uniqueEmails = [...new Set(sendEmailIds)];
+        if (AutoCCEmail != '' && AutoCCEmail != undefined && AutoCCEmail != null) {
+          uniqueEmails.push([]);
+        }
+        if (uniqueEmails.length > 0) {
+          let fromemail = "no-reply@sharepointonline.com";
+
+          if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
+            fromemail = "no-reply@sharepointonline.com";
+          } else {
+            fromemail = getSettingsCollection?.defaultAsignee;
+          }
+          if (EmailsFromMailbox == "On") {
+            postExternal(fromemail, uniqueEmails, reqbody3, reqSub2, AutoCCEmail);
+
+          } else {
+            sendEmailReply(reqSub2, reqbody3, uniqueEmails, fromemail, AutoCCEmail);
+          }
+
+
+        }
+
+      }
+      if (AutoAssignTicket == "On" && StopAutoAssignMail == 'No') {
+        let autoAssignEmal = emailTemplate.filter((i) => {
+          return (i.Title == "Assignee - Ticket Assigned To Agent");
+        });
+
+        if (autoAssignEmal[0].IsActive == "Yes") {
+
+          let autosub = autoAssignEmal[0].Subject;
+          let autosub1 = autosub.replaceAll('[ticket.subject]', Titlename);
+          let autosub2 = autosub1.replaceAll('[ticket.id]', '[' + ticketSequence + ']');
+          autosub2 = autosub2.replaceAll('[ticket.url]', "").replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', lastAssignid).replaceAll('[ticket.agent.email]', autoAssignEmal).replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.service]', servicename).replaceAll('[ticket.subservice]', subservicename);
+          autosub2 = autosub2.replaceAll(null, '').replaceAll(undefined, '');
+          let reqbody = requesterEmailTemp[0].Body;
+          let autobody = autoAssignEmal[0].Body;
+          autobody = autobody.replaceAll('[ticket.id]', ticketSequence);
+          autobody = autobody.replaceAll('[ticket.description]', globalMessage).replaceAll('[ticket.latest_comment]', "").replaceAll('[ticket.agent.name]', lastAssignid).replaceAll('[ticket.agent.email]', autoAssignEmal).replaceAll('[ticket.satisfaction_survey]', "").replaceAll('[ticket.mergeid]', "").replaceAll('[ticket.isplitidd]', "").replaceAll('[ticket.status]', "").replaceAll('[ticket.ticket_type]', requestname).replaceAll('[ticket.priority]', priorityName).replaceAll('[ticket.requester.name]', reqName).replaceAll('[ticket.from_email]', currentuser.email).replaceAll('[ticket.service]', servicename).replaceAll('[ticket.subservice]', subservicename);
+          autobody = autobody.replaceAll(null, '').replaceAll(undefined, '');
+          let autobody1 = autobody.replaceAll('[ticket.url]', `<a href='${taskUrl}'>${ticketSequence}</a>`);
+
+          let sendEmailIds = [];
+          var filtered = getUserLists?.filter((item) => {
+            return (item.UsersId == lastAssignid);
+          });
+          filtered.map((i) => {
+            sendEmailIds.push(i.Email);
+          });
+
+
+          let uniqueEmails = [...new Set(sendEmailIds)];
+
+
+          if (uniqueEmails.length > 0) {
+            let fromemail = "no-reply@sharepointonline.com";
+
+            if (getSettingsCollection?.defaultAsignee == null || getSettingsCollection?.defaultAsignee == undefined || getSettingsCollection?.defaultAsignee == "") {
+              fromemail = "no-reply@sharepointonline.com";
+            } else {
+              fromemail = getSettingsCollection?.defaultAsignee;
+            }
             if (EmailsFromMailbox == "On") {
               postExternal(fromemail, uniqueEmails, autobody1, autosub2, AutoCCEmail);
 
             } else {
               sendEmailReply(autosub2, autobody1, uniqueEmails, fromemail, AutoCCEmail);
             }
+          }
+
         }
-
       }
+
+
     }
-
-
-  }
   }
 
-  
+
   function sendEmailReply(subject, body, toOwner, from, CC) {
     body = body.replaceAll('</p>', '<br>').replaceAll('<p>', '')
     sp.setup({

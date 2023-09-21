@@ -15,8 +15,11 @@ let defaultPriority = ''
 let DefaultRequestType = ''
 
 // DEFAULT ORDER
-let DefaultLayoutItemsNames = []
+let DefaultLayoutItemsNames = [];
+
+
 const SingleLayoutAddNewTicket = () => {
+
   // store
   // <-------------------------- FETCHING DATA ---------------------->
   const fetchTeamsDepartmentApi = useAddNewApiStore(
@@ -29,21 +32,22 @@ const SingleLayoutAddNewTicket = () => {
   const initializeDataAddNewWebPart = useAddNewApiStore(
     (state) => state.initializeDataAddNewWebPart
   );
-const fetchEmailTemplate = useAddNewApiStore((state)=>state.fetchEmailTemplate);
-const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
+  const fetchEmailTemplate = useAddNewApiStore((state) => state.fetchEmailTemplate);
+  const fetchUserLists = useAddNewApiStore((state) => state.fetchUserLists);
 
   // <-------------------------- GETTING DATA ---------------------->
   const getTeamsDepartmentApi = useAddNewApiStore((state) =>
     state.getTeamsDepartmentApi()
   );
   const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
-  const getSettingsCollection = useStore((state) => state.getSettingsCollection());
+  // const getSettingsCollection = useStore((state) => state.getSettingsCollection());
 
-  console.log("getSettingsCollection", getSettingsCollection);
   const getPriorityApi = useAddNewApiStore((state) => state.getPriorityApi());
   const getRequestType = useAddNewApiStore((state) => state.getRequestType());
   const getService = useAddNewApiStore((state) => state.getService());
   const getSubService = useAddNewApiStore((state) => state.getSubService());
+
+  // console.log("getSettingsCollection", getSettingsCollection);
 
   // STATES
   // < ----------- REQUEST TITLE STATES -------------------------->
@@ -172,20 +176,20 @@ const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
   }, [getTeamsDepartmentApi, getPriorityApi, getRequestType, getSubService, getService]);
 
   // <-------------------- FETCHING EMAIL TEMPLATES --------------------------->
-  React.useEffect(()=>{
-    const fetchEmailTemplateFunction = async ()=>{
+  React.useEffect(() => {
+    const fetchEmailTemplateFunction = async () => {
       await fetchEmailTemplate();
     }
     fetchEmailTemplateFunction();
-  },[]);
+  }, []);
 
   // <-------------------- FETCHING USER LISTS --------------------------->
-  React.useEffect(()=>{
-    const fetchUserListsFunction = async ()=>{
+  React.useEffect(() => {
+    const fetchUserListsFunction = async () => {
       await fetchUserLists();
     }
     fetchUserListsFunction();
-  },[]);
+  }, []);
 
 
   //  ALL USEEFFECT WILL BE HERE.
@@ -204,7 +208,7 @@ const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
     }
   }, [getRequestFieldsCheckbox]);
 
-  //
+  // <------------------------ LAYOUT OF ITEMS TO BE RENDER IN UI  ---------------------------------->
 
   useEffect(() => {
     // if (getSettingsCollection) {
@@ -227,6 +231,7 @@ const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
 
 
   // <-------------------- TEAMS DEPARTMENT FUNCTION ------------------->
+
   // IT'S TEAMS BASED PRIORITY & REQUEST TYPE.
   function getTeamDetails(data) {
     console.log("inside departments function", data);
@@ -405,7 +410,7 @@ const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
           console.log(item);
           return (
             // {item?.Name}
-            <React.Fragment key={index}>
+            <Fragment key={index}>
               {item?.Name === "Title" && item?.isChecked === true ? <TextField
                 placeholder="Enter request title"   // <--- TITLE --->
                 multiline={isMultiline}
@@ -444,7 +449,7 @@ const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
                   placeholder="Select priority"
                   selectedKey={defltPriority}
                 /> : null}
-            </React.Fragment>
+            </Fragment>
 
           )
         })}
