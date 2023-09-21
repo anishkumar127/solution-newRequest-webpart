@@ -41,6 +41,7 @@ const Home = () => {
     console.log("SettingsCollection", SettingsCollection);
 
   }, []);
+  
 
   // console.log("SettingsCollection", SettingsCollection);
 

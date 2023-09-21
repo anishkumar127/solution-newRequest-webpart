@@ -29,6 +29,9 @@ const SingleLayoutAddNewTicket = () => {
   const initializeDataAddNewWebPart = useAddNewApiStore(
     (state) => state.initializeDataAddNewWebPart
   );
+const fetchEmailTemplate = useAddNewApiStore((state)=>state.fetchEmailTemplate);
+const fetchUserLists = useAddNewApiStore((state)=>state.fetchUserLists);
+
   // <-------------------------- GETTING DATA ---------------------->
   const getTeamsDepartmentApi = useAddNewApiStore((state) =>
     state.getTeamsDepartmentApi()
@@ -167,6 +170,22 @@ const SingleLayoutAddNewTicket = () => {
       getSubServiceFunction(SubService);
     }
   }, [getTeamsDepartmentApi, getPriorityApi, getRequestType, getSubService, getService]);
+
+  // <-------------------- FETCHING EMAIL TEMPLATES --------------------------->
+  React.useEffect(()=>{
+    const fetchEmailTemplateFunction = async ()=>{
+      await fetchEmailTemplate();
+    }
+    fetchEmailTemplateFunction();
+  },[]);
+
+  // <-------------------- FETCHING USER LISTS --------------------------->
+  React.useEffect(()=>{
+    const fetchUserListsFunction = async ()=>{
+      await fetchUserLists();
+    }
+    fetchUserListsFunction();
+  },[]);
 
 
   //  ALL USEEFFECT WILL BE HERE.

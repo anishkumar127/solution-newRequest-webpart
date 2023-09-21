@@ -18,6 +18,7 @@ const Helpdesk = () => {
     fetchedIsInstalled();
   }, []);
 
+
   React.useEffect(() => {
     console.log("hey", isInstalledInfo);
     if (isInstalledInfo?.IsInstalled === Typed?.Yes) {
