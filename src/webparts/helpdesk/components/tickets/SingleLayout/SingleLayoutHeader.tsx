@@ -11,7 +11,7 @@ import ReusableSweetAlerts from '../../../utils/SweetAlerts/ReusableSweetAlerts'
 import { isStringValidated } from '../../../utils/validator/isStringValidated';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import ContextService from '../../../loc/Services/ContextService';
-import { useCustomSwalContainerStyle } from '../../../utils/SweetAlerts/useCustomSwalContainerStyle';
+
 import { isArrayValidated } from '../../../utils/validator/isArrayValidated';
 import { sp } from '@pnp/sp/presets/all';
 
@@ -898,13 +898,7 @@ const SingleLayoutHeader = ({ propsData }) => {
   }
 
 
-  // <-------------------------------------- SWEET ALERT - SWAL CONTAINER [ANISH] ------------------------->
-  const customSwalPropsNormal = {
-    desiredWidth: '650px',
-    saved: savedTicketsMsg,
-    newerror: emptyTitleMsg ? emptyTitleMsg : emptyDescriptionMsg ? emptyDescriptionMsg : emptyTeamsMsg,
-  };
-  useCustomSwalContainerStyle(customSwalPropsNormal);
+
 
 
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
@@ -1093,7 +1087,6 @@ const SingleLayoutHeader = ({ propsData }) => {
             {/* NOTES: */}
             <div style={{ padding: "10px 20px", display: "flex" }}><strong>Note:</strong>
               <div className='draggble-model-short-note'>
-                {/* You can select a maximum of 5 fields at a time. For any field you do not select, please ensure you set its default value.</div> */}
                 You can select upto 5 fields, for remaining fields you can select default values to be sent.</div>
             </div>
 
@@ -1106,7 +1099,7 @@ const SingleLayoutHeader = ({ propsData }) => {
         </div>
       }
 
-      <div id="ConfigureRequest" />
+      {/* <div id="ConfigureRequest" /> */}
       {/* POPUP SWEET ALETS */}
       {
         configureRequestUpdate && <ReusableSweetAlerts
@@ -1132,7 +1125,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest2"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
@@ -1147,7 +1140,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest3"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
@@ -1162,7 +1155,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest4"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
@@ -1177,7 +1170,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest5"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
@@ -1192,7 +1185,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest6"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
@@ -1208,7 +1201,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           }
           isBehindVisible={false}
           isConfirmBtn={false}
-          id={"#ConfigureRequest"}
+          id={"#ConfigureRequest7"}
           countdown={2000}
           popupCustomClass={"general-settings"}
         />
