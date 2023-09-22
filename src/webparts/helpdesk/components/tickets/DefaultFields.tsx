@@ -9,9 +9,7 @@ const DefaultFields = (props) => {
             <div className='draggble-container'>
 
                 {/* DEFAULT CONTNET */}
-                <div className='draggable-two draggable-default-content'>
-                    {/* <Label required>{"Teams"}</Label> */}
-                    {/* <div onClick={onDefaultSubmit} style={{ textAlign: "end" }}> <Icon className='add-new-ticket-pointer' iconName="Save" /></div> */}
+                <div title='Select default choices' className='draggable-two draggable-default-content'>
                     <Dropdown
                         label={"Teams"}
                         options={propsData?.teamsoptionarray}

@@ -6,7 +6,7 @@ import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
 import { IButtonStyles, ICheckboxStyles, IconButton, Modal, Pivot, PivotItem } from '@fluentui/react';
 import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
-import ReusableSweetAlerts from '../../../utils/SweetAlerts/ReusableSweetAlerts';
+import ReusableSweetAlerts, { CustomAlertType } from '../../../utils/SweetAlerts/ReusableSweetAlerts';
 import { isStringValidated } from '../../../utils/validator/isStringValidated';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import ContextService from '../../../loc/Services/ContextService';
@@ -17,6 +17,7 @@ import { setTimedState } from '../../../utils/timeout/setTimedState';
 import SelectionFields from '../SelectionFields';
 import DefaultFields from '../DefaultFields';
 import SettingsConfig from '../SettingsConfig';
+import { alertsConfig } from '../../../utils/SweetAlerts/alertsConfig';
 
 let mandatoryFields = [];
 let finalticketID = '';
@@ -935,6 +936,63 @@ const SingleLayoutHeader = ({ propsData }) => {
       }
     }
   };
+
+  // <--------------------- SWEET ALERT CONFIG  ----------------------------
+
+  const alerts = [
+    {
+      show: configureRequestUpdate,
+      type: 'success'  as CustomAlertType,
+      text: 'Updated successfully!',
+      id: 'ConfigureRequest',
+      popupCustomClass:"general-settings",
+
+    },
+    {
+      show: maxSelect,
+      type: 'warning'  as CustomAlertType,
+      text: 'Please select up to 5.',
+      id: 'ConfigureRequest2',
+      popupCustomClass:"general-settings",
+
+    },
+    {
+      show: selectDefaultValue,
+      type: 'warning'  as CustomAlertType,
+      text: 'Please select default value',
+      id: 'ConfigureRequest3',
+      popupCustomClass:"general-settings",
+    },
+    {
+      show: emptyTitleMsg,
+      type: 'warning'  as CustomAlertType,
+      text: 'Please fill the title',
+      id: 'ConfigureRequest4',
+      popupCustomClass:"general-settings",
+    },
+    {
+      show: emptyDescriptionMsg,
+      type: 'warning'  as CustomAlertType,
+      text: 'Please fill the description',
+      id: 'ConfigureRequest5',
+      popupCustomClass:"general-settings",
+    },
+    {
+      show: emptyTeamsMsg,
+      type: 'warning'  as CustomAlertType,
+      text: 'Please select teams',
+      id: 'ConfigureRequest6',
+      popupCustomClass:"general-settings",
+    },
+    {
+      show: savedTicketsMsg,
+      type: 'success'  as CustomAlertType,
+      text: 'Request submitted successfully!',
+      id: 'ConfigureRequest7',
+      popupCustomClass:"general-settings",
+
+    },
+  ]
   return (
     <>
       <div className='add-new-ticket-header-style header-single-layout-add-new-ticket'>
@@ -1017,113 +1075,26 @@ const SingleLayoutHeader = ({ propsData }) => {
 
 
       {/* <div id="ConfigureRequest" /> */}
-      {/* POPUP SWEET ALETS */}
-      {
-        configureRequestUpdate && <ReusableSweetAlerts
-          type="success"
-          title="Skip"
-          text={
-            "Updated successfully!"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
 
-      }
-      {
-        maxSelect && <ReusableSweetAlerts
-          type="warning"
-          title="Skip"
-          text={
-            "Please select up to 5."
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest2"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-      }
-
-      {
-        selectDefaultValue && <ReusableSweetAlerts
-          type="warning"
-          title="Skip"
-          text={
-            "Please select default value"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest3"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-      }
-      {/* SUBMIT TICKETS WARNINGS & ERROR MESSAGES */}
-      {
-        emptyTitleMsg && <ReusableSweetAlerts
-          type="warning"
-          title="Skip"
-          text={
-            "Please fill the title"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest4"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-      }
-
-      {
-        emptyDescriptionMsg && <ReusableSweetAlerts
-          type="warning"
-          title="Skip"
-          text={
-            "Please fill the description"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest5"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-      }
-
-      {
-        emptyTeamsMsg && <ReusableSweetAlerts
-          type="warning"
-          title="Skip"
-          text={
-            "Please select teams"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest6"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-      }
-
-      {/* Submit Tickets Alert */}
-      {
-        savedTicketsMsg && <ReusableSweetAlerts
-          type="success"
-          title="Skip"
-          text={
-            "Request submitted successfully!"
-          }
-          isBehindVisible={false}
-          isConfirmBtn={false}
-          id={"#ConfigureRequest7"}
-          countdown={2000}
-          popupCustomClass={"general-settings"}
-        />
-
-      }
+      {alerts?.map((alert, index) => {
+      {/* {alertsConfig?.map((alert, index) => { */}
+      // const show = state[key];
+        console.log("alerts",alert);
+        const { show, type, text, id ,popupCustomClass} = alert;
+        return show && (
+          <ReusableSweetAlerts
+            key={index}
+            type={type as CustomAlertType}
+            title="Skip"
+            text={text}
+            isBehindVisible={false}
+            isConfirmBtn={false}
+            id={`#${id}`}
+            countdown={2000}
+            popupCustomClass={popupCustomClass || 'general-settings'}
+          />
+        );
+      })}
     </>
   )
 }
