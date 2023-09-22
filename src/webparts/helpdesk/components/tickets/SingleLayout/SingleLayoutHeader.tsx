@@ -3,8 +3,7 @@ import { useStore } from '../../../store/zustand';
 const helpDeskLog = require('../../../../../../assets/help-desk.png');
 const helpDeskLogDarkMode = require('../../../../../../assets/HD365-Icon-White-1200.png');
 import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
-import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal } from '@fluentui/react';
+import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal, Pivot, PivotItem } from '@fluentui/react';
 import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 import ReusableSweetAlerts from '../../../utils/SweetAlerts/ReusableSweetAlerts';
@@ -14,6 +13,10 @@ import ContextService from '../../../loc/Services/ContextService';
 
 import { isArrayValidated } from '../../../utils/validator/isArrayValidated';
 import { sp } from '@pnp/sp/presets/all';
+import { setTimedState } from '../../../utils/timeout/setTimedState';
+import SelectionFields from '../SelectionFields';
+import DefaultFields from '../DefaultFields';
+import SettingsConfig from '../SettingsConfig';
 
 let mandatoryFields = [];
 let finalticketID = '';
@@ -192,7 +195,7 @@ const SingleLayoutHeader = ({ propsData }) => {
 
   // <----------------------------------   SUBMIT CHECKBOX SETTINGS ---------------------------->
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     if (draggedOrderData && draggedOrderData?.length > 0) {
       // COUNT CHECK CHECKED 
       const checkedCount = draggedOrderData?.reduce((curr, item) => {
@@ -201,31 +204,26 @@ const SingleLayoutHeader = ({ propsData }) => {
       console.log('checkedCount', checkedCount);
       console.log("%c submitData", 'color:purple', draggedOrderData);
 
-      // FILTER NOT SELECTED ITEM & MAKE IT DEFAULT SELECT VALUE;
-      const notSelected = draggedOrderData?.filter((item) => !item.isChecked)
-      console.log("notSelected", notSelected);
-
       if (checkedCount == 5) {
-        onDefaultSubmit(draggedOrderData, notSelected);
+        try {
+          await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
+        } catch (error) {
+          console.error("api checkbox selection post calls error", error)
+        }
         setConfigureRequestUpdate(true);
-        setTimeout(() => {
-          setConfigureRequestUpdate(false);
-        }, 2000);
+        setTimedState(setConfigureRequestUpdate, true, 2000);
+        setOpenModel(false);
       } else {
         setMaxSelect(true);
-        setTimeout(() => {
-          setMaxSelect(false);
-        }, 2000);
+        setTimedState(setMaxSelect, true, 2000);
         console.log("you only able to select 5 items.")
       }
     }
   }
 
   // <----------------------------------   SUBMIT DEFAULT SETTINGS ---------------------------->
-  const onDefaultSubmit = async (draggedOrderData, notSelected) => {
-    console.log("propsData", propsData);
+  const onDefaultSubmit = async () => {
     const { defltTeam, defltService, defltSubService, defltReq, defltPriority } = propsData;
-    // if (defltTeam && defltService && defltSubService && defltReq && defltPriority) 
     const defaultData = {
       Teams: defltTeam,
       Services: defltService,
@@ -234,12 +232,12 @@ const SingleLayoutHeader = ({ propsData }) => {
       Priority: defltPriority
     }
     try {
-      await setRequestFieldsCheckbox(draggedOrderData); // POSTING Checkbox Data.
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // wait few mintues avoid 409 error.
       await setDefaultRequestSettings(defaultData); // POSTING Default Data.
+      setConfigureRequestUpdate(true);
+      setTimedState(setConfigureRequestUpdate, true, 2000);
       setOpenModel(false);
     } catch (error) {
-      console.error("api post calls error", error);
+      console.error("api default post calls error", error);
     }
   }
 
@@ -954,7 +952,6 @@ const SingleLayoutHeader = ({ propsData }) => {
 
         </span>
       </div>
-
       {openModel &&
         <div className='draggable-model-root'>
           <Modal
@@ -963,141 +960,62 @@ const SingleLayoutHeader = ({ propsData }) => {
             isBlocking={true}
             styles={{
               main: {
-                minWidth: "400px",
-                height: "400px"
+                minWidth: "600px",
+                width:"600px",
+                height: "540px"
 
               }
             }}
           >
-            <div style={{ display: "flex" }}>
-              <span className='configure-request-title'>Configure Request Form</span>
-              <IconButton
-                styles={iconButtonStyles}
-                className='draggable-model-close-btn'
-                iconProps={cancelIcon}
-                ariaLabel="Close popup modal"
-                onClick={() => setOpenModel(false)}
-              />
-            </div>
-            {/* <div className='draggble-container'> */}
-            {/* DRAGGABLE CONTENT */}
-            <div className='draggable-one'>
-              <DragDropContext onDragEnd={handleDragEnd}>
-                {/* HI from another side. */}
-                <Droppable droppableId={"ROOT"} type={"group"}>
-                  {
-                    (provided) => (
-                      <div {...provided.droppableProps} ref={provided.innerRef}>
-                        {draggedOrderData && draggedOrderData?.length > 0 && draggedOrderData?.map((item, index) =>
-                          <Draggable draggableId={item?.id + ""} key={item?.id} index={index}>
-                            {(provided) => (
-                              <div
-                                {...provided.dragHandleProps}
-                                {...provided.draggableProps}
-                                ref={provided.innerRef}
+            <IconButton
+              styles={iconButtonStyles}
+              className='draggable-model-close-btn'
+              iconProps={cancelIcon}
+              ariaLabel="Close popup modal"
+              onClick={() => setOpenModel(false)}
+            />
 
-                              >
-                                <div className='draggble-content-label'>
-                                  {item?.Name}
-                                </div>
-                                <div className='draggble-content-root'>
+            {/* Pivot */}
 
-                                  <div style={{ width: "10px" }}>
-                                    <Icon iconName="GripperDotsVertical"></Icon>
-                                  </div>
-                                  <div style={{ width: "20px" }}>
-                                    <Checkbox
-                                      styles={checkboxStyle}
-                                      checked={
-                                        item?.isChecked
-                                        // mandatoryFields?.some((items) => items === item?.Name)
-                                      }
-                                      title={item?.Name}
-                                      id={item?.id + ""}
-                                      onChange={onChangeCheckbox}
-                                    />
-                                  </div>
-                                  <div style={{ width: "calc(100% - 40px)" }} className='draggable-model-dropdown'>
-                                    {item?.Name === "Teams" ? <Dropdown
-                                      // label={"Teams"}
-                                      options={propsData?.teamsoptionarray}
-                                      onChange={propsData?.handleTeamsOnChange}
-                                      placeholder="Select teams"
-                                      selectedKey={propsData?.defltTeam}
-                                    /> : item?.Name === "Services" ? <Dropdown
-                                      // label={"Service"}
+            <div className='pivot-add-new-webpart-container'>
+            <Pivot aria-label="Basic Pivot Example">
+              <PivotItem
+                headerText="Selection & Order"
+              >
+                {/* Checkbox */}
+                <SelectionFields
+                  onChangeCheckbox={onChangeCheckbox}
+                  handleDragEnd={handleDragEnd}
+                  draggedOrderData={draggedOrderData}
+                  checkboxStyle={checkboxStyle}
+                  onSubmit={onSubmit}
+                  setOpenModel={setOpenModel}
+                />
 
-                                      options={propsData?.serviceOption}
-                                      onChange={propsData?.handleServiceOnChange}
-                                      placeholder="Select services"
-                                      selectedKey={propsData?.defltService}
-                                    /> : item?.Name === "Sub Services" ?
-                                      <Dropdown
-                                        // label={"Sub Service"}
+              </PivotItem>
+              <PivotItem
+                headerText="Default Choices"
+              >
+                <DefaultFields
+                  propsData={propsData}
+                  onDefaultSubmit={onDefaultSubmit}
+                  setOpenModel={setOpenModel}
+                />
 
-                                        options={propsData?.subserviceOption}
-                                        onChange={propsData?.handleSubServiceOnChange}
-                                        placeholder="Select sub services"
-                                        selectedKey={propsData?.defltSubService}
-                                      />
-                                      : item?.Name === "Priority" ? <Dropdown
-                                        //  label={"Priority"}
 
-                                        options={propsData?.priorityoptions}
-                                        onChange={propsData?.handlePriorityOnChange}
-                                        placeholder="Select priority"
-                                        // defaultSelectedKey={propsData?.defltPriority}
-                                        selectedKey={propsData?.defltPriority}
-                                      /> : item?.Name === "Request Type" ? <Dropdown
-                                        //  label={"Request Type"}
-
-                                        options={propsData?.requestoptions}
-                                        onChange={propsData?.handleRequestTypeOnChange}
-                                        placeholder="Select request type"
-                                        selectedKey={propsData?.defltReq}
-                                      /> : item?.Name === "Description" ? <Dropdown
-                                        disabled
-                                        options={propsData?.requestoptions}
-                                        onChange={propsData?.handleRequestTypeOnChange}
-                                        placeholder="Description"
-                                        selectedKey={"Description"}
-                                      /> : item?.Name === "Title" ? <Dropdown
-                                        options={propsData?.requestoptions}
-                                        onChange={propsData?.handleRequestTypeOnChange}
-                                        placeholder="Title"
-                                        disabled
-                                        selectedKey={"Title"}
-                                      /> : null}
-
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-                          </Draggable>
-
-                        )}
-                        {provided?.placeholder}
-                      </div>
-                    )
-                  }
-                </Droppable>
-              </DragDropContext>
-            </div>
-            {/* </div> */}
-            {/* NOTES: */}
-            <div style={{ padding: "10px 20px", display: "flex" }}><strong>Note:</strong>
-              <div className='draggble-model-short-note'>
-                You can select upto 5 fields, for remaining fields you can select default values to be sent.</div>
-            </div>
-
-            {/* Submit & Cancel Button */}
-            <div style={{ gap: "20px", paddingBottom: "12px" }} className='add-new-installation-common-style-btn-input'>
-              <button className='add-new-installation-submit-btn' onClick={onSubmit}>Save</button>
-              <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
+              </PivotItem>
+              <PivotItem
+                headerText="General Settings"
+              >
+                <SettingsConfig
+                 />
+              </PivotItem>
+            </Pivot>
             </div>
           </Modal>
         </div>
       }
+
 
       {/* <div id="ConfigureRequest" /> */}
       {/* POPUP SWEET ALETS */}

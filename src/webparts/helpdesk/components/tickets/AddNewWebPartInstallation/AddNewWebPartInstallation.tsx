@@ -28,7 +28,8 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
 
     const fetchSettingsCollection = async () => {
         try {
-            ContextService.GetSPContext()
+            if (siteUrl?.trim()) {
+                ContextService.GetSPContext()
                 .get(
                     `${siteUrl}/_api/web/lists/getbytitle('HR365HDMSettings')/items`,
                     SPHttpClient.configurations.v1,
@@ -69,6 +70,10 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                     // }, 2000)
                     console.error("An error occurred:", error.message);
                 });
+            }else{
+                setIsUrlValid(true);
+            }
+      
         } catch (error) {
             console.error("A synchronous error occurred:", error);
         }

@@ -34,6 +34,7 @@ export const useStore = create(
       Id: 1,
       IsInstalled: "No",
       SiteUrl: "No",
+      ExpandView:"No"
     },
 
     fetchSettingsCollection: async () => {
@@ -111,6 +112,7 @@ export const useStore = create(
               Id: items?.value[0]?.ID,
               IsInstalled: items?.value[0]?.IsInstalled,
               SiteUrl: items?.value[0]?.SiteUrl,
+              ExpandView:items?.value[0]?.ExpandView
             };
             set({ AddNewWebPartInfo: Template });
           })
@@ -124,12 +126,12 @@ export const useStore = create(
     },
     // <---------------------- SET IS INSTALLED OR NOT APPLICATION ------------------------>
     setIsInstalled: async (Template) => {
-      const TemplateData = {
-        IsInstalled: Template?.IsInstalled,
-        SiteUrl: Template?.SiteUrl,
-      };
+      // const TemplateData = {
+      //   IsInstalled: Template?.IsInstalled,
+      //   SiteUrl: Template?.SiteUrl,
+      // };
       console.log("%c setIsInstalled", "background:blue");
-      console.log("TemplateData", TemplateData);
+      // console.log("TemplateData", TemplateData);
       const ID = get()?.AddNewWebPartInfo?.Id;
       console.log("%c ID**", "background:lightblue", ID);
       try {
@@ -147,7 +149,7 @@ export const useStore = create(
                 "IF-MATCH": "*",
                 "X-HTTP-Method": "MERGE",
               },
-              body: JSON.stringify(TemplateData),
+              body: JSON.stringify(Template),
             }
           )
           .then((response: SPHttpClientResponse) => {
