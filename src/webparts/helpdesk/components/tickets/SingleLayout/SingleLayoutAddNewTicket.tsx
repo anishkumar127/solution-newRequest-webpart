@@ -407,9 +407,7 @@ const SingleLayoutAddNewTicket = () => {
         }} />
       <div className="add-new-ticket-ui-style">
         {layoutOrder?.map((item, index) => {
-          console.log(item);
           return (
-            // {item?.Name}
             <Fragment key={index}>
               {item?.Name === "Title" && item?.isChecked === true ? <TextField
                 placeholder="Enter request title"   // <--- TITLE --->
@@ -433,7 +431,7 @@ const SingleLayoutAddNewTicket = () => {
                   placeholder="Select sub services"      // <--- SUBSERVICE --->
                   selectedKey={defltSubService}
                 /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
-                  placeholder="Please elaborate your query..."   // <--- DESCRIPTION --->
+                  placeholder="Description..."   // <--- DESCRIPTION --->
                   multiline
                   rows={3}
                   value={descriptionValue}

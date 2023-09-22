@@ -2775,6 +2775,22 @@
     max-width: 385px;
     margin: auto;
     background-color: var(--lightThemePanelBGSwitcher) !important;
+
+
+    .ms-Dropdown-container .ms-Dropdown .ms-Dropdown-title,
+    .ms-Dropdown-container .ms-Dropdown .ms-Dropdown-titleIsPlaceHolder {
+      color: #616e61 !important;
+    }
+
+    .ms-TextField {
+      .ms-TextField-wrapper {
+        .ms-TextField-fieldGroup {
+          .ms-TextField-field::placeholder {
+            color: #616e61 !important;
+          }
+        }
+      }
+    }
   }
 
   .add-new-ticket-pointer {
@@ -2861,14 +2877,17 @@
 
   // <---------------------------------- DRAG & DROP ADD NEW WEBPART ------------------------>
   .draggble-content-root {
-    width: 100%;
+    width: auto;
     display: flex;
-    // background: #f5f5f5;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     align-items: center;
     gap: 6px;
-    // padding: 4px 0px;
-    padding: 2px;
+    padding: 10px;
+    margin-bottom: 8px;
+
+    &:first-child {
+      margin-top: 12px;
+    }
   }
 
   .draggable-model-dropdown {
@@ -2881,15 +2900,6 @@
       }
     }
   }
-
-  // .draggble-container {
-  //   // display: grid;
-  //   grid-template-columns: 1fr 1fr;
-  //   /* display: flex; */
-  //   // align-items: baseline;
-  //   // margin-top: 10px;
-  //   // height: 200px;
-  // }
 
   .draggable-model-root {
     .ms-Dialog-main {
@@ -2912,7 +2922,6 @@
     margin-left: auto !important;
     display: flex;
     padding: 0px;
-    // margin: 0px;
   }
 
   .draggable-one {
@@ -2922,11 +2931,9 @@
   }
 
   .draggable-two {
-    padding: 20px;
-    margin-right: 10px;
-    border: 1px solid var(--lightThemeDropDownBorderColor) !important;
-
-
+    padding: 1px 20px;
+    margin: 0px 14px;
+    // border: 1px solid var(--lightThemeDropDownBorderColor) !important;
   }
 
   .configure-request-title {
@@ -2944,13 +2951,38 @@
 
   .draggble-model-short-note {
     font-weight: 400;
-    width: 300px;
+    width: 600px;
     font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-    margin-left: 5px;
+    text-align: justify;
+    margin: 0px;
   }
+
   // Swal container Z-Index.
-.swal2-container .swal2-center .swal2-backdrop-show{
-  z-index: 300000000000 !important;
+  .swal2-container .swal2-center .swal2-backdrop-show {
+    z-index: 300000000000 !important;
+  }
+
+  .configure-toggle-btn-alignment {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+    align-items: baseline;
+    border-bottom: 1px solid #ddd;
+
+  }
+
+  .configure-settings-btn-input {
+    display: flex;
+    align-items: baseline;
+    // padding:0px 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0px;
+  }
+.pivot-add-new-webpart-container{
+  .ms-FocusZone {
+    padding: 0 20px;
+    margin: 0;
+  }
 }
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END

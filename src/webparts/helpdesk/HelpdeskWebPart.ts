@@ -102,12 +102,15 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
       '<Field Name="RequestTicketsCheckedFields" ID="{6535A109-34B2-4F86-97B6-96A93D7E34BD}" DisplayName="RequestTicketsCheckedFields" Type="Note"></Field>';
     var XMLRequestTickets =
       '<Field Name="RequestTickets" ID="{AC318277-129E-44A2-8B95-64F3113FA385}" DisplayName="RequestTickets" Type="Note"></Field>';
+      var XMLExpandView =
+      '<Field Name="ExpandView" ID="{F24497CA-616A-42E6-AE87-A2E667DF59BD}" DisplayName="ExpandView" Type="Note"></Field>';
     empcolEN = [
       XMLIsInstalled,
       XMLSiteUrl,
       XMLRequestTicketsDefaultSettings,
       XMLRequestTicketsCheckedFields,
       XMLRequestTickets,
+      XMLExpandView
     ];
     let web = new Web(ContextService.GetUrl());
     return web.lists
