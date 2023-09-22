@@ -11,7 +11,6 @@ import { IReadonlyTheme } from "@microsoft/sp-component-base";
 import * as strings from "HelpdeskWebPartStrings";
 import Helpdesk from "./components/Helpdesk";
 import { IHelpdeskProps } from "./components/IHelpdeskProps";
-import SettingService from "./loc/Services/SettingService";
 import ContextService from "./loc/Services/ContextService";
 import { ListEnsureResult, Web } from "sp-pnp-js";
 import { ISPHttpClientOptions, SPHttpClient, SPHttpClientResponse } from "@microsoft/sp-http";

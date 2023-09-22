@@ -3,7 +3,7 @@ import { useStore } from '../../../store/zustand';
 const helpDeskLog = require('../../../../../../assets/help-desk.png');
 const helpDeskLogDarkMode = require('../../../../../../assets/HD365-Icon-White-1200.png');
 import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
-import { Checkbox, Dropdown, IButtonStyles, ICheckboxStyles, IconButton, Modal, Pivot, PivotItem } from '@fluentui/react';
+import { IButtonStyles, ICheckboxStyles, IconButton, Modal, Pivot, PivotItem } from '@fluentui/react';
 import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 import ReusableSweetAlerts from '../../../utils/SweetAlerts/ReusableSweetAlerts';
@@ -898,7 +898,7 @@ const SingleLayoutHeader = ({ propsData }) => {
 
 
 
-
+  // <-------------- CHECKBOX STYLES ------------------------------->
   const cancelIcon: IIconProps = { iconName: 'Cancel' };
   const iconButtonStyles: Partial<IButtonStyles> = {
     root: {
@@ -961,7 +961,7 @@ const SingleLayoutHeader = ({ propsData }) => {
             styles={{
               main: {
                 minWidth: "600px",
-                width:"600px",
+                width: "600px",
                 height: "540px"
 
               }
@@ -978,39 +978,38 @@ const SingleLayoutHeader = ({ propsData }) => {
             {/* Pivot */}
 
             <div className='pivot-add-new-webpart-container'>
-            <Pivot aria-label="Basic Pivot Example">
-              <PivotItem
-                headerText="Selection & Order"
-              >
-                {/* Checkbox */}
-                <SelectionFields
-                  onChangeCheckbox={onChangeCheckbox}
-                  handleDragEnd={handleDragEnd}
-                  draggedOrderData={draggedOrderData}
-                  checkboxStyle={checkboxStyle}
-                  onSubmit={onSubmit}
-                  setOpenModel={setOpenModel}
-                />
+              <Pivot aria-label="Basic Pivot Example">
+                <PivotItem
+                  headerText="Selection & Order"
+                >
+                  {/* Checkbox */}
+                  <SelectionFields
+                    onChangeCheckbox={onChangeCheckbox}
+                    handleDragEnd={handleDragEnd}
+                    draggedOrderData={draggedOrderData}
+                    checkboxStyle={checkboxStyle}
+                    onSubmit={onSubmit}
+                    setOpenModel={setOpenModel}
+                  />
 
-              </PivotItem>
-              <PivotItem
-                headerText="Default Choices"
-              >
-                <DefaultFields
-                  propsData={propsData}
-                  onDefaultSubmit={onDefaultSubmit}
-                  setOpenModel={setOpenModel}
-                />
+                </PivotItem>
+                <PivotItem
+                  headerText="Default Choices"
+                >
+                  <DefaultFields
+                    propsData={propsData}
+                    onDefaultSubmit={onDefaultSubmit}
+                    setOpenModel={setOpenModel}
+                  />
 
-
-              </PivotItem>
-              <PivotItem
-                headerText="General Settings"
-              >
-                <SettingsConfig
-                 />
-              </PivotItem>
-            </Pivot>
+                </PivotItem>
+                <PivotItem
+                  headerText="General Settings"
+                >
+                  <SettingsConfig
+                  />
+                </PivotItem>
+              </Pivot>
             </div>
           </Modal>
         </div>
