@@ -2704,7 +2704,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px;
+    // gap: 20px;
+    gap:6px;
     max-height: 40px;
     background-color: var(--pivotSelectedBGColor);
 
@@ -2721,7 +2722,8 @@
     }
 
     .logo-name-helpdesk {
-      margin-left: -18px;
+      // margin-left: -18px;
+      margin-left: -5px;
     }
 
     .new-ticket-helpdesk-title {
@@ -2751,7 +2753,8 @@
   // <------------------------------- ADD NEW TICKETS - SINGLE LAYOUT - EXPAND LAYOUT -------------------------->
 
   .header-single-layout-add-new-ticket {
-    padding: 10px;
+    // padding: 10px;
+    padding: 5px 10px;
   }
 
   .send-on-submit-add-new-icon {
@@ -2771,8 +2774,8 @@
   }
 
   .single-layout-add-new-ticket-style {
-    // max-width: 365px;
-    max-width: 385px;
+    max-width: 365px;
+    // max-width: 385px;
     margin: auto;
     background-color: var(--lightThemePanelBGSwitcher) !important;
 

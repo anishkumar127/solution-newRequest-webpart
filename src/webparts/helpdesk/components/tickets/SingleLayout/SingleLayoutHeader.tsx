@@ -1079,7 +1079,7 @@ const SingleLayoutHeader = ({ propsData }) => {
       {alerts?.map((alert, index) => {
       {/* {alertsConfig?.map((alert, index) => { */}
       // const show = state[key];
-        console.log("alerts",alert);
+        // console.log("alerts",alert);
         const { show, type, text, id ,popupCustomClass} = alert;
         return show && (
           <ReusableSweetAlerts

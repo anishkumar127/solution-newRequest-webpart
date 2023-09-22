@@ -4,18 +4,24 @@ import React from 'react'
 
 const DefaultFields = (props) => {
     const { propsData, onDefaultSubmit, setOpenModel } = props;
+    const renderOption = (option) => {
+        return (
+            <div title='Select this as the default choice'>{option.text}</div>
+        );
+    }
     return (
         <>
             <div className='draggble-container'>
 
                 {/* DEFAULT CONTNET */}
-                <div title='Select default choices' className='draggable-two draggable-default-content'>
+                <div className='draggable-two draggable-default-content'>
                     <Dropdown
                         label={"Teams"}
                         options={propsData?.teamsoptionarray}
                         onChange={propsData?.handleTeamsOnChange}
                         placeholder="Select teams"
                         selectedKey={propsData?.defltTeam}
+                        onRenderOption={renderOption}
                     />
                     {/* Service ui */}
                     <Dropdown
@@ -25,6 +31,7 @@ const DefaultFields = (props) => {
                         onChange={propsData?.handleServiceOnChange}
                         placeholder="Select services"
                         selectedKey={propsData?.defltService}
+                        onRenderOption={renderOption}
                     />
                     {/* Sub Service ui */}
                     <Dropdown
@@ -34,6 +41,7 @@ const DefaultFields = (props) => {
                         onChange={propsData?.handleSubServiceOnChange}
                         placeholder="Select sub services"
                         selectedKey={propsData?.defltSubService}
+                        onRenderOption={renderOption}
                     />
                     {/* Priority */}
                     <Dropdown
@@ -44,6 +52,7 @@ const DefaultFields = (props) => {
                         placeholder="Select priority"
                         // defaultSelectedKey={propsData?.defltPriority}
                         selectedKey={propsData?.defltPriority}
+                        onRenderOption={renderOption}
                     />
 
                     {/* Request Type */}
@@ -54,6 +63,7 @@ const DefaultFields = (props) => {
                         onChange={propsData?.handleRequestTypeOnChange}
                         placeholder="Select request type"
                         selectedKey={propsData?.defltReq}
+                        onRenderOption={renderOption}
                     />
                 </div>
             </div>
