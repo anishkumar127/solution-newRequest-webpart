@@ -5,6 +5,7 @@ import Typed from '../../../TypeSafety/Types';
 import ContextService from '../../../loc/Services/ContextService';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
+import { Spinner, SpinnerSize } from '@fluentui/react';
 
 const AddNewWebPartInstallation = ({ UIRender }) => {
     const HRlogo: any = require('../../../../../../assets/HR365SPFXmainlog.png');
@@ -17,12 +18,17 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
     const isInstalledInfo = useStore((state) => state.getIsInstalled());
     const setIsInstalled = useStore((state) => state.setIsInstalled);
     const fetchIsInstalled = useStore((state) => state.fetchIsInstalled);
-
+ 
+    const [Isloading,setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        if (isInstalledInfo?.IsInstalled === Typed.No) {
-            setIsOpened(true);
-        }
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            if (isInstalledInfo?.IsInstalled === Typed.No) {
+                setIsOpened(true);
+            }
+        }, 400);
         console.log("isInstalledInfo", isInstalledInfo);
     }, [])
 
@@ -112,6 +118,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
 
     return (
         <>
+    {    Isloading ? <Spinner size={SpinnerSize.large} /> :
             <ReusableDialogModal
                 title="Skip"
                 isOpened={isOpened}
@@ -147,7 +154,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                         <button className='add-new-installation-submit-btn' onClick={onSubmit}>Submit</button>
                     </div>
                 </>
-            </ReusableDialogModal>
+            </ReusableDialogModal>}
 
         </>
     )

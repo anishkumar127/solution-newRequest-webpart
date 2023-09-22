@@ -2724,7 +2724,7 @@
     .logo-name-helpdesk {
       // margin-left: -18px;
       margin-left: -5px;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .new-ticket-helpdesk-title {
@@ -2795,7 +2795,7 @@
 
   .add-new-ticket-title-single-layout {
     color: var(--pivotSelectedTextColor) !important;
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .add-new-ticket-ui-style {
@@ -2845,7 +2845,8 @@
   .single-layout-add-new-icon-style-header {
     margin-left: auto;
     display: flex;
-    gap: 20px;
+    // gap: 20px;
+    gap: 14px;
   }
 
   .add-new-installation-common-style-btn-input {
