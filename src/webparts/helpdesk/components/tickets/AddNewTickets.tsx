@@ -155,6 +155,7 @@ function AddNewTickets(props) {
   const { isTicketMailBox, RequestedFrom } = props;
   const customStylesselect = useCustomStyles(props.lightdarkmode);
   const [quillRender, ReactQuilRenderer] = React.useState('');
+  const setExpandMode = useStore((state) => state.setExpandMode);
 
   let ThemeColor = React.useContext(themeContext)
 
@@ -3888,8 +3889,6 @@ function AddNewTickets(props) {
 
 
   function SubmitTicket() {
-    //
-    // 
     let AlldesccolumnsValues = []
     let autoAssignEmailId = null;
     let requester = " ";
@@ -3900,7 +3899,6 @@ function AddNewTickets(props) {
       requesterDisplayName = requestername[0].name;
     } else {
       requester = null;
-      // requesterDisplayName = "";
     }
     TicketPropertiesValue.push({
       TicketOpenDate: "",
@@ -3965,31 +3963,6 @@ function AddNewTickets(props) {
     ) {
       setNewerror2(true);
       settitlename("");
-      // function handle(e) {
-      // e.preventDefault();
-      // Toast.fire({
-      //   icon: 'error',
-      //   title: 'Please fill the title!',
-      //   target: '#TitlePopup'
-      // })
-      // }
-
-      //  Swal.fire({
-      //   title: "Warning!",
-      //   text: "Please fill the title!",
-      //   icon: "warning",
-
-      //   target:"#TitlePopup",
-      //   heightAuto: false,
-
-      //   allowOutsideClick:false
-      //   // buttons: {
-      //   //   cancel: true,
-      //   //   // closeModal: false,
-
-      //   // },
-
-      // });
       setTimeout(() => {
         messageDismiss();
       }, 2000);
@@ -4054,8 +4027,6 @@ function AddNewTickets(props) {
       flag4 = true;
 
     }
-    //If else
-    //if
     if (
       (team == null ||
         team == "" ||
@@ -4080,7 +4051,6 @@ function AddNewTickets(props) {
       });
       filtered.map((i) => {
         autoAssignEmailId = i.Email;
-        //sendEmailIds.push(i.Email);
       });
     }
     let FilterWorkFlowFilterData;
@@ -4113,13 +4083,6 @@ function AddNewTickets(props) {
       }
     }
 
-    // let useridofAuto=${autoTicket=="Off"?[]:lastAssignid};
-
-    // alert("SAVED");
-    // let CreatedDateString = new (Date);
-    // const date = CreatedDateString.split("T")
-    // 
-    // CreatedDateString.split('T')
     groups.forEach((e) => {
       if (e.name === "HDM365Admin" || e.name === "HDM365PowerUser" || e.name === "HDM365" + teamname) {
         allid.push(e.id)
@@ -4190,27 +4153,6 @@ function AddNewTickets(props) {
         // ItemPermissionId:allid
       };
     }
-    // let _assignTo;
-    // if (
-    //   finalTemplate.AssignedToId == null ||
-    //   finalTemplate.AssignedToId == "" ||
-    //   finalTemplate.AssignedToId == undefined
-    // ) {
-    //   // _assignTo=null
-    //   _assignTo = finalTemplate.AssignedToId;
-    // } else {
-    //   _assignTo = finalTemplate.AssignedToId;
-    //   setAssignPlaceHolder(finalTemplate.AssignedTo.Title);
-    // }
-    // if (dataText != null) {
-    //   var key;
-    //   for (let value of Object.entries(dataText)) {
-    //     //
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    //   // 
-    // }
-
     if (dataText != null) {
       var key;
       for (let value of Object.entries(dataText)) {
@@ -4232,18 +4174,6 @@ function AddNewTickets(props) {
       }
     }
 
-    // if (MultipalChoiceData != null) {
-    //   var key;
-    //   for (let value of Object.entries(MultipalChoiceData)) {
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    // }
-    // if (dataLink != null) {
-    //   var key;
-    //   for (let value of Object.entries(dataLink)) {
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    // }
     if (dataChoice2 != null) {
       var key;
       for (let value of Object.entries(dataChoice2)) {
@@ -4256,53 +4186,7 @@ function AddNewTickets(props) {
         finalTemplate[value[0]] = value[1];
       }
     }
-    // if (optionsexcusers != null) {
-    //   let people = []
-    //   if (optionsexcusers.length > 0) {
-    //     people = optionsexcusers[0].id;
-    //     // people = optionsexcusers[0].text;
-    //     
-    //   }else{
-    //     people = null;
-    //   }
-    //   // for(var i =0; i<optionsexcusers.length; i++){
-    //   //   people.push(optionsexcusers[0].id);
-    //   // }
-
-    //   for (let value of Object.entries(fieldemploye)) {
-    //     let i;
-    //     let peoplepicker;
-    //     // 
-    //     for (i = 0; i < value.length; i++) {
-    //       if (value[i].InternalName != null && value[i].Type == "User") {
-    //         // 
-    //         // 
-    //         finalTemplate[value[i].InternalName + "Id"] = people;
-    //         // finalTemplate[value[i].InternalName] = people;
-
-    //         //  
-    //       }
-    //       //  people.push(peoplepicker);
-    //       //  
-    //       // 
-    //       // 
-    //     }
-    //   }
-    // }
-    // if (Dateofbirth != null) {
-    //   for (let value of Object.entries(fieldemploye)) {
-    //     for (var i = 0; i < value.length; i++) {
-    //       if (value[i].InternalName != null && value[i].Type == "DateTime") {
-    //         
-    //         finalTemplate[value[i].InternalName] = Dateofbirth;
-    //         
-    //       }
-    //     }
-    //   }
-    // }
     var Errmessage = "";
-
-
     ColumnProperties.map((item) => {
       const ExistingMainColumn = ticketOrder.filter((elem) => {
         return item[0].InternalName == elem.InternalName;
@@ -4314,24 +4198,6 @@ function AddNewTickets(props) {
         }
       }
     })
-    // for(let i=0 ; i < allTicketDescriptionColumns.length ; i++){
-    //   if(isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])){
-    //     AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
-    //   }
-    // }
-    //   if(allDateTypeColumns != null && allDateTypeColumns != undefined){
-    //   for (let i = 0; i < allDateTypeColumns.length; i++) {
-    //     if (isStringValidated(finalTemplate[allDateTypeColumns[i]['Title']])) {
-    //       if (allDateTypeColumns[i].Type1 == "DateTime") {
-    //         console.log(finalTemplate[allDateTypeColumns[i]['Title']]);
-    //         finalTemplate[allDateTypeColumns[i]['Title']] = moment(finalTemplate[allDateTypeColumns[i]['Title']]).utcOffset("+00:00", true).format()
-    //       }
-
-
-
-    //     }
-    //   }
-    // }
     for (let i = 0; i < allTicketDescriptionColumns.length; i++) {
       if (isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])) {
         if (allTicketDescriptionColumns[i].Type1 == "DateTime") {
@@ -4345,9 +4211,6 @@ function AddNewTickets(props) {
 
           AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
         }
-
-
-
       }
     }
 
@@ -4376,31 +4239,12 @@ function AddNewTickets(props) {
         .then((response: SPHttpClientResponse) => {
           return response.json();
         })
-        //.then((response: SPHttpClientResponse):void => {
-
-        //   if (response.ok) {
-        //     setSaved(true);
-        //     //getmailboxmgr()
-        //     setTimeout(() => {
-        //       messageDismiss();
-        //       //getTeams();
-        //     }, 5000);
-
-        //     } else {
-        //       response.json().then((responseJSON) => {
-        //         
-        //         setError(true);
-        //       });
-        //     }
-        //  }
-        //  return response.json();
-        //  )
-
         .then((item: any) => {
-          // GETPriorityDropDown();
+          setTimeout(()=>{
+           setExpandMode(false);
+          },2000);
           setGlobalMessage("");
           ReactQuilRenderer((prev) => prev + "1");
-
           if (item['odata.error']) {
             if ((JSON.stringify(item['odata.error'])).includes("Access is denied")) {
               showDialogAccessDenied();
@@ -4408,18 +4252,10 @@ function AddNewTickets(props) {
             setTimeout(() => {
               setLoading(false);
               messageDismiss();
-              // props.ReloadPage();
-              // props.ShowNotification();
               setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-              // handle(e);
-              // props.closePanel();
-              // saveTicketId();
-
             }, 2000);
 
           } else {
-
-
             if (attachFile2 || attachFile2 !== undefined) {
               saveFile(item.Id);
             }
@@ -4431,12 +4267,7 @@ function AddNewTickets(props) {
             WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
             UpdateTicketsProperties = isStringValidated(item.TicketProperties) ? JSON.parse(item.TicketProperties) : [];
             setTicketPropJOSNUpdate(UpdateTicketsProperties);
-
-
             rowId = item.Id;
-
-
-
             window.scrollTo(0, 0);
             setSaved(true);
             setTimeout(() => {
@@ -4448,35 +4279,16 @@ function AddNewTickets(props) {
             setTimeout(() => {
               getAutomationData(item);
               saveTicketId();
-
-
             }, 1200);
             setTimeout(() => {
-              // props.closePanel();
-              // props.ReloadPage();
             }, 2000);
             setTimeout(() => {
-              // UnAssign();
-              // props.closePanel();
-              // setCustomDateData([]);
               CustomDateData = {};
               ResetFields();
-              //props.ReloadPage();
-              // props.ShowNotification();
-              // if(autoTicket != "Off"){
-              //   getEmailIdUsingId(lastAssignid,rowId);
-              // }
-              // if (isTicketMailBox === "Yes") {
-              //   if(DelMailTicket != null && DelMailTicket != undefined){
-              //     DelMailTicket();
-              //   }
-              // }
-
             }, 1400);
           }
         })
         .catch((error) => {
-
           window.scrollTo(0, 0);
           setError(true);
           setLoading(false);
@@ -4512,7 +4324,6 @@ function AddNewTickets(props) {
           "IF-MATCH": "*",
           "X-HTTP-Method": "DELETE",
         },
-        // body: body
       })
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
@@ -5078,11 +4889,13 @@ function AddNewTickets(props) {
             }
           ).then((response: SPHttpClientResponse) => {
             if (response.ok) {
-              console.log("Attachment Details Updated")
+
+              console.log("Attachment Details Updated");
+            // return response.json();
             } else {
               console.error("Attachment Details Updated Error")
             }
-            return response.json();
+            // return response.json();
           })
       }, 3000);
     }
@@ -6288,12 +6101,13 @@ function AddNewTickets(props) {
       )
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
+        // return response.json();
         } else {
           response.json().then((responseJSON) => {
 
           });
         }
-        return response.json();
+        // return response.json();
       });
 
   }
@@ -7435,7 +7249,7 @@ function AddNewTickets(props) {
                                       <div id='SubServiceL2'>
 
 
-                                        <Label required={MandatoryFields.includes("SubServiceL2") ? true : false}>{SettingsCollection.SubServiceName + " L2"}</Label>
+                                        <Label required={MandatoryFields?.includes("SubServiceL2") ? true : false}>{SettingsCollection?.SubServiceName + " L2"}</Label>
                                         <Dropdown
                                           //selectedKey={selectedItem ? selectedItem.key : undefined}
                                           // eslint-disable-next-line react/jsx-no-bind
@@ -7477,36 +7291,36 @@ function AddNewTickets(props) {
                                     }
                                   </>
 
-                                    : item.InternalName == "Requester" ?
-                                      <>
-                                        {props.userType == "Admin" || props.userType == "Supervisor" || props.userType == "Agent" ?
-                                          <div id='Requester'>
-                                            <Label required={MandatoryFields.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
-                                            <PeoplePicker
-                                              context={ContextService.GetFullContext()}
-                                              placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
-                                              ensureUser={true}
-                                              personSelectionLimit={1}
-                                              groupName={""}
-                                              onChange={_getPeoplePickerItems}
-                                              showtooltip={false}
-                                              disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
-                                              showHiddenInUI={false}
-                                              resolveDelay={1000}
-                                              defaultSelectedUsers={requester}
-                                              principalTypes={[PrincipalType.User]}
+                                    // : item.InternalName == "Requester" ?
+                                    //   <>
+                                    //     {props.userType == "Admin" || props.userType == "Supervisor" || props.userType == "Agent" ?
+                                    //       <div id='Requester'>
+                                    //         <Label required={MandatoryFields.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
+                                    //         <PeoplePicker
+                                    //           context={ContextService.GetFullContext()}
+                                    //           placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
+                                    //           ensureUser={true}
+                                    //           personSelectionLimit={1}
+                                    //           groupName={""}
+                                    //           onChange={_getPeoplePickerItems}
+                                    //           showtooltip={false}
+                                    //           disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
+                                    //           showHiddenInUI={false}
+                                    //           resolveDelay={1000}
+                                    //           defaultSelectedUsers={requester}
+                                    //           principalTypes={[PrincipalType.User]}
 
-                                            // defaultSelectedUsers={optionsexcusers.length ? }
-                                            ></PeoplePicker>
-                                            {/* {MediaFieldToShow ?
-                                    <div>
-                                      <Label>{Language.RequesterMediaConnect ? Language.RequesterMediaConnect:"Requester's Media of Connect"}</Label>
-                                      <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} />
-                                    </div>
-                                    : null} */}
-                                          </div>
-                                          : null}
-                                      </>
+                                    //         // defaultSelectedUsers={optionsexcusers.length ? }
+                                    //         ></PeoplePicker>
+                                    //         {/* {MediaFieldToShow ?
+                                    // <div>
+                                    //   <Label>{Language.RequesterMediaConnect ? Language.RequesterMediaConnect:"Requester's Media of Connect"}</Label>
+                                    //   <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} />
+                                    // </div>
+                                    // : null} */}
+                                    //       </div>
+                                    //       : null}
+                                    //   </>
                                       :
                                       item.InternalName == "Teams" ?
                                         <>
@@ -7526,7 +7340,7 @@ function AddNewTickets(props) {
                                                         // : teamsoption
                                                       }
                                                         placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
-                                                        defaultSelectedKey={defltTeam}
+                                                        // defaultSelectedKey={defltTeam}
                                                         selectedKey={defltTeam}
                                                         onChange={getteam}
 
@@ -7538,7 +7352,7 @@ function AddNewTickets(props) {
                                                           teamsoption}
                                                         onChange={getteam}
                                                         required={true}
-                                                        defaultSelectedKey={defltTeam}
+                                                        // defaultSelectedKey={defltTeam}
                                                         selectedKey={defltTeam}
                                                       />}
 

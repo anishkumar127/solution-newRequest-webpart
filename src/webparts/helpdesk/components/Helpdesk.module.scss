@@ -2724,6 +2724,7 @@
     .logo-name-helpdesk {
       // margin-left: -18px;
       margin-left: -5px;
+      font-size: 12px;
     }
 
     .new-ticket-helpdesk-title {
@@ -2734,12 +2735,43 @@
   }
 
   .add-new-ticket-header-style-img {
-    max-width: 30px !important;
-    max-height: 30px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
     width: 100% !important;
     margin-left: unset !important;
   }
+ .add-new-ticket-header-style-large {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap:10px;
+  max-height: 40px;
+  background-color: var(--pivotSelectedBGColor);
 
+  img {
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    margin-left: 10px;
+  }
+
+  .helpdesk-name-style {
+    color: var(--pivotSelectedTextColor) !important;
+    font-weight: 600;
+  }
+
+  .logo-name-helpdesk {
+    // margin-left: -18px;
+    margin-left: -5px;
+    font-size: 12px;
+  }
+
+  .new-ticket-helpdesk-title {
+    // margin-right: 26px;
+    margin-left: auto;
+  }
+
+}
   // <------------------------------- MY TICKETS - UNATTACHED -------------------------->
   .myTickets-styles {
     padding: 10px;
@@ -2763,6 +2795,7 @@
 
   .add-new-ticket-title-single-layout {
     color: var(--pivotSelectedTextColor) !important;
+    font-size: 12px;
   }
 
   .add-new-ticket-ui-style {

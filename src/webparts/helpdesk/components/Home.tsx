@@ -1,16 +1,10 @@
 import * as React from 'react'
-import { Web } from 'sp-pnp-js';
-import ContextService from '../loc/Services/ContextService';
 import { useStore } from '../store/zustand';
-import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { ITheme, createTheme } from 'office-ui-fabric-react';
-let PriorityOptionsDropDown; // Alternative of State Delay
 import './global.scss'
-import Header from './tickets/Header';
 import SingleLayoutAddNewTicket from './tickets/SingleLayout/SingleLayoutAddNewTicket';
-import SingleLayoutHeader from './tickets/SingleLayout/SingleLayoutHeader';
 import AddNewTickets from './tickets/AddNewTickets';
-import AddNewWebPartInstallation from './tickets/AddNewWebPartInstallation/AddNewWebPartInstallation';
+import { Modal } from '@fluentui/react';
 let themeMode = 'theme';
 // THEME DARK OR LIGHT COLOR CHECKER.
 function isColorDark(color) {
@@ -41,7 +35,7 @@ const Home = () => {
     console.log("SettingsCollection", SettingsCollection);
 
   }, []);
-  
+
 
   // console.log("SettingsCollection", SettingsCollection);
 
@@ -906,34 +900,30 @@ const Home = () => {
   return (
     <>
       {/* Add New Tickets */}
-      {/*       
-      <Header ThemesColor ={ThemesColor}/>
-      <div onDragOver={handleParentDrag} onDrop={handleParentDrop}>
-      <AddNewTickets isTicketMailBox={"Yes"}
-        // LicenseType="trial"
-        LicenseType="P4"
-        lightdarkmode={themeMode}
-        userType={"Admin"}
-      />
-      </div> */}
-
-      {/* Single Layout 
-      <div className='single-layout-add-new-ticket-style'>
-      <SingleLayoutHeader/>
-      <SingleLayoutAddNewTicket/>
-      </div> */}
-
       {
         getExpandMode ?
           <>
             {/* <Header/> */}
-            <div onDragOver={handleParentDrag} onDrop={handleParentDrop}>
-              <AddNewTickets isTicketMailBox={"Yes"}
-                LicenseType="P4"
-                lightdarkmode={themeMode}
-                userType={"Admin"}
-              />
-            </div>
+            <Modal
+              isOpen={getExpandMode}
+              // onDismiss={(}
+              isBlocking={true}
+              styles={{
+                main: {
+                  minWidth: "600px",
+                  Minheight: "540px"
+                }
+              }}
+            >
+              <div onDragOver={handleParentDrag} onDrop={handleParentDrop}>
+                <AddNewTickets isTicketMailBox={"Yes"}
+                  LicenseType="P4"
+                  lightdarkmode={themeMode}
+                  userType={"Admin"}
+                />
+              </div>
+
+            </Modal>
           </>
           : <>
 
