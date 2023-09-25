@@ -20,8 +20,10 @@ const DefaultFields = (props) => {
                         options={propsData?.teamsoptionarray}
                         onChange={propsData?.handleTeamsOnChange}
                         placeholder="Select teams"
-                        selectedKey={propsData?.defltTeam}
+                        // selectedKey={propsData?.defltTeam}
                         onRenderOption={renderOption}
+                        multiSelect
+                        selectedKeys={propsData?.defltTeam}
                     />
                     {/* Service ui */}
                     <Dropdown
@@ -30,8 +32,10 @@ const DefaultFields = (props) => {
                         options={propsData?.serviceOption}
                         onChange={propsData?.handleServiceOnChange}
                         placeholder="Select services"
-                        selectedKey={propsData?.defltService}
+                        // selectedKey={propsData?.defltService}
                         onRenderOption={renderOption}
+                        multiSelect
+                        selectedKeys={propsData?.defltService}
                     />
                     {/* Sub Service ui */}
                     <Dropdown
@@ -40,8 +44,10 @@ const DefaultFields = (props) => {
                         options={propsData?.subserviceOption}
                         onChange={propsData?.handleSubServiceOnChange}
                         placeholder="Select sub services"
-                        selectedKey={propsData?.defltSubService}
+                        // selectedKey={propsData?.defltSubService}
                         onRenderOption={renderOption}
+                        multiSelect
+                        selectedKeys={propsData?.defltSubService}
                     />
                     {/* Priority */}
                     <Dropdown
@@ -51,8 +57,10 @@ const DefaultFields = (props) => {
                         onChange={propsData?.handlePriorityOnChange}
                         placeholder="Select priority"
                         // defaultSelectedKey={propsData?.defltPriority}
-                        selectedKey={propsData?.defltPriority}
+                        // selectedKey={propsData?.defltPriority}
                         onRenderOption={renderOption}
+                        multiSelect
+                        selectedKeys={propsData?.defltPriority}
                     />
 
                     {/* Request Type */}
@@ -62,8 +70,10 @@ const DefaultFields = (props) => {
                         options={propsData?.requestoptions}
                         onChange={propsData?.handleRequestTypeOnChange}
                         placeholder="Select request type"
-                        selectedKey={propsData?.defltReq}
+                        // selectedKey={propsData?.defltReq}
                         onRenderOption={renderOption}
+                        multiSelect
+                        selectedKeys={propsData?.defltReq}
                     />
                 </div>
             </div>

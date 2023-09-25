@@ -106,7 +106,7 @@ const SettingsConfig = () => {
             await fetchIsInstalled();
         }
         fetchedIsInstalled();
-    }, []);
+    }, [isExpandView]);
     return (
         <div style={{ padding: "0px 20px", margin: "0px" }}>
             <div className='configure-settings-btn-input'>

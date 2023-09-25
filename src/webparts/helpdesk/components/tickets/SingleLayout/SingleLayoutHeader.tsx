@@ -42,6 +42,7 @@ const SingleLayoutHeader = ({ propsData }) => {
   // <-------------------------- FETCHING DATA ---------------------->
 
   const fetchRequestFieldsCheckbox = useAddNewApiStore((state) => state.fetchRequestFieldsCheckbox);
+  const fetchIsInstalled = useStore((state) => state.fetchIsInstalled);
 
   // <-------------------------- GETTING DATA ---------------------->
   const getSettingsCollection = useStore((state) => state.getSettingsCollection());
@@ -123,6 +124,12 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
   }, [getRequestFieldsCheckbox[0]?.RequestTicketsCheckedFields, openModel]);
 
+  React.useEffect(() => {
+    const fetchedIsInstalled = async () => {
+        await fetchIsInstalled();
+    }
+    fetchedIsInstalled();
+}, [openModel]);
 
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {

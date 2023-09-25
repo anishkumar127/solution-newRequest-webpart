@@ -3004,7 +3004,7 @@
   .configure-toggle-btn-alignment {
     display: flex;
     justify-content: space-between;
-    padding: 5px 20px;
+    padding: 5px 0px;
     align-items: baseline;
     border-bottom: 1px solid #ddd;
 
@@ -3022,6 +3022,15 @@
     padding: 0 20px;
     margin: 0;
   }
+}
+.expand-query-request{
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+  font-weight: 500;
 }
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END
