@@ -59,7 +59,7 @@ const SingleLayoutAddNewTicket = () => {
   const [serviceOption, setServiceOption] = React.useState([]);
   const [defltSubService, setDefltSubService] = React.useState<string>(null);
   const [subserviceOption, setsubserviceOption] = React.useState([]);
-
+  const [departmentName, setDepartmentName] = useState<string>("");
   const [teamsoptionarray, setteamsoptionarray] = React.useState([]); //M
 
   // < ----------- PRIORITY STATES -------------------------->
@@ -331,6 +331,7 @@ const SingleLayoutAddNewTicket = () => {
     setDefltSubService(null);
     setDefltService(null);
     setDefltTeam(item.key as string);
+    setDepartmentName(item.text as string);
     let filteredService = hroptions.filter((items) => {
       return items.team == item.key;
     });
@@ -402,7 +403,7 @@ const SingleLayoutAddNewTicket = () => {
           defltPriority, handlePriorityOnChange, handleRequestTypeOnChange,
           requestoptions, defltTeam, defltReq, closePanel, setClosePanel, ticketTitle,
           descriptionValue, requestname, requestername, setDefltTeam,
-          setDefltService, setDefltSubService, setDefltPriority, setDefltReq, setTicketTitle, setDescriptionValue
+          setDefltService, setDefltSubService, setDefltPriority, setDefltReq, setTicketTitle, setDescriptionValue, departmentName
         }} />
       <div className="add-new-ticket-ui-style">
         {layoutOrder?.map((item, index) => {

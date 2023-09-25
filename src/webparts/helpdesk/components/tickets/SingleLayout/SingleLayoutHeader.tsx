@@ -246,7 +246,7 @@ const SingleLayoutHeader = ({ propsData }) => {
   const SubmitTicket = () => {
     let currentuser = ContextService.GetCurrentUser();
     let userid = ContextService.GetCurentUserId();
-    const { ticketTitle, descriptionValue, defltTeam, requestname, requestername,
+    const { departmentName, ticketTitle, descriptionValue, defltTeam, requestname, requestername,
       defltService: servicename, defltSubService: subservicename, defltPriority: priorityName
     } = propsData;
     let AlldesccolumnsValues = []
@@ -345,7 +345,7 @@ const SingleLayoutHeader = ({ propsData }) => {
         ticketTitle == "" || ticketTitle == null || ticketTitle == undefined
           ? ticketTitle
           : ticketTitle.trim(),
-      DepartmentName: defltTeam,
+      DepartmentName: departmentName,
       Services: servicename,
       SubServices: subservicename,
       Priority: priorityName,
@@ -942,54 +942,54 @@ const SingleLayoutHeader = ({ propsData }) => {
   const alerts = [
     {
       show: configureRequestUpdate,
-      type: 'success'  as CustomAlertType,
+      type: 'success' as CustomAlertType,
       text: 'Updated successfully!',
       id: 'ConfigureRequest',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
 
     },
     {
       show: maxSelect,
-      type: 'warning'  as CustomAlertType,
+      type: 'warning' as CustomAlertType,
       text: 'Please select up to 5.',
       id: 'ConfigureRequest2',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
 
     },
     {
       show: selectDefaultValue,
-      type: 'warning'  as CustomAlertType,
+      type: 'warning' as CustomAlertType,
       text: 'Please select default value',
       id: 'ConfigureRequest3',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
     },
     {
       show: emptyTitleMsg,
-      type: 'warning'  as CustomAlertType,
+      type: 'warning' as CustomAlertType,
       text: 'Please fill the title',
       id: 'ConfigureRequest4',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
     },
     {
       show: emptyDescriptionMsg,
-      type: 'warning'  as CustomAlertType,
+      type: 'warning' as CustomAlertType,
       text: 'Please fill the description',
       id: 'ConfigureRequest5',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
     },
     {
       show: emptyTeamsMsg,
-      type: 'warning'  as CustomAlertType,
+      type: 'warning' as CustomAlertType,
       text: 'Please select teams',
       id: 'ConfigureRequest6',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
     },
     {
       show: savedTicketsMsg,
-      type: 'success'  as CustomAlertType,
+      type: 'success' as CustomAlertType,
       text: 'Request submitted successfully!',
       id: 'ConfigureRequest7',
-      popupCustomClass:"general-settings",
+      popupCustomClass: "general-settings",
 
     },
   ]
@@ -1077,10 +1077,10 @@ const SingleLayoutHeader = ({ propsData }) => {
       {/* <div id="ConfigureRequest" /> */}
 
       {alerts?.map((alert, index) => {
-      {/* {alertsConfig?.map((alert, index) => { */}
-      // const show = state[key];
+        {/* {alertsConfig?.map((alert, index) => { */ }
+        // const show = state[key];
         // console.log("alerts",alert);
-        const { show, type, text, id ,popupCustomClass} = alert;
+        const { show, type, text, id, popupCustomClass } = alert;
         return show && (
           <ReusableSweetAlerts
             key={index}
