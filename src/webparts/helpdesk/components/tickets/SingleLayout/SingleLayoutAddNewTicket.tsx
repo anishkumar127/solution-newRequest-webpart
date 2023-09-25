@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { TextField } from "@fluentui/react";
+import { Link, TextField } from "@fluentui/react";
 import { Dropdown, IDropdownOption } from "@fluentui/react/lib/Dropdown";
 import { useAddNewApiStore } from "../../../store/apis_add-new-tickts/add-new-apis";
 import SingleLayoutHeader from "./SingleLayoutHeader";
 import ContextService from "../../../loc/Services/ContextService";
+import { useStore } from "../../../store/zustand";
+import Typed from "../../../TypeSafety/Types";
 
 // TEAMS DEPARTMENT
 let defaultteamCode = "";
@@ -18,6 +20,7 @@ let DefaultLayoutItemsNames = [];
 
 
 const SingleLayoutAddNewTicket = () => {
+  const HDPlogo: any = require('../../../../../../assets/help-desk.png');
 
   // store
   // <-------------------------- FETCHING DATA ---------------------->
@@ -47,7 +50,10 @@ const SingleLayoutAddNewTicket = () => {
   const getSubService = useAddNewApiStore((state) => state.getSubService());
 
   // console.log("getSettingsCollection", getSettingsCollection);
+  const getIsInstalled = useStore((state) => state.getIsInstalled());
+  const setExpandMode = useStore((state) => state.setExpandMode);
 
+  // console.log("? getIsInstalled",getIsInstalled)
   // STATES
   // < ----------- REQUEST TITLE STATES -------------------------->
 
@@ -227,6 +233,9 @@ const SingleLayoutAddNewTicket = () => {
   }, [])
 
   //
+  useEffect(()=>{
+console.log("re fetching & updating...")
+  },[getIsInstalled?.ExpandView]);
 
 
   // <-------------------- TEAMS DEPARTMENT FUNCTION ------------------->
@@ -395,6 +404,11 @@ const SingleLayoutAddNewTicket = () => {
     item: IDropdownOption) => {
     setDefltReq(item.key as string);
   }
+  
+  const handleExpandView = () =>{
+    console.log("clicked")
+    setExpandMode(true);
+  }
   return (
     <>
       <SingleLayoutHeader
@@ -405,52 +419,64 @@ const SingleLayoutAddNewTicket = () => {
           descriptionValue, requestname, requestername, setDefltTeam,
           setDefltService, setDefltSubService, setDefltPriority, setDefltReq, setTicketTitle, setDescriptionValue, departmentName
         }} />
-      <div className="add-new-ticket-ui-style">
-        {layoutOrder?.map((item, index) => {
-          return (
-            <Fragment key={index}>
-              {item?.Name === "Title" && item?.isChecked === true ? <TextField
-                placeholder="Enter request title"   // <--- TITLE --->
-                multiline={isMultiline}
-                value={ticketTitle}
-                onChange={onChangeRequestTitle}
-              /> :
-                item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
-                  options={teamsoptionarray}   // <--- TEAMS --->
-                  onChange={handleTeamsOnChange}
-                  placeholder="Select teams"
-                  selectedKey={defltTeam}
-                /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
-                  options={serviceOption}           // <--- SERVICE --->
-                  onChange={handleServiceOnChange}
-                  placeholder="Select services"
-                  selectedKey={defltService}
-                /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
-                  options={subserviceOption}
-                  onChange={handleSubServiceOnChange}
-                  placeholder="Select sub services"      // <--- SUBSERVICE --->
-                  selectedKey={defltSubService}
-                /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
-                  placeholder="Description..."   // <--- DESCRIPTION --->
-                  multiline
-                  rows={3}
-                  value={descriptionValue}
-                  onChange={onChangeDescription}
-                /> : item?.Name === "Request Type" && item?.isChecked === true ? <Dropdown
-                  options={requestoptions}     // <--- REQUEST TYPE --->
-                  onChange={handleRequestTypeOnChange}
-                  placeholder="Select request type"
-                  selectedKey={defltReq}
-                /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
-                  options={priorityoptions}      // <--- PROIRTY --->
-                  onChange={handlePriorityOnChange}
-                  placeholder="Select priority"
-                  selectedKey={defltPriority}
-                /> : null}
-            </Fragment>
-          )
-        })}
-      </div>
+      {
+        getIsInstalled?.ExpandView !== Typed.Yes ? <div className="add-new-ticket-ui-style">
+          {layoutOrder?.map((item, index) => {
+            return (
+              <Fragment key={index}>
+                {item?.Name === "Title" && item?.isChecked === true ? <TextField
+                  placeholder="Enter request title"   // <--- TITLE --->
+                  multiline={isMultiline}
+                  value={ticketTitle}
+                  onChange={onChangeRequestTitle}
+                /> :
+                  item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
+                    options={teamsoptionarray}   // <--- TEAMS --->
+                    onChange={handleTeamsOnChange}
+                    placeholder="Select teams"
+                    selectedKey={defltTeam}
+                  /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
+                    options={serviceOption}           // <--- SERVICE --->
+                    onChange={handleServiceOnChange}
+                    placeholder="Select services"
+                    selectedKey={defltService}
+                  /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
+                    options={subserviceOption}
+                    onChange={handleSubServiceOnChange}
+                    placeholder="Select sub services"      // <--- SUBSERVICE --->
+                    selectedKey={defltSubService}
+                  /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
+                    placeholder="Description..."   // <--- DESCRIPTION --->
+                    multiline
+                    rows={3}
+                    value={descriptionValue}
+                    onChange={onChangeDescription}
+                  /> : item?.Name === "Request Type" && item?.isChecked === true ? <Dropdown
+                    options={requestoptions}     // <--- REQUEST TYPE --->
+                    onChange={handleRequestTypeOnChange}
+                    placeholder="Select request type"
+                    selectedKey={defltReq}
+                  /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
+                    options={priorityoptions}      // <--- PROIRTY --->
+                    onChange={handlePriorityOnChange}
+                    placeholder="Select priority"
+                    selectedKey={defltPriority}
+                  /> : null}
+              </Fragment>
+            )
+          })}
+        </div>
+
+          : <div className="expand-query-request">
+             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
+                            <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
+                        </div>
+           {/* <p> If you have any queries, please <Link onClick={handleExpandView}>click here</Link> to raise a request.</p> */}
+           <p>Do you want to raise a ticket <Link onClick={handleExpandView}> click here</Link>.</p>
+
+              </div>
+      }
+
 
 
     </>
