@@ -9,9 +9,10 @@ type: SweetAlertIcon, title: string, text: string, isBehindVisible: boolean, IsC
     - IsConfirmBtn -> true, false - Confirm button is visible or not
     - CustomClass -> Custom Class for popup and title - Will Be In Future.
 */
-
+export type CustomAlertType = 'success' | 'error' | 'warning' | 'info' | 'question';
 interface CustomSweetAlertProps {
-    type: SweetAlertIcon;
+    // type: SweetAlertIcon;
+    type: CustomAlertType;
     title: string;
     text: string;
     isBehindVisible: boolean;

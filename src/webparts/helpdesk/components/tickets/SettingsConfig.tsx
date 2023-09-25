@@ -1,4 +1,4 @@
-import { Icon, Label, Toggle } from '@fluentui/react';
+import { Label, Toggle } from '@fluentui/react';
 import React, { useEffect, useState } from 'react'
 import ContextService from '../../loc/Services/ContextService';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';

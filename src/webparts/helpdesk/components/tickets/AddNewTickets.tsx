@@ -155,6 +155,7 @@ function AddNewTickets(props) {
   const { isTicketMailBox, RequestedFrom } = props;
   const customStylesselect = useCustomStyles(props.lightdarkmode);
   const [quillRender, ReactQuilRenderer] = React.useState('');
+  const setExpandMode = useStore((state) => state.setExpandMode);
 
   let ThemeColor = React.useContext(themeContext)
 
@@ -892,7 +893,7 @@ function AddNewTickets(props) {
               //           return v.mainColumnIntName.toLowerCase() == ele.InternalName.toLowerCase();
               //         })
               //         if (document.getElementById(element) != null && found_column.length != 0) {
-              //           MandatoryFields = MandatoryFields.filter((J) => {
+              //           MandatoryFields = MandatoryFields?.filter((J) => {
               //             return element != J
               //           });
               //           document.getElementById(element).style.display = 'none';
@@ -939,8 +940,8 @@ function AddNewTickets(props) {
                 }
               })
               MandatoryFields = "Title,Priority,Request Type,Ticket Description,Requester,Teams";
-              allMandatoryFields = MandatoryFields.split(',');
-              MandatoryFields = MandatoryFields.split(',');
+              allMandatoryFields = MandatoryFields?.split(',');
+              MandatoryFields = MandatoryFields?.split(',');
               newMandatoryFields = MandatoryFields
               Ticketarranage = Ticketarranage.concat('Ticket Description');
               //Ticketarranage = Ticketarranage.split('|,|')
@@ -1017,8 +1018,8 @@ function AddNewTickets(props) {
             }
 
             MandatoryFields = "Title,Priority,Request Type,Ticket Description,Requester,Teams";
-            allMandatoryFields = MandatoryFields.split(',')
-            MandatoryFields = MandatoryFields.split(',');
+            allMandatoryFields = MandatoryFields?.split(',')
+            MandatoryFields = MandatoryFields?.split(',');
             newMandatoryFields = MandatoryFields
             // for (var i = 0; i < Ticketarranage.length; i++) {
             //   if (Ticketarranage[i] == 'Title') {
@@ -1086,7 +1087,7 @@ function AddNewTickets(props) {
           //   Ticketarranage = Ticketarranage.concat('|,|Ticket Description');
           //   Ticketarranage = Ticketarranage.split('|,|')
           //   MandatoryFields="Title,Priority,Request Type,Ticket Description,Requester,Teams";
-          //   MandatoryFields=MandatoryFields.split(',');
+          //   MandatoryFields=MandatoryFields?.split(',');
           // for (var i = 0; i < Ticketarranage.length; i++) {
           //   if(Ticketarranage[i]=='Title'){
 
@@ -3888,8 +3889,6 @@ function AddNewTickets(props) {
 
 
   function SubmitTicket() {
-    //
-    // 
     let AlldesccolumnsValues = []
     let autoAssignEmailId = null;
     let requester = " ";
@@ -3900,7 +3899,6 @@ function AddNewTickets(props) {
       requesterDisplayName = requestername[0].name;
     } else {
       requester = null;
-      // requesterDisplayName = "";
     }
     TicketPropertiesValue.push({
       TicketOpenDate: "",
@@ -3961,35 +3959,10 @@ function AddNewTickets(props) {
         Titlename == undefined ||
         Titlename.trim() == null ||
         Titlename.trim() == "" ||
-        Titlename.trim() == undefined) && MandatoryFields.includes("Title")
+        Titlename.trim() == undefined) && MandatoryFields?.includes("Title")
     ) {
       setNewerror2(true);
       settitlename("");
-      // function handle(e) {
-      // e.preventDefault();
-      // Toast.fire({
-      //   icon: 'error',
-      //   title: 'Please fill the title!',
-      //   target: '#TitlePopup'
-      // })
-      // }
-
-      //  Swal.fire({
-      //   title: "Warning!",
-      //   text: "Please fill the title!",
-      //   icon: "warning",
-
-      //   target:"#TitlePopup",
-      //   heightAuto: false,
-
-      //   allowOutsideClick:false
-      //   // buttons: {
-      //   //   cancel: true,
-      //   //   // closeModal: false,
-
-      //   // },
-
-      // });
       setTimeout(() => {
         messageDismiss();
       }, 2000);
@@ -4005,7 +3978,7 @@ function AddNewTickets(props) {
     if (
       (priorityName == null ||
         priorityName == "" ||
-        priorityName == undefined) && MandatoryFields.includes("Priority")
+        priorityName == undefined) && MandatoryFields?.includes("Priority")
     ) {
       setNewerror4(true);
       setTimeout(() => {
@@ -4016,7 +3989,7 @@ function AddNewTickets(props) {
     if (
       (servicename == null ||
         servicename == "" ||
-        servicename == undefined) && MandatoryFields.includes("Services")
+        servicename == undefined) && MandatoryFields?.includes("Services")
     ) {
       setNewerrorService(true);
       setTimeout(() => {
@@ -4027,7 +4000,7 @@ function AddNewTickets(props) {
     if (
       (subservicename == null ||
         subservicename == "" ||
-        subservicename == undefined) && MandatoryFields.includes("Sub Services")
+        subservicename == undefined) && MandatoryFields?.includes("Sub Services")
     ) {
       setNewerrorSubService(true);
       setTimeout(() => {
@@ -4045,7 +4018,7 @@ function AddNewTickets(props) {
     if (
       (globalMessage == null ||
         globalMessage == "" ||
-        globalMessage == undefined) && MandatoryFields.includes("Ticket Description")
+        globalMessage == undefined) && MandatoryFields?.includes("Ticket Description")
     ) {
       setNewerror6(true);
       setTimeout(() => {
@@ -4054,12 +4027,10 @@ function AddNewTickets(props) {
       flag4 = true;
 
     }
-    //If else
-    //if
     if (
       (team == null ||
         team == "" ||
-        team == undefined) && MandatoryFields.includes("Teams")
+        team == undefined) && MandatoryFields?.includes("Teams")
     ) {
       setNewerror7(true);
       setTimeout(() => {
@@ -4067,7 +4038,7 @@ function AddNewTickets(props) {
       }, 2000);
       flag5 = true;
     }
-
+//Sahil
     if (AutoAssignTicket !== "Off") {
       if (AutoAssignTicketMethod == "RoundRobin") {
         RoundRobin();
@@ -4080,46 +4051,40 @@ function AddNewTickets(props) {
       });
       filtered.map((i) => {
         autoAssignEmailId = i.Email;
-        //sendEmailIds.push(i.Email);
       });
     }
-    let FilterWorkFlowFilterData;
-    if (WorkFlowData != null && WorkFlowData.length > 0 && WorkFlowData != undefined) {
-      // let withoutsubserviceWorkflow = WorkFlowData.filter(x => !isStringValidated(x.SubServiceName))      
-      FilterWorkFlowFilterData = WorkFlowData.findIndex((i) => {
-        if (!isStringValidated(i.SubServiceName)) {
+   // let FilterWorkFlowFilterData;
+    // if (WorkFlowData != null && WorkFlowData.length > 0 && WorkFlowData != undefined) {
+    //   // let withoutsubserviceWorkflow = WorkFlowData.filter(x => !isStringValidated(x.SubServiceName))      
+    //   FilterWorkFlowFilterData = WorkFlowData.findIndex((i) => {
+    //     if (!isStringValidated(i.SubServiceName)) {
 
-          return (i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename))
-        }
-      })
-      if (subservicename != null && subservicename != '' && subservicename != undefined) {
-        let subserviceWorkflow = WorkFlowData.filter(x => isStringValidated(x.SubServiceName))
-
-
-        let index = subserviceWorkflow.findIndex((i) => {
-          if (isStringValidated(i.SubServiceName)) {
-            return i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename) &&
-              i.SubServiceNames?.startsWith(',') ? i.SubServiceName?.slice(1)?.split(',')?.includes(subservicename) :
-              i.SubServiceName?.split(',')?.includes(subservicename)
-          }
-        })
-        if (index > -1) {
-          FilterWorkFlowFilterData = index
-
-        }
+    //       return (i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename))
+    //     }
+    //   })
+    //   if (subservicename != null && subservicename != '' && subservicename != undefined) {
+    //     let subserviceWorkflow = WorkFlowData.filter(x => isStringValidated(x.SubServiceName))
 
 
+    //     let index = subserviceWorkflow.findIndex((i) => {
+    //       if (isStringValidated(i.SubServiceName)) {
+    //         return i.DepartmentName?.includes(team) && i.ServiceName?.split(',')?.includes(servicename) &&
+    //           i.SubServiceNames?.startsWith(',') ? i.SubServiceName?.slice(1)?.split(',')?.includes(subservicename) :
+    //           i.SubServiceName?.split(',')?.includes(subservicename)
+    //       }
+    //     })
+    //     if (index > -1) {
+    //       FilterWorkFlowFilterData = index
 
-      }
-    }
+    //     }
 
-    // let useridofAuto=${autoTicket=="Off"?[]:lastAssignid};
 
-    // alert("SAVED");
-    // let CreatedDateString = new (Date);
-    // const date = CreatedDateString.split("T")
-    // 
-    // CreatedDateString.split('T')
+
+    //   }
+    // }
+
+    ///Sahil
+
     groups.forEach((e) => {
       if (e.name === "HDM365Admin" || e.name === "HDM365PowerUser" || e.name === "HDM365" + teamname) {
         allid.push(e.id)
@@ -4127,7 +4092,8 @@ function AddNewTickets(props) {
     })
     allid.push(requester)
     let finalTemplate;
-    if (AutoAssignTicket == "Off" || FilterWorkFlowFilterData > -1) {
+    //Sahil
+    if (AutoAssignTicket == "Off" ) {
       finalTemplate = {
         Title:
           Titlename == "" || Titlename == null || Titlename == undefined
@@ -4190,27 +4156,35 @@ function AddNewTickets(props) {
         // ItemPermissionId:allid
       };
     }
-    // let _assignTo;
-    // if (
-    //   finalTemplate.AssignedToId == null ||
-    //   finalTemplate.AssignedToId == "" ||
-    //   finalTemplate.AssignedToId == undefined
-    // ) {
-    //   // _assignTo=null
-    //   _assignTo = finalTemplate.AssignedToId;
-    // } else {
-    //   _assignTo = finalTemplate.AssignedToId;
-    //   setAssignPlaceHolder(finalTemplate.AssignedTo.Title);
-    // }
-    // if (dataText != null) {
-    //   var key;
-    //   for (let value of Object.entries(dataText)) {
-    //     //
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    //   // 
-    // }
-
+    // //Sahil
+    // finalTemplate = {
+    //   Title:
+    //     Titlename == "" || Titlename == null || Titlename == undefined
+    //       ? Titlename
+    //       : Titlename.trim(),
+    //   DepartmentName: team,
+    //   Services: servicename,
+    //   SubServices: subservicename,
+    //   SubServicesL2: level2SubServicedefault,
+    //   SubServicesL3: level3Subservicedefault,
+    //   Priority: priorityName,
+    //   RequestType: requestname,
+    //   RequesterId: requester,
+    //   TicketDescription: globalMessage,
+    //   TicketDescInTextformat: globalMessage.replace(/<[^>]*>/g, ''),
+    //   //DepartmentCode: teamname,
+    //   TicketProperties: JSON.stringify(TicketPropertiesValue),
+    //   RequesterEmail: requesterEmailId,
+    //   RequesterName: requesterDisplayName,
+    //   TicketCreatedDate: new (Date),
+    //   SLAResponseDone: "No",
+    //   SLAResolveDone: "No",
+    //   SLAResponseInfo: JSON.stringify(SLAResponseInfo),
+    //   SLAResolveInfo: JSON.stringify(SLAResolveInfo),
+    //   ...CustomDateData,
+    //   ReadStatus: '',
+    //   // ItemPermissionId:allid
+    // };
     if (dataText != null) {
       var key;
       for (let value of Object.entries(dataText)) {
@@ -4232,18 +4206,6 @@ function AddNewTickets(props) {
       }
     }
 
-    // if (MultipalChoiceData != null) {
-    //   var key;
-    //   for (let value of Object.entries(MultipalChoiceData)) {
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    // }
-    // if (dataLink != null) {
-    //   var key;
-    //   for (let value of Object.entries(dataLink)) {
-    //     finalTemplate[value[0]] = value[1];
-    //   }
-    // }
     if (dataChoice2 != null) {
       var key;
       for (let value of Object.entries(dataChoice2)) {
@@ -4256,82 +4218,18 @@ function AddNewTickets(props) {
         finalTemplate[value[0]] = value[1];
       }
     }
-    // if (optionsexcusers != null) {
-    //   let people = []
-    //   if (optionsexcusers.length > 0) {
-    //     people = optionsexcusers[0].id;
-    //     // people = optionsexcusers[0].text;
-    //     
-    //   }else{
-    //     people = null;
-    //   }
-    //   // for(var i =0; i<optionsexcusers.length; i++){
-    //   //   people.push(optionsexcusers[0].id);
-    //   // }
-
-    //   for (let value of Object.entries(fieldemploye)) {
-    //     let i;
-    //     let peoplepicker;
-    //     // 
-    //     for (i = 0; i < value.length; i++) {
-    //       if (value[i].InternalName != null && value[i].Type == "User") {
-    //         // 
-    //         // 
-    //         finalTemplate[value[i].InternalName + "Id"] = people;
-    //         // finalTemplate[value[i].InternalName] = people;
-
-    //         //  
-    //       }
-    //       //  people.push(peoplepicker);
-    //       //  
-    //       // 
-    //       // 
-    //     }
-    //   }
-    // }
-    // if (Dateofbirth != null) {
-    //   for (let value of Object.entries(fieldemploye)) {
-    //     for (var i = 0; i < value.length; i++) {
-    //       if (value[i].InternalName != null && value[i].Type == "DateTime") {
-    //         
-    //         finalTemplate[value[i].InternalName] = Dateofbirth;
-    //         
-    //       }
-    //     }
-    //   }
-    // }
     var Errmessage = "";
-
-
     ColumnProperties.map((item) => {
       const ExistingMainColumn = ticketOrder.filter((elem) => {
         return item[0].InternalName == elem.InternalName;
       });
       if (LicenseType.toLowerCase() == "p4" || LicenseType.toLowerCase() == "trial") {
-        if (!isStringValidated(finalTemplate[item[0].InternalName]) && ((ExistingMainColumn.length > 0 && MandatoryFields.includes(item[0].InternalName)))) {
+        if (!isStringValidated(finalTemplate[item[0].InternalName]) && ((ExistingMainColumn.length > 0 && MandatoryFields?.includes(item[0].InternalName)))) {
           Errmessage = "Please fill the " + item[0].DisplayName;
           RequiredColumnName = item[0].DisplayName;
         }
       }
     })
-    // for(let i=0 ; i < allTicketDescriptionColumns.length ; i++){
-    //   if(isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])){
-    //     AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
-    //   }
-    // }
-    //   if(allDateTypeColumns != null && allDateTypeColumns != undefined){
-    //   for (let i = 0; i < allDateTypeColumns.length; i++) {
-    //     if (isStringValidated(finalTemplate[allDateTypeColumns[i]['Title']])) {
-    //       if (allDateTypeColumns[i].Type1 == "DateTime") {
-    //         console.log(finalTemplate[allDateTypeColumns[i]['Title']]);
-    //         finalTemplate[allDateTypeColumns[i]['Title']] = moment(finalTemplate[allDateTypeColumns[i]['Title']]).utcOffset("+00:00", true).format()
-    //       }
-
-
-
-    //     }
-    //   }
-    // }
     for (let i = 0; i < allTicketDescriptionColumns.length; i++) {
       if (isStringValidated(finalTemplate[allTicketDescriptionColumns[i]['Title']])) {
         if (allTicketDescriptionColumns[i].Type1 == "DateTime") {
@@ -4345,9 +4243,6 @@ function AddNewTickets(props) {
 
           AlldesccolumnsValues.push(`<p id=${allTicketDescriptionColumns[i]['Title']}><b>${allTicketDescriptionColumns[i]['ColumnName']}</b>: ${finalTemplate[allTicketDescriptionColumns[i]['Title']]}</p>`)
         }
-
-
-
       }
     }
 
@@ -4376,31 +4271,12 @@ function AddNewTickets(props) {
         .then((response: SPHttpClientResponse) => {
           return response.json();
         })
-        //.then((response: SPHttpClientResponse):void => {
-
-        //   if (response.ok) {
-        //     setSaved(true);
-        //     //getmailboxmgr()
-        //     setTimeout(() => {
-        //       messageDismiss();
-        //       //getTeams();
-        //     }, 5000);
-
-        //     } else {
-        //       response.json().then((responseJSON) => {
-        //         
-        //         setError(true);
-        //       });
-        //     }
-        //  }
-        //  return response.json();
-        //  )
-
         .then((item: any) => {
-          // GETPriorityDropDown();
+          setTimeout(()=>{
+           setExpandMode(false);
+          },2000);
           setGlobalMessage("");
           ReactQuilRenderer((prev) => prev + "1");
-
           if (item['odata.error']) {
             if ((JSON.stringify(item['odata.error'])).includes("Access is denied")) {
               showDialogAccessDenied();
@@ -4408,18 +4284,10 @@ function AddNewTickets(props) {
             setTimeout(() => {
               setLoading(false);
               messageDismiss();
-              // props.ReloadPage();
-              // props.ShowNotification();
               setButtonSaveText(Language.Submit ? Language.Submit : "Submit");
-              // handle(e);
-              // props.closePanel();
-              // saveTicketId();
-
             }, 2000);
 
           } else {
-
-
             if (attachFile2 || attachFile2 !== undefined) {
               saveFile(item.Id);
             }
@@ -4428,15 +4296,10 @@ function AddNewTickets(props) {
             setattachFile1([]);
             setattachFile2([]);
             setTicketId(item.Id);
-            WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
+         // Sahil // WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
             UpdateTicketsProperties = isStringValidated(item.TicketProperties) ? JSON.parse(item.TicketProperties) : [];
             setTicketPropJOSNUpdate(UpdateTicketsProperties);
-
-
             rowId = item.Id;
-
-
-
             window.scrollTo(0, 0);
             setSaved(true);
             setTimeout(() => {
@@ -4448,35 +4311,16 @@ function AddNewTickets(props) {
             setTimeout(() => {
               getAutomationData(item);
               saveTicketId();
-
-
             }, 1200);
             setTimeout(() => {
-              // props.closePanel();
-              // props.ReloadPage();
             }, 2000);
             setTimeout(() => {
-              // UnAssign();
-              // props.closePanel();
-              // setCustomDateData([]);
               CustomDateData = {};
               ResetFields();
-              //props.ReloadPage();
-              // props.ShowNotification();
-              // if(autoTicket != "Off"){
-              //   getEmailIdUsingId(lastAssignid,rowId);
-              // }
-              // if (isTicketMailBox === "Yes") {
-              //   if(DelMailTicket != null && DelMailTicket != undefined){
-              //     DelMailTicket();
-              //   }
-              // }
-
             }, 1400);
           }
         })
         .catch((error) => {
-
           window.scrollTo(0, 0);
           setError(true);
           setLoading(false);
@@ -4512,7 +4356,6 @@ function AddNewTickets(props) {
           "IF-MATCH": "*",
           "X-HTTP-Method": "DELETE",
         },
-        // body: body
       })
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
@@ -5078,11 +4921,13 @@ function AddNewTickets(props) {
             }
           ).then((response: SPHttpClientResponse) => {
             if (response.ok) {
-              console.log("Attachment Details Updated")
+
+              console.log("Attachment Details Updated");
+            // return response.json();
             } else {
               console.error("Attachment Details Updated Error")
             }
-            return response.json();
+            // return response.json();
           })
       }, 3000);
     }
@@ -5209,7 +5054,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.name) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5218,7 +5063,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5228,7 +5073,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.name) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5293,7 +5138,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5302,7 +5147,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5317,7 +5162,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5373,7 +5218,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5382,7 +5227,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5397,7 +5242,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5438,7 +5283,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5447,7 +5292,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5462,7 +5307,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5501,7 +5346,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5510,7 +5355,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5525,7 +5370,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5620,7 +5465,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.name) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5629,7 +5474,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5639,7 +5484,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.name) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5682,7 +5527,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5691,7 +5536,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5706,7 +5551,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5747,7 +5592,7 @@ function AddNewTickets(props) {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           _groupOfColumnstoHideandMand.push(z.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -5756,7 +5601,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -5771,7 +5616,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != item.text) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -6288,12 +6133,13 @@ function AddNewTickets(props) {
       )
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
+        // return response.json();
         } else {
           response.json().then((responseJSON) => {
 
           });
         }
-        return response.json();
+        // return response.json();
       });
 
   }
@@ -6543,19 +6389,19 @@ function AddNewTickets(props) {
       IssueId: generatedIssueID,
     };
 
-    if (varWorkFlowDataState == 'No' && AprroversLevel.length > 0) {
-      finalTemplate["ApprovalStatus"] = approvedOrPending ? "Approved" : "Pending";
-      finalTemplate["Approvers"] = JSON.stringify(AprroversLevel)
-      finalTemplate["CurrentApprovers"] = currentLevel != 0 ? AprroversLevel[currentLevel - 1].Approvers : '';
-      finalTemplate["CurrentApprovalLevel"] = currentLevel.toString();
+    // if (varWorkFlowDataState == 'No' && AprroversLevel.length > 0) {
+    //   finalTemplate["ApprovalStatus"] = approvedOrPending ? "Approved" : "Pending";
+    //   finalTemplate["Approvers"] = JSON.stringify(AprroversLevel)
+    //   finalTemplate["CurrentApprovers"] = currentLevel != 0 ? AprroversLevel[currentLevel - 1].Approvers : '';
+    //   finalTemplate["CurrentApprovalLevel"] = currentLevel.toString();
 
-      if (currentLevel != 0 && !approvedOrPending) {
+    //   if (currentLevel != 0 && !approvedOrPending) {
 
-        ApproveWorkFlowMail(AprroversLevel[currentLevel - 1].Approvers);
-        ApproveWorkFlowMailForAdmin(AprroversLevel[currentLevel - 1].Approvers);
-      }
+    //     ApproveWorkFlowMail(AprroversLevel[currentLevel - 1].Approvers);
+    //     ApproveWorkFlowMailForAdmin(AprroversLevel[currentLevel - 1].Approvers);
+    //   }
 
-    }
+    // }
 
     if (!flag) {
       var updateurl =
@@ -6604,10 +6450,10 @@ function AddNewTickets(props) {
             //   
             //   postNewUser();
             // }
-            if (varWorkFlowDataState != 'No' || approvedOrPending || AprroversLevel.length == 0) {
+            sendEmailWOAuto();
+            // if (varWorkFlowDataState != 'No' || approvedOrPending || AprroversLevel.length == 0) {
 
-              sendEmailWOAuto();
-            }
+            // }
 
 
 
@@ -6707,7 +6553,7 @@ function AddNewTickets(props) {
         if (document?.getElementById(z?.IntName) != null && z?.IntName != event?.target?.id) {
           _groupOfColumnstoHideandMand.push(z?.IntName)
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -6716,7 +6562,7 @@ function AddNewTickets(props) {
       //   if (document.getElementById(z.IntName) != null) {
       //     _groupOfColumnstoShowandMand.push(z.IntName);
       //     if (allMandatoryFields.includes(z.IntName)) {
-      //       MandatoryFields.push(z.IntName)
+      //       MandatoryFields?.push(z.IntName)
       //     }
 
       //     document.getElementById(z.IntName).style.display = 'block';
@@ -6731,7 +6577,7 @@ function AddNewTickets(props) {
       _groupOfColumnstoHide?.map((z) => {
         if (document.getElementById(z.IntName) != null && z.IntName != event.target.id) {
           document.getElementById(z.IntName).style.display = 'none';
-          MandatoryFields = MandatoryFields.filter((v) => {
+          MandatoryFields = MandatoryFields?.filter((v) => {
             return z.IntName != v
           });
         }
@@ -7007,7 +6853,7 @@ function AddNewTickets(props) {
                 return v.mainColumnIntName.toLowerCase() == ele.InternalName.toLowerCase();
               })
               if (document.getElementById(element) != null && found_column.length != 0) {
-                MandatoryFields = MandatoryFields.filter((J) => {
+                MandatoryFields = MandatoryFields?.filter((J) => {
                   return element != J
                 });
                 document.getElementById(element).style.display = 'none';
@@ -7259,7 +7105,7 @@ function AddNewTickets(props) {
                       item.InternalName == "Title" ?
 
                         <div id="Title">
-                          <Label required={MandatoryFields.includes("Title") ? true : false}>{SettingsCollection.TicketTitleName}</Label>
+                          <Label required={MandatoryFields?.includes("Title") ? true : false}>{SettingsCollection.TicketTitleName}</Label>
                           <TextField
                             type="text"
                             onChange={gettitle}
@@ -7281,7 +7127,7 @@ function AddNewTickets(props) {
                             <>
                               <div id="Priority Type">
                                 <div className={Homestyles.DesktopView}>
-                                  <Label required={MandatoryFields.includes("Priority") ? true : false}>{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
+                                  <Label required={MandatoryFields?.includes("Priority") ? true : false}>{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
                                   <div className={iconHideMBNavClassnew}>
                                     {varTeamsPriorityOptions == 'On' ?
                                       <Dropdown
@@ -7300,7 +7146,7 @@ function AddNewTickets(props) {
                                   </div>
                                 </div>
                                 <div className={Homestyles.MobileView}>
-                                  <Label required={MandatoryFields.includes("Priority") ? true : false} >{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
+                                  <Label required={MandatoryFields?.includes("Priority") ? true : false} >{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
                                   <Dropdown
                                     options={priorityoptions}
                                     onChange={getDropPriority}
@@ -7328,7 +7174,7 @@ function AddNewTickets(props) {
                                 <div id='Request Type'>
                                   <div className={Homestyles.DesktopView}>
 
-                                    <Label required={MandatoryFields.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
+                                    <Label required={MandatoryFields?.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
                                     <div className={iconHideMBNavClassnew}>
                                       {varTeamsPriorityOptions == 'On' ?
                                         <Dropdown
@@ -7352,7 +7198,7 @@ function AddNewTickets(props) {
 
 
                                   <div className={Homestyles.MobileView}>
-                                    <Label required={MandatoryFields.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
+                                    <Label required={MandatoryFields?.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
                                     <Dropdown
                                       options={requestoptions}
                                       defaultSelectedKey={defltReq}
@@ -7385,7 +7231,7 @@ function AddNewTickets(props) {
                                   <div id='Services'>
 
 
-                                    <Label required={MandatoryFields.includes("Services") ? true : false}>{SettingsCollection.ServiceName}</Label>
+                                    <Label required={MandatoryFields?.includes("Services") ? true : false}>{SettingsCollection.ServiceName}</Label>
                                     <Dropdown
                                       //selectedKey={selectedItem ? selectedItem.key : undefined}
                                       // eslint-disable-next-line react/jsx-no-bind
@@ -7411,7 +7257,7 @@ function AddNewTickets(props) {
                                     <div id='"SubServices"'>
 
 
-                                      <Label required={MandatoryFields.includes("Sub Services") ? true : false}>{SettingsCollection.SubServiceName + " L1"}</Label>
+                                      <Label required={MandatoryFields?.includes("Sub Services") ? true : false}>{SettingsCollection.SubServiceName + " L1"}</Label>
                                       <Dropdown
                                         //selectedKey={selectedItem ? selectedItem.key : undefined}
                                         // eslint-disable-next-line react/jsx-no-bind
@@ -7435,7 +7281,7 @@ function AddNewTickets(props) {
                                       <div id='SubServiceL2'>
 
 
-                                        <Label required={MandatoryFields.includes("SubServiceL2") ? true : false}>{SettingsCollection.SubServiceName + " L2"}</Label>
+                                        <Label required={MandatoryFields?.includes("SubServiceL2") ? true : false}>{SettingsCollection?.SubServiceName + " L2"}</Label>
                                         <Dropdown
                                           //selectedKey={selectedItem ? selectedItem.key : undefined}
                                           // eslint-disable-next-line react/jsx-no-bind
@@ -7459,7 +7305,7 @@ function AddNewTickets(props) {
                                         <div id='SubServiceL3'>
 
 
-                                          <Label required={MandatoryFields.includes("SubServiceL3") ? true : false}>{SettingsCollection.SubServiceName + " L3"}</Label>
+                                          <Label required={MandatoryFields?.includes("SubServiceL3") ? true : false}>{SettingsCollection.SubServiceName + " L3"}</Label>
                                           <Dropdown
                                             //selectedKey={selectedItem ? selectedItem.key : undefined}
                                             // eslint-disable-next-line react/jsx-no-bind
@@ -7477,36 +7323,36 @@ function AddNewTickets(props) {
                                     }
                                   </>
 
-                                    : item.InternalName == "Requester" ?
-                                      <>
-                                        {props.userType == "Admin" || props.userType == "Supervisor" || props.userType == "Agent" ?
-                                          <div id='Requester'>
-                                            <Label required={MandatoryFields.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
-                                            <PeoplePicker
-                                              context={ContextService.GetFullContext()}
-                                              placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
-                                              ensureUser={true}
-                                              personSelectionLimit={1}
-                                              groupName={""}
-                                              onChange={_getPeoplePickerItems}
-                                              showtooltip={false}
-                                              disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
-                                              showHiddenInUI={false}
-                                              resolveDelay={1000}
-                                              defaultSelectedUsers={requester}
-                                              principalTypes={[PrincipalType.User]}
+                                    // : item.InternalName == "Requester" ?
+                                    //   <>
+                                    //     {props.userType == "Admin" || props.userType == "Supervisor" || props.userType == "Agent" ?
+                                    //       <div id='Requester'>
+                                    //         <Label required={MandatoryFields?.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
+                                    //         <PeoplePicker
+                                    //           context={ContextService.GetFullContext()}
+                                    //           placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
+                                    //           ensureUser={true}
+                                    //           personSelectionLimit={1}
+                                    //           groupName={""}
+                                    //           onChange={_getPeoplePickerItems}
+                                    //           showtooltip={false}
+                                    //           disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
+                                    //           showHiddenInUI={false}
+                                    //           resolveDelay={1000}
+                                    //           defaultSelectedUsers={requester}
+                                    //           principalTypes={[PrincipalType.User]}
 
-                                            // defaultSelectedUsers={optionsexcusers.length ? }
-                                            ></PeoplePicker>
-                                            {/* {MediaFieldToShow ?
-                                    <div>
-                                      <Label>{Language.RequesterMediaConnect ? Language.RequesterMediaConnect:"Requester's Media of Connect"}</Label>
-                                      <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} />
-                                    </div>
-                                    : null} */}
-                                          </div>
-                                          : null}
-                                      </>
+                                    //         // defaultSelectedUsers={optionsexcusers.length ? }
+                                    //         ></PeoplePicker>
+                                    //         {/* {MediaFieldToShow ?
+                                    // <div>
+                                    //   <Label>{Language.RequesterMediaConnect ? Language.RequesterMediaConnect:"Requester's Media of Connect"}</Label>
+                                    //   <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} />
+                                    // </div>
+                                    // : null} */}
+                                    //       </div>
+                                    //       : null}
+                                    //   </>
                                       :
                                       item.InternalName == "Teams" ?
                                         <>
@@ -7514,7 +7360,7 @@ function AddNewTickets(props) {
                                             <>
                                               <div id='Teams'>
                                                 <div className={Homestyles.DesktopView}>
-                                                  <Label required={MandatoryFields.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+                                                  <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
                                                   <div
                                                     className={iconHideMBNavClassnew}
                                                   // style={{ width: "100%", marginLeft: 20 }}
@@ -7526,7 +7372,7 @@ function AddNewTickets(props) {
                                                         // : teamsoption
                                                       }
                                                         placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
-                                                        defaultSelectedKey={defltTeam}
+                                                        // defaultSelectedKey={defltTeam}
                                                         selectedKey={defltTeam}
                                                         onChange={getteam}
 
@@ -7538,7 +7384,7 @@ function AddNewTickets(props) {
                                                           teamsoption}
                                                         onChange={getteam}
                                                         required={true}
-                                                        defaultSelectedKey={defltTeam}
+                                                        // defaultSelectedKey={defltTeam}
                                                         selectedKey={defltTeam}
                                                       />}
 
@@ -7546,7 +7392,7 @@ function AddNewTickets(props) {
                                                   </div>
                                                 </div>
                                                 <div className={Homestyles.MobileView} >
-                                                  <Label required={MandatoryFields.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+                                                  <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
                                                   <Dropdown options={
                                                     // fullname ?
                                                     teamsoptionarray
@@ -7603,7 +7449,7 @@ function AddNewTickets(props) {
                                           : item.Type == "Text" ?
                                             <>
                                               <div id={item.InternalName}>
-                                                <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                 <TextField id={item.InternalName} name={item.DisplayName} onChange={gettextvalue}></TextField>
                                               </div>
                                             </>
@@ -7612,7 +7458,7 @@ function AddNewTickets(props) {
 
                                               <>
                                                 <div id={item.InternalName}>
-                                                  <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                  <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                   <TextField id={item.InternalName} name={item.DisplayName} onChange={getnotevalue} multiline></TextField>
                                                 </div>
                                               </>
@@ -7620,33 +7466,33 @@ function AddNewTickets(props) {
                                               : item.Type == "Number" ?
                                                 <>
                                                   <div id={item.InternalName}>
-                                                    <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                    <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                     <TextField id={item.InternalName} name={item.DisplayName} onChange={getnumbervalue} type="Number"></TextField>
                                                   </div>
                                                 </>
                                                 : item.Type == "DateTime" ?
                                                   <div id={item.InternalName}>
-                                                    <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                    <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                     {/* <DatePicker id={item[0].InternalName} onSelectDate={(date:Date)=>{ondobChange(date,item[0].InternalName)}} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/> */}
                                                     <DatePicker id={item.InternalName} onSelectDate={(date: Date) => { ondobChange(date, item.InternalName) }} value={CustomDateData[item.InternalName] != null ? new Date(CustomDateData[item.InternalName]) : null} />
                                                   </div>
                                                   :
                                                   item.Type == "Choice" ?
                                                     <div id={item.InternalName}>
-                                                      <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                      <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                       <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} onChange={getChoice}
                                                         defaultSelectedKey={item.DefultValue}
                                                       />
                                                     </div> :
                                                     item.Type == "MultipleChoice" ?
                                                       <div id={item.InternalName}>
-                                                        <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                        <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                         <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} selectedKeys={isStringValidated(CustomDateData) ? isStringValidated(CustomDateData[item.InternalName]) ? CustomDateData[item.InternalName].split(',') : [] : []} multiSelect onChange={MultipalChoiceOnChange}
                                                         />
                                                       </div>
                                                       : item.Type == "User" ?
                                                         <div id={item.InternalName}>
-                                                          <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                          <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
                                                           <PeoplePicker
                                                             context={ContextService.GetFullContext()}
 
@@ -7690,7 +7536,7 @@ function AddNewTickets(props) {
               return (
                 <>
                   <div>
-                    <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                    <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                     <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={gettextvalue}></TextField>
                   </div>
                 </>
@@ -7700,7 +7546,7 @@ function AddNewTickets(props) {
               return (
                 <>
                   <div>
-                    <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                    <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                     <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={getnotevalue} multiline></TextField>
                   </div>
                 </>
@@ -7711,7 +7557,7 @@ function AddNewTickets(props) {
               return (
                 <>
                   <div>
-                    <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                    <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                     <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={getnumbervalue} type="Number"></TextField>
                   </div>
                 </>
@@ -7740,7 +7586,7 @@ function AddNewTickets(props) {
               return (
                 <>
                   <div>
-                    <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                    <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                     <DatePicker id={itemname[0].InternalName} onSelectDate={ondobChange} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/>
                   </div>
                 </>
@@ -7760,7 +7606,7 @@ function AddNewTickets(props) {
               return (
                 <>
                   <div>
-                    <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                    <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                     <Dropdown options={itemname[0].ChoiceValue} id={itemname[0].InternalName} onChange={getChoice}/>
                   </div>
                 </>
@@ -7773,7 +7619,7 @@ function AddNewTickets(props) {
                     return(
                         <>
                           <div className="ms-Grid-col ms-sm12 ms-md6 ms-lg6 ms-smPush">
-                              <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+                              <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
                               <Dropdown
                               options={Suboptionsobject[itemname[0].ParentColumnName] != undefined ? Suboptionsobject[itemname[0].ParentColumnName] : []}
                               id={itemname[0].InternalName}
@@ -7828,7 +7674,7 @@ function AddNewTickets(props) {
 
 
                       <div className={`${styles.descpad} ${RichTextToolboxAddNew}`} id="Ticket Description">
-                        <Label required={MandatoryFields.includes("Ticket Description") ? true : false}>{Language.AddTicketDescription ? Language.AddTicketDescription : "Ticket Description"}</Label>
+                        <Label required={MandatoryFields?.includes("Ticket Description") ? true : false}>{Language.AddTicketDescription ? Language.AddTicketDescription : "Ticket Description"}</Label>
                         {/* <RichText
                   isEditMode={true}
                   value={globalMessage}
@@ -8188,7 +8034,7 @@ function AddNewTickets(props) {
     //                 item.InternalName == "Title" ?
 
     //                   <div id="Title">
-    //                     <Label required={MandatoryFields.includes("Title") ? true : false}>{SettingsCollection.TicketTitleName}</Label>
+    //                     <Label required={MandatoryFields?.includes("Title") ? true : false}>{SettingsCollection.TicketTitleName}</Label>
     //                     <TextField
     //                       type="text"
     //                       onChange={gettitle}
@@ -8210,7 +8056,7 @@ function AddNewTickets(props) {
     //                       <>
     //                       <div id="Priority Type">
     //                         <div className={Homestyles.DesktopView}>
-    //                           <Label required={MandatoryFields.includes("Priority") ? true : false}>{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
+    //                           <Label required={MandatoryFields?.includes("Priority") ? true : false}>{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
     //                           <div className={iconHideMBNavClassnew}>
     //                             {varTeamsPriorityOptions == 'On' ?
     //                               <Dropdown
@@ -8229,7 +8075,7 @@ function AddNewTickets(props) {
     //                           </div>
     //                         </div>
     //                         <div className={Homestyles.MobileView}>
-    //                           <Label required={MandatoryFields.includes("Priority") ? true : false} >{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
+    //                           <Label required={MandatoryFields?.includes("Priority") ? true : false} >{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
     //                           <Dropdown
     //                             options={priorityoptions}
     //                             onChange={getDropPriority}
@@ -8257,7 +8103,7 @@ function AddNewTickets(props) {
     //                         <div id='Request Type'>
     //                           <div className={Homestyles.DesktopView}>
 
-    //                             <Label required={MandatoryFields.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
+    //                             <Label required={MandatoryFields?.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
     //                             <div className={iconHideMBNavClassnew}>
     //                               {varTeamsPriorityOptions == 'On' ?
     //                                 <Dropdown
@@ -8281,7 +8127,7 @@ function AddNewTickets(props) {
 
 
     //                           <div className={Homestyles.MobileView}>
-    //                             <Label required={MandatoryFields.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
+    //                             <Label required={MandatoryFields?.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
     //                             <Dropdown
     //                               options={requestoptions}
     //                               defaultSelectedKey={defltReq}
@@ -8314,7 +8160,7 @@ function AddNewTickets(props) {
     //                             <div id='Services'>
 
 
-    //                               <Label required={MandatoryFields.includes("Services") ? true : false}>{SettingsCollection.ServiceName}</Label>
+    //                               <Label required={MandatoryFields?.includes("Services") ? true : false}>{SettingsCollection.ServiceName}</Label>
     //                               <Dropdown
     //                                 //selectedKey={selectedItem ? selectedItem.key : undefined}
     //                                 // eslint-disable-next-line react/jsx-no-bind
@@ -8340,7 +8186,7 @@ function AddNewTickets(props) {
     //                               <div id='"SubServices"'>
 
 
-    //                                 <Label required={MandatoryFields.includes("Sub Services") ? true : false}>{SettingsCollection.SubServiceName + " L1"}</Label>
+    //                                 <Label required={MandatoryFields?.includes("Sub Services") ? true : false}>{SettingsCollection.SubServiceName + " L1"}</Label>
     //                                 <Dropdown
     //                                   //selectedKey={selectedItem ? selectedItem.key : undefined}
     //                                   // eslint-disable-next-line react/jsx-no-bind
@@ -8364,7 +8210,7 @@ function AddNewTickets(props) {
     //                                 <div id='SubServiceL2'>
 
 
-    //                                   <Label required={MandatoryFields.includes("SubServiceL2") ? true : false}>{SettingsCollection.SubServiceName+ " L2"}</Label>
+    //                                   <Label required={MandatoryFields?.includes("SubServiceL2") ? true : false}>{SettingsCollection.SubServiceName+ " L2"}</Label>
     //                                   <Dropdown
     //                                     //selectedKey={selectedItem ? selectedItem.key : undefined}
     //                                     // eslint-disable-next-line react/jsx-no-bind
@@ -8388,7 +8234,7 @@ function AddNewTickets(props) {
     //                                   <div id='SubServiceL3'>
 
 
-    //                                     <Label required={MandatoryFields.includes("SubServiceL3") ? true : false}>{SettingsCollection.SubServiceName + " L3"}</Label>
+    //                                     <Label required={MandatoryFields?.includes("SubServiceL3") ? true : false}>{SettingsCollection.SubServiceName + " L3"}</Label>
     //                                     <Dropdown
     //                                       //selectedKey={selectedItem ? selectedItem.key : undefined}
     //                                       // eslint-disable-next-line react/jsx-no-bind
@@ -8410,7 +8256,7 @@ function AddNewTickets(props) {
     //                                 <>
     //                                   {props.userType == "Admin" || props.userType == "Supervisor" || props.userType == "Agent" ?
     //                                     <div id='Requester'>
-    //                                       <Label required={MandatoryFields.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
+    //                                       <Label required={MandatoryFields?.includes("Requester") ? true : false}>{Language.Requester ? Language.Requester : "Requester"}</Label>
     //                                       <PeoplePicker
     //                                         context={ContextService.GetFullContext()}
     //                                         placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
@@ -8443,7 +8289,7 @@ function AddNewTickets(props) {
     //                                       <>
     //                                       <div id='Teams'>
     //                                         <div className={Homestyles.DesktopView}>
-    //                                           <Label required={MandatoryFields.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+    //                                           <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
     //                                           <div
     //                                             className={iconHideMBNavClassnew}
     //                                           // style={{ width: "100%", marginLeft: 20 }}
@@ -8475,7 +8321,7 @@ function AddNewTickets(props) {
     //                                           </div>
     //                                         </div>
     //                                         <div className={Homestyles.MobileView} >
-    //                                           <Label required={MandatoryFields.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+    //                                           <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
     //                                           <Dropdown options={
     //                                             // fullname ?
     //                                             teamsoptionarray
@@ -8532,7 +8378,7 @@ function AddNewTickets(props) {
     //                                     : item.Type == "Text" ?
     //                                       <>
     //                                         <div id={item.InternalName}>
-    //                                           <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                           <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                           <TextField id={item.InternalName} name={item.DisplayName} onChange={gettextvalue}></TextField>
     //                                         </div>
     //                                       </>
@@ -8541,7 +8387,7 @@ function AddNewTickets(props) {
 
     //                                         <>
     //                                           <div id={item.InternalName}>
-    //                                             <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                             <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                             <TextField id={item.InternalName} name={item.DisplayName} onChange={getnotevalue} multiline></TextField>
     //                                           </div>
     //                                         </>
@@ -8549,33 +8395,33 @@ function AddNewTickets(props) {
     //                                         : item.Type == "Number" ?
     //                                           <>
     //                                             <div id={item.InternalName}>
-    //                                               <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                               <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                               <TextField id={item.InternalName} name={item.DisplayName} onChange={getnumbervalue} type="Number"></TextField>
     //                                             </div>
     //                                           </>
     //                                           : item.Type == "DateTime" ?
     //                                             <div id={item.InternalName}>
-    //                                               <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                               <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                               {/* <DatePicker id={item[0].InternalName} onSelectDate={(date:Date)=>{ondobChange(date,item[0].InternalName)}} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/> */}
     //                                               <DatePicker id={item.InternalName} onSelectDate={(date: Date) => { ondobChange(date, item.InternalName) }} value={CustomDateData[item.InternalName] != null ? new Date(CustomDateData[item.InternalName]) : null} />
     //                                             </div>
     //                                             :
     //                                             item.Type == "Choice" ?
     //                                               <div id={item.InternalName}>
-    //                                                 <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                                 <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                                 <Dropdown options={item.values == '' ? [] :item.values} id={item.InternalName} onChange={getChoice}
     //                                                   defaultSelectedKey={item.DefultValue}
     //                                                 />
     //                                               </div> :
     //                                               item.Type == "MultipleChoice" ?
     //                                                 <div id={item.InternalName}>
-    //                                                   <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                                   <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                                   <Dropdown options={item.values == '' ?  [] : item.values} id={item.InternalName} selectedKeys={isStringValidated(CustomDateData) ? isStringValidated(CustomDateData[item.InternalName]) ? CustomDateData[item.InternalName].split(',') : [] : []} multiSelect onChange={MultipalChoiceOnChange}
     //                                                   />
     //                                                 </div>
     //                                                 : item.Type == "User" ?
     //                                                   <div id={item.InternalName}>
-    //                                                     <Label required={MandatoryFields.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+    //                                                     <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
     //                                                     <PeoplePicker
     //                                                       context={ContextService.GetFullContext()}
 
@@ -8619,7 +8465,7 @@ function AddNewTickets(props) {
     //           return (
     //             <>
     //               <div>
-    //                 <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                 <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                 <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={gettextvalue}></TextField>
     //               </div>
     //             </>
@@ -8629,7 +8475,7 @@ function AddNewTickets(props) {
     //           return (
     //             <>
     //               <div>
-    //                 <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                 <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                 <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={getnotevalue} multiline></TextField>
     //               </div>
     //             </>
@@ -8640,7 +8486,7 @@ function AddNewTickets(props) {
     //           return (
     //             <>
     //               <div>
-    //                 <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                 <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                 <TextField id={itemname[0].InternalName} name={itemname[0].DisplayName} onChange={getnumbervalue} type="Number"></TextField>
     //               </div>
     //             </>
@@ -8669,7 +8515,7 @@ function AddNewTickets(props) {
     //           return (
     //             <>
     //               <div>
-    //                 <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                 <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                 <DatePicker id={itemname[0].InternalName} onSelectDate={ondobChange} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/>
     //               </div>
     //             </>
@@ -8689,7 +8535,7 @@ function AddNewTickets(props) {
     //           return (
     //             <>
     //               <div>
-    //                 <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                 <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                 <Dropdown options={itemname[0].ChoiceValue} id={itemname[0].InternalName} onChange={getChoice}/>
     //               </div>
     //             </>
@@ -8702,7 +8548,7 @@ function AddNewTickets(props) {
     //                 return(
     //                     <>
     //                       <div className="ms-Grid-col ms-sm12 ms-md6 ms-lg6 ms-smPush">
-    //                           <Label required={MandatoryFields.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
+    //                           <Label required={MandatoryFields?.includes(itemname[0].InternalName)? true : false}>{itemname[0].DisplayName}</Label>
     //                           <Dropdown
     //                           options={Suboptionsobject[itemname[0].ParentColumnName] != undefined ? Suboptionsobject[itemname[0].ParentColumnName] : []}
     //                           id={itemname[0].InternalName}
@@ -8757,7 +8603,7 @@ function AddNewTickets(props) {
 
 
     //                 <div className={`${styles.descpad} ${RichTextToolboxAddNew}`} id="Ticket Description">
-    //                   <Label required={MandatoryFields.includes("Ticket Description") ? true : false}>{Language.AddTicketDescription ? Language.AddTicketDescription : "Ticket Description"}</Label>
+    //                   <Label required={MandatoryFields?.includes("Ticket Description") ? true : false}>{Language.AddTicketDescription ? Language.AddTicketDescription : "Ticket Description"}</Label>
     //                   {/* <RichText
     //               isEditMode={true}
     //               value={globalMessage}
