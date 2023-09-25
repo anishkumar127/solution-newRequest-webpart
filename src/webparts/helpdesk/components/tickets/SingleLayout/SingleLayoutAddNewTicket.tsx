@@ -20,6 +20,7 @@ let DefaultLayoutItemsNames = [];
 
 
 const SingleLayoutAddNewTicket = () => {
+  const HDPlogo: any = require('../../../../../../assets/help-desk.png');
 
   // store
   // <-------------------------- FETCHING DATA ---------------------->
@@ -467,7 +468,12 @@ console.log("re fetching & updating...")
         </div>
 
           : <div className="expand-query-request">
-           <p> If you have any queries, please <Link onClick={handleExpandView}>click here</Link> to raise a request.</p>
+             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
+                            <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
+                        </div>
+           {/* <p> If you have any queries, please <Link onClick={handleExpandView}>click here</Link> to raise a request.</p> */}
+           <p>Do you want to raise a ticket <Link onClick={handleExpandView}> click here</Link>.</p>
+
               </div>
       }
 
