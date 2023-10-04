@@ -4038,7 +4038,7 @@ function AddNewTickets(props) {
       }, 2000);
       flag5 = true;
     }
-//Sahil
+    //Sahil
     if (AutoAssignTicket !== "Off") {
       if (AutoAssignTicketMethod == "RoundRobin") {
         RoundRobin();
@@ -4053,7 +4053,7 @@ function AddNewTickets(props) {
         autoAssignEmailId = i.Email;
       });
     }
-   // let FilterWorkFlowFilterData;
+    // let FilterWorkFlowFilterData;
     // if (WorkFlowData != null && WorkFlowData.length > 0 && WorkFlowData != undefined) {
     //   // let withoutsubserviceWorkflow = WorkFlowData.filter(x => !isStringValidated(x.SubServiceName))      
     //   FilterWorkFlowFilterData = WorkFlowData.findIndex((i) => {
@@ -4093,7 +4093,7 @@ function AddNewTickets(props) {
     allid.push(requester)
     let finalTemplate;
     //Sahil
-    if (AutoAssignTicket == "Off" ) {
+    if (AutoAssignTicket == "Off") {
       finalTemplate = {
         Title:
           Titlename == "" || Titlename == null || Titlename == undefined
@@ -4272,9 +4272,9 @@ function AddNewTickets(props) {
           return response.json();
         })
         .then((item: any) => {
-          setTimeout(()=>{
-           setExpandMode(false);
-          },2000);
+          setTimeout(() => {
+            setExpandMode(false);
+          }, 2000);
           setGlobalMessage("");
           ReactQuilRenderer((prev) => prev + "1");
           if (item['odata.error']) {
@@ -4296,7 +4296,7 @@ function AddNewTickets(props) {
             setattachFile1([]);
             setattachFile2([]);
             setTicketId(item.Id);
-         // Sahil // WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
+            // Sahil // WorkFlowFilterData(item.DepartmentName, item.Services, item.SubServices);
             UpdateTicketsProperties = isStringValidated(item.TicketProperties) ? JSON.parse(item.TicketProperties) : [];
             setTicketPropJOSNUpdate(UpdateTicketsProperties);
             rowId = item.Id;
@@ -4923,7 +4923,7 @@ function AddNewTickets(props) {
             if (response.ok) {
 
               console.log("Attachment Details Updated");
-            // return response.json();
+              // return response.json();
             } else {
               console.error("Attachment Details Updated Error")
             }
@@ -6133,7 +6133,7 @@ function AddNewTickets(props) {
       )
       .then((response: SPHttpClientResponse) => {
         if (response.ok) {
-        // return response.json();
+          // return response.json();
         } else {
           response.json().then((responseJSON) => {
 
@@ -7134,6 +7134,13 @@ function AddNewTickets(props) {
                                         options={priorityoptions}
                                         onChange={getDropPriority}
                                         defaultSelectedKey={defltPriority}
+                                        calloutProps={{
+                                          styles: {
+                                            root: {
+                                              maxHeight: '200px !important',
+                                            },
+                                          }
+                                        }}
                                         placeholder={Language.PriorityType ? Language.PriorityType : "Priority Type"} />
                                       : <ChoiceGroup
                                         styles={choiceGroupStyles}
@@ -7148,6 +7155,13 @@ function AddNewTickets(props) {
                                 <div className={Homestyles.MobileView}>
                                   <Label required={MandatoryFields?.includes("Priority") ? true : false} >{Language.PriorityType ? Language.PriorityType : "Priority Type"}</Label>
                                   <Dropdown
+                                    calloutProps={{
+                                      styles: {
+                                        root: {
+                                          maxHeight: '200px !important',
+                                        },
+                                      }
+                                    }}
                                     options={priorityoptions}
                                     onChange={getDropPriority}
                                     defaultSelectedKey={defltPriority}
@@ -7179,6 +7193,13 @@ function AddNewTickets(props) {
                                       {varTeamsPriorityOptions == 'On' ?
                                         <Dropdown
                                           options={requestoptions}
+                                          calloutProps={{
+                                            styles: {
+                                              root: {
+                                                maxHeight: '200px !important',
+                                              },
+                                            }
+                                          }}
                                           defaultSelectedKey={defltReq}
                                           onChange={getrequest}
                                           placeholder={Language.RequestType ? Language.RequestType : "Request Type"}
@@ -7200,6 +7221,13 @@ function AddNewTickets(props) {
                                   <div className={Homestyles.MobileView}>
                                     <Label required={MandatoryFields?.includes("Request Type") ? true : false}>{Language.RequestType ? Language.RequestType : "Request Type"}</Label>
                                     <Dropdown
+                                      calloutProps={{
+                                        styles: {
+                                          root: {
+                                            maxHeight: '200px !important',
+                                          },
+                                        }
+                                      }}
                                       options={requestoptions}
                                       defaultSelectedKey={defltReq}
                                       onChange={getDropRequestType}
@@ -7233,6 +7261,13 @@ function AddNewTickets(props) {
 
                                     <Label required={MandatoryFields?.includes("Services") ? true : false}>{SettingsCollection.ServiceName}</Label>
                                     <Dropdown
+                                      calloutProps={{
+                                        styles: {
+                                          root: {
+                                            maxHeight: '200px !important',
+                                          },
+                                        }
+                                      }}
                                       //selectedKey={selectedItem ? selectedItem.key : undefined}
                                       // eslint-disable-next-line react/jsx-no-bind
                                       onChange={getservice}
@@ -7259,6 +7294,13 @@ function AddNewTickets(props) {
 
                                       <Label required={MandatoryFields?.includes("Sub Services") ? true : false}>{SettingsCollection.SubServiceName + " L1"}</Label>
                                       <Dropdown
+                                        calloutProps={{
+                                          styles: {
+                                            root: {
+                                              maxHeight: '200px !important',
+                                            },
+                                          }
+                                        }}
                                         //selectedKey={selectedItem ? selectedItem.key : undefined}
                                         // eslint-disable-next-line react/jsx-no-bind
                                         onChange={getSubservice}
@@ -7283,6 +7325,13 @@ function AddNewTickets(props) {
 
                                         <Label required={MandatoryFields?.includes("SubServiceL2") ? true : false}>{SettingsCollection?.SubServiceName + " L2"}</Label>
                                         <Dropdown
+                                          calloutProps={{
+                                            styles: {
+                                              root: {
+                                                maxHeight: '200px !important',
+                                              },
+                                            }
+                                          }}
                                           //selectedKey={selectedItem ? selectedItem.key : undefined}
                                           // eslint-disable-next-line react/jsx-no-bind
                                           onChange={onChangeSubservice2}
@@ -7307,6 +7356,13 @@ function AddNewTickets(props) {
 
                                           <Label required={MandatoryFields?.includes("SubServiceL3") ? true : false}>{SettingsCollection.SubServiceName + " L3"}</Label>
                                           <Dropdown
+                                            calloutProps={{
+                                              styles: {
+                                                root: {
+                                                  maxHeight: '200px !important',
+                                                },
+                                              }
+                                            }}
                                             //selectedKey={selectedItem ? selectedItem.key : undefined}
                                             // eslint-disable-next-line react/jsx-no-bind
                                             onChange={onChangeSubservice3}
@@ -7353,57 +7409,71 @@ function AddNewTickets(props) {
                                     //       </div>
                                     //       : null}
                                     //   </>
-                                      :
-                                      item.InternalName == "Teams" ?
-                                        <>
-                                          {teamDisable ?
-                                            <>
-                                              <div id='Teams'>
-                                                <div className={Homestyles.DesktopView}>
-                                                  <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
-                                                  <div
-                                                    className={iconHideMBNavClassnew}
-                                                  // style={{ width: "100%", marginLeft: 20 }}
-                                                  >
-                                                    {varTeamsPriorityOptions == 'On' ?
-                                                      <Dropdown options={
-                                                        // fullname ?
-                                                        teamsoptionarray
-                                                        // : teamsoption
-                                                      }
-                                                        placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
-                                                        // defaultSelectedKey={defltTeam}
-                                                        selectedKey={defltTeam}
-                                                        onChange={getteam}
+                                    :
+                                    item.InternalName == "Teams" ?
+                                      <>
+                                        {teamDisable ?
+                                          <>
+                                            <div id='Teams'>
+                                              <div className={Homestyles.DesktopView}>
+                                                <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+                                                <div
+                                                  className={iconHideMBNavClassnew}
+                                                // style={{ width: "100%", marginLeft: 20 }}
+                                                >
+                                                  {varTeamsPriorityOptions == 'On' ?
+                                                    <Dropdown options={
+                                                      // fullname ?
+                                                      teamsoptionarray
+                                                      // : teamsoption
+                                                    }
+                                                      calloutProps={{
+                                                        styles: {
+                                                          root: {
+                                                            maxHeight: '200px !important',
+                                                          },
+                                                        }
+                                                      }}
+                                                      placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
+                                                      // defaultSelectedKey={defltTeam}
+                                                      selectedKey={defltTeam}
+                                                      onChange={getteam}
 
-                                                      />
-                                                      : <ChoiceGroup
-                                                        styles={choiceGroupStyles}
-                                                        options={fullname ?
-                                                          teamsoptionarray :
-                                                          teamsoption}
-                                                        onChange={getteam}
-                                                        required={true}
-                                                        // defaultSelectedKey={defltTeam}
-                                                        selectedKey={defltTeam}
-                                                      />}
+                                                    />
+                                                    : <ChoiceGroup
+                                                      styles={choiceGroupStyles}
+                                                      options={fullname ?
+                                                        teamsoptionarray :
+                                                        teamsoption}
+                                                      onChange={getteam}
+                                                      required={true}
+                                                      // defaultSelectedKey={defltTeam}
+                                                      selectedKey={defltTeam}
+                                                    />}
 
 
-                                                  </div>
                                                 </div>
-                                                <div className={Homestyles.MobileView} >
-                                                  <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
-                                                  <Dropdown options={
-                                                    // fullname ?
-                                                    teamsoptionarray
-                                                    // : teamsoption
-                                                  }
-                                                    placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
-                                                    defaultSelectedKey={defltTeam}
-                                                    onChange={getDropTeams}
+                                              </div>
+                                              <div className={Homestyles.MobileView} >
+                                                <Label required={MandatoryFields?.includes("Teams") ? true : false}>{SettingsCollection.TeamDisplayName}</Label>
+                                                <Dropdown options={
+                                                  // fullname ?
+                                                  teamsoptionarray
+                                                  // : teamsoption
+                                                }
+                                                  calloutProps={{
+                                                    styles: {
+                                                      root: {
+                                                        maxHeight: '200px !important',
+                                                      },
+                                                    }
+                                                  }}
+                                                  placeholder={`${Language.Select ? Language.Select : "Select"} ${SettingsCollection.TeamDisplayName}`}
+                                                  defaultSelectedKey={defltTeam}
+                                                  onChange={getDropTeams}
 
-                                                  />
-                                                  {/* <div
+                                                />
+                                                {/* <div
                                     className={iconHideMBNavClassnew}
                                   // style={{ width: "100%", marginLeft: 20 }}
                                   >
@@ -7418,107 +7488,121 @@ function AddNewTickets(props) {
                                     />
 
                                   </div> */}
-                                                </div>
                                               </div>
-                                            </>
-                                            : null
-                                          }
-                                        </>
-                                        : item.InternalName == "Cc" ?
-                                          <>
-                                            <div>
-                                              <Label>Cc</Label>
-                                              <PeoplePicker
-                                                context={ContextService.GetFullContext()}
-                                                placeholder={Language.ccplaceholder}
-                                                ensureUser={true}
-                                                personSelectionLimit={100}
-                                                onChange={_getCCMailPeoplePicker}
-                                                showtooltip={false}
-                                                disabled={false}
-                                                showHiddenInUI={false}
-                                                resolveDelay={1000}
-
-                                                defaultSelectedUsers={ccemailid.split(',')}
-                                                principalTypes={[PrincipalType.User]}
-
-                                              // defaultSelectedUsers={optionsexcusers.length ? }
-                                              ></PeoplePicker>
                                             </div>
                                           </>
-                                          : item.Type == "Text" ?
+                                          : null
+                                        }
+                                      </>
+                                      : item.InternalName == "Cc" ?
+                                        <>
+                                          <div>
+                                            <Label>Cc</Label>
+                                            <PeoplePicker
+                                              context={ContextService.GetFullContext()}
+                                              placeholder={Language.ccplaceholder}
+                                              ensureUser={true}
+                                              personSelectionLimit={100}
+                                              onChange={_getCCMailPeoplePicker}
+                                              showtooltip={false}
+                                              disabled={false}
+                                              showHiddenInUI={false}
+                                              resolveDelay={1000}
+
+                                              defaultSelectedUsers={ccemailid.split(',')}
+                                              principalTypes={[PrincipalType.User]}
+
+                                            // defaultSelectedUsers={optionsexcusers.length ? }
+                                            ></PeoplePicker>
+                                          </div>
+                                        </>
+                                        : item.Type == "Text" ?
+                                          <>
+                                            <div id={item.InternalName}>
+                                              <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                              <TextField id={item.InternalName} name={item.DisplayName} onChange={gettextvalue}></TextField>
+                                            </div>
+                                          </>
+
+                                          : item.Type == "Note" ?
+
                                             <>
                                               <div id={item.InternalName}>
                                                 <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                <TextField id={item.InternalName} name={item.DisplayName} onChange={gettextvalue}></TextField>
+                                                <TextField id={item.InternalName} name={item.DisplayName} onChange={getnotevalue} multiline></TextField>
                                               </div>
                                             </>
 
-                                            : item.Type == "Note" ?
-
+                                            : item.Type == "Number" ?
                                               <>
                                                 <div id={item.InternalName}>
                                                   <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                  <TextField id={item.InternalName} name={item.DisplayName} onChange={getnotevalue} multiline></TextField>
+                                                  <TextField id={item.InternalName} name={item.DisplayName} onChange={getnumbervalue} type="Number"></TextField>
                                                 </div>
                                               </>
-
-                                              : item.Type == "Number" ?
-                                                <>
+                                              : item.Type == "DateTime" ?
+                                                <div id={item.InternalName}>
+                                                  <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
+                                                  {/* <DatePicker id={item[0].InternalName} onSelectDate={(date:Date)=>{ondobChange(date,item[0].InternalName)}} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/> */}
+                                                  <DatePicker id={item.InternalName} onSelectDate={(date: Date) => { ondobChange(date, item.InternalName) }} value={CustomDateData[item.InternalName] != null ? new Date(CustomDateData[item.InternalName]) : null} />
+                                                </div>
+                                                :
+                                                item.Type == "Choice" ?
                                                   <div id={item.InternalName}>
                                                     <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                    <TextField id={item.InternalName} name={item.DisplayName} onChange={getnumbervalue} type="Number"></TextField>
-                                                  </div>
-                                                </>
-                                                : item.Type == "DateTime" ?
-                                                  <div id={item.InternalName}>
-                                                    <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                    {/* <DatePicker id={item[0].InternalName} onSelectDate={(date:Date)=>{ondobChange(date,item[0].InternalName)}} value={Dateofbirth ==undefined || Dateofbirth ==null ? null: new Date(Dateofbirth)}/> */}
-                                                    <DatePicker id={item.InternalName} onSelectDate={(date: Date) => { ondobChange(date, item.InternalName) }} value={CustomDateData[item.InternalName] != null ? new Date(CustomDateData[item.InternalName]) : null} />
-                                                  </div>
-                                                  :
-                                                  item.Type == "Choice" ?
+                                                    <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} onChange={getChoice}
+                                                      calloutProps={{
+                                                        styles: {
+                                                          root: {
+                                                            maxHeight: '200px !important',
+                                                          },
+                                                        }
+                                                      }}
+                                                      defaultSelectedKey={item.DefultValue}
+                                                    />
+                                                  </div> :
+                                                  item.Type == "MultipleChoice" ?
                                                     <div id={item.InternalName}>
                                                       <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                      <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} onChange={getChoice}
-                                                        defaultSelectedKey={item.DefultValue}
+                                                      <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} selectedKeys={isStringValidated(CustomDateData) ? isStringValidated(CustomDateData[item.InternalName]) ? CustomDateData[item.InternalName].split(',') : [] : []} multiSelect onChange={MultipalChoiceOnChange}
+                                                        calloutProps={{
+                                                          styles: {
+                                                            root: {
+                                                              maxHeight: '200px !important',
+                                                            },
+                                                          }
+                                                        }}
                                                       />
-                                                    </div> :
-                                                    item.Type == "MultipleChoice" ?
+                                                    </div>
+                                                    : item.Type == "User" ?
                                                       <div id={item.InternalName}>
                                                         <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                        <Dropdown options={item.values == '' ? [] : item.values} id={item.InternalName} selectedKeys={isStringValidated(CustomDateData) ? isStringValidated(CustomDateData[item.InternalName]) ? CustomDateData[item.InternalName].split(',') : [] : []} multiSelect onChange={MultipalChoiceOnChange}
-                                                        />
+                                                        <PeoplePicker
+                                                          context={ContextService.GetFullContext()}
+
+                                                          placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
+                                                          ensureUser={true}
+                                                          personSelectionLimit={1}
+                                                          groupName={""}
+                                                          // titleText={item.InternalName}
+                                                          // groupId={item.InternalName}
+                                                          // onChange={getpeoplepickerofcustomcolumns.bind(item.InternalName)}
+                                                          onChange={(selectedItems) => getpeoplepickerofcustomcolumns(selectedItems, item.InternalName)}
+                                                          // onChange={getpeoplepickerofcustomcolumns}
+                                                          // args= {item.InternalName}
+                                                          showtooltip={false}
+                                                          // disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
+                                                          showHiddenInUI={false}
+                                                          resolveDelay={1000}
+                                                          // defaultSelectedUsers={requester}
+                                                          principalTypes={[PrincipalType.User]}
+
+                                                        // defaultSelectedUsers={optionsexcusers.length ? }
+                                                        ></PeoplePicker>
+                                                        {/* <Dropdown options={item.values} id={item.InternalName} selectedKeys={CustomDateData}  multiSelect onChange={MultipalChoiceOnChange} /> */}
                                                       </div>
-                                                      : item.Type == "User" ?
-                                                        <div id={item.InternalName}>
-                                                          <Label required={MandatoryFields?.includes(item.InternalName) ? true : false}>{item.DisplayName}</Label>
-                                                          <PeoplePicker
-                                                            context={ContextService.GetFullContext()}
-
-                                                            placeholder={Language.EnterName ? Language.EnterName : "Enter name"}
-                                                            ensureUser={true}
-                                                            personSelectionLimit={1}
-                                                            groupName={""}
-                                                            // titleText={item.InternalName}
-                                                            // groupId={item.InternalName}
-                                                            // onChange={getpeoplepickerofcustomcolumns.bind(item.InternalName)}
-                                                            onChange={(selectedItems) => getpeoplepickerofcustomcolumns(selectedItems, item.InternalName)}
-                                                            // onChange={getpeoplepickerofcustomcolumns}
-                                                            // args= {item.InternalName}
-                                                            showtooltip={false}
-                                                            // disabled={props.userType != "User" || props.userType == '' || props.userType == null || props.userType == undefined ? false : true}
-                                                            showHiddenInUI={false}
-                                                            resolveDelay={1000}
-                                                            // defaultSelectedUsers={requester}
-                                                            principalTypes={[PrincipalType.User]}
-
-                                                          // defaultSelectedUsers={optionsexcusers.length ? }
-                                                          ></PeoplePicker>
-                                                          {/* <Dropdown options={item.values} id={item.InternalName} selectedKeys={CustomDateData}  multiSelect onChange={MultipalChoiceOnChange} /> */}
-                                                        </div>
-                                                        :
-                                                        null
+                                                      :
+                                                      null
                     );
 
 
@@ -7661,7 +7745,13 @@ function AddNewTickets(props) {
             {MediaFieldToShow ?
               <div>
                 <Label>{Language.RequesterMediaConnect ? Language.RequesterMediaConnect : "Requester's Media of Connect"}</Label>
-                <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} />
+                <Dropdown options={mediaOptions} onChange={OnMediaChange} selectedKey={mediaChoosed} calloutProps={{
+                  styles: {
+                    root: {
+                      maxHeight: '200px !important',
+                    },
+                  }
+                }} />
               </div>
               : null}
 

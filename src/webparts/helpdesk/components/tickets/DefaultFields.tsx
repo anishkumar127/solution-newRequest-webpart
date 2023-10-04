@@ -17,6 +17,13 @@ const DefaultFields = (props) => {
                 <div className='draggable-two draggable-default-content'>
                     <Dropdown
                         label={"Teams"}
+                        calloutProps={{
+                            styles: {
+                                root: {
+                                     maxHeight: '200px !important',
+                                },
+                            }
+                        }}
                         options={propsData?.teamsoptionarray}
                         onChange={propsData?.handleTeamsOnChange}
                         placeholder="Select teams"
@@ -28,7 +35,13 @@ const DefaultFields = (props) => {
                     {/* Service ui */}
                     <Dropdown
                         label={"Service"}
-
+                        calloutProps={{
+                            styles: {
+                                root: {
+                                     maxHeight: '200px !important',
+                                },
+                            }
+                        }}
                         options={propsData?.serviceOption}
                         onChange={propsData?.handleServiceOnChange}
                         placeholder="Select services"
@@ -40,7 +53,13 @@ const DefaultFields = (props) => {
                     {/* Sub Service ui */}
                     <Dropdown
                         label={"Sub Service"}
-
+                        calloutProps={{
+                            styles: {
+                                root: {
+                                     maxHeight: '200px !important',
+                                },
+                            }
+                        }}
                         options={propsData?.subserviceOption}
                         onChange={propsData?.handleSubServiceOnChange}
                         placeholder="Select sub services"
@@ -52,7 +71,13 @@ const DefaultFields = (props) => {
                     {/* Priority */}
                     <Dropdown
                         label={"Priority"}
-
+                        calloutProps={{
+                            styles: {
+                                root: {
+                                     maxHeight: '200px !important',
+                                },
+                            }
+                        }}
                         options={propsData?.priorityoptions}
                         onChange={propsData?.handlePriorityOnChange}
                         placeholder="Select priority"
@@ -66,7 +91,13 @@ const DefaultFields = (props) => {
                     {/* Request Type */}
                     <Dropdown
                         label={"Request Type"}
-
+                        calloutProps={{
+                            styles: {
+                                root: {
+                                     maxHeight: '200px !important',
+                                },
+                            }
+                        }}
                         options={propsData?.requestoptions}
                         onChange={propsData?.handleRequestTypeOnChange}
                         placeholder="Select request type"
@@ -78,14 +109,14 @@ const DefaultFields = (props) => {
                 </div>
             </div>
 
-   {/* NOTES: */}
+            {/* NOTES: */}
             <div style={{ padding: "20px 30px", display: "flex" }}>
                 <p className='draggble-model-short-note'>
                     <strong>Note:</strong> The upper values to be treated as default values and will be prefilled in the form.
                 </p>
             </div>
             {/* Submit & Cancel Button */}
-            <div style={{ gap: "20px", paddingBottom: "12px" ,paddingTop:"20px"}} className='add-new-installation-common-style-btn-input'>
+            <div style={{ gap: "20px", paddingBottom: "12px", paddingTop: "20px" }} className='add-new-installation-common-style-btn-input'>
                 <button className='add-new-installation-submit-btn' onClick={onDefaultSubmit}>Save</button>
                 <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
             </div>
