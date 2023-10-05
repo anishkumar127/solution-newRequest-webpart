@@ -17,7 +17,7 @@ const Header = ({SubmitTicket}) => {
         <img src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
         <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span>
         <span className='helpdesk-name-style new-ticket-helpdesk-title'>Raise New Request</span>
-        <Icon className='add-new-full-screen-icon send-on-submit-add-new-icon add-new-ticket-pointer' iconName="BackToWindow" onClick={handleExpandScreen} />
+        <Icon className='add-new-full-screen-icon send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Clear" onClick={handleExpandScreen} />
         <Icon onClick={()=>SubmitTicket()} style={{ marginRight: "12px" }} className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" />
 
 
