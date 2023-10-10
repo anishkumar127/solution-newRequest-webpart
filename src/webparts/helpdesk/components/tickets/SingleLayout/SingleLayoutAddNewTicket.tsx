@@ -502,7 +502,7 @@ const SingleLayoutAddNewTicket = () => {
           })}
         </div>
 
-          : <div className="expand-query-request">
+          : <div className="expand-query-request" onClick={handleExpandView}>
             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
               <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
             </div>

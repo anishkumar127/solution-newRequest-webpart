@@ -34,7 +34,8 @@ export const useStore = create(
       Id: 1,
       IsInstalled: "No",
       SiteUrl: "No",
-      ExpandView:"No"
+      ExpandView:"No",
+      title:"Raise New Request"
     },
 
     fetchSettingsCollection: async () => {
@@ -112,7 +113,8 @@ export const useStore = create(
               Id: items?.value[0]?.ID,
               IsInstalled: items?.value[0]?.IsInstalled,
               SiteUrl: items?.value[0]?.SiteUrl,
-              ExpandView:items?.value[0]?.ExpandView
+              ExpandView:items?.value[0]?.ExpandView,
+              title:items?.value[0]?.WebpartTitle
             };
             set({ AddNewWebPartInfo: Template });
           })

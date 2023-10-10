@@ -6,7 +6,7 @@ const SelectionFields = (props) => {
     const { onChangeCheckbox, handleDragEnd, draggedOrderData, checkboxStyle, setOpenModel, onSubmit } = props;
     return (
         <>
-            <div className='draggble-container'>
+            <div id="Z" className='draggble-container'>
                 {/* DRAGGABLE CONTENT */}
                 <div className='draggable-one'>
                     <DragDropContext onDragEnd={handleDragEnd}>
@@ -62,7 +62,7 @@ const SelectionFields = (props) => {
                 <p className='draggble-model-short-note'>
                     {/* You can select upto 5 fields, for remaining fields you can select default values to be sent. */}
                     <strong>Note:</strong> With limited space in a single column, it is recommended to have a maximum of 5 columns. If there are more fields, please select the default values so that a ticket can be created with the default values. Alternatively, you can utilize the double-column option of the web part, which allows for the display of more fields in two columns.
-                    </p>
+                </p>
             </div>
 
             {/* Submit & Cancel Button */}

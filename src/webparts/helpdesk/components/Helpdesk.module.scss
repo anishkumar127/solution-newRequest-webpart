@@ -2699,6 +2699,9 @@
     padding-top: 5px;
     padding-bottom: 1px;
 
+    .ms-Label{
+      font-size: 13px !important;
+    }
   }
 
   .add-new-ticket-header-style {
@@ -2706,7 +2709,7 @@
     align-items: center;
     justify-content: flex-start;
     // gap: 20px;
-    gap:6px;
+    gap: 6px;
     max-height: 40px;
     background-color: var(--pivotSelectedBGColor);
 
@@ -2741,38 +2744,41 @@
     width: 100% !important;
     margin-left: unset !important;
   }
- .add-new-ticket-header-style-large {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap:10px;
-  max-height: 40px;
-  background-color: var(--pivotSelectedBGColor);
 
-  img {
-    max-width: 40px;
+  .add-new-ticket-header-style-large {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
     max-height: 40px;
-    width: 100%;
-    margin-left: 10px;
+    background-color: var(--pivotSelectedBGColor);
+    padding: 6px 0px;
+
+    img {
+      max-width: 30px;
+      max-height: 30px;
+      width: 100%;
+      margin-left: 10px;
+    }
+
+    .helpdesk-name-style {
+      color: var(--pivotSelectedTextColor) !important;
+      font-weight: 400;
+    }
+
+    .logo-name-helpdesk {
+      // margin-left: -18px;
+      margin-left: -5px;
+      font-size: 12px;
+    }
+
+    .new-ticket-helpdesk-title {
+      // margin-right: 26px;
+      margin-left: auto;
+    }
+
   }
 
-  .helpdesk-name-style {
-    color: var(--pivotSelectedTextColor) !important;
-    font-weight: 600;
-  }
-
-  .logo-name-helpdesk {
-    // margin-left: -18px;
-    margin-left: -5px;
-    font-size: 12px;
-  }
-
-  .new-ticket-helpdesk-title {
-    // margin-right: 26px;
-    margin-left: auto;
-  }
-
-}
   // <------------------------------- MY TICKETS - UNATTACHED -------------------------->
   .myTickets-styles {
     padding: 10px;
@@ -2798,7 +2804,9 @@
     color: var(--pivotSelectedTextColor) !important;
     font-size: 12px;
     margin: auto;
+    padding-left: 52px;
   }
+
   // .ms-Callout-container{
   //   .ms-Callout{
   //     .ms-Callout-main{
@@ -2941,6 +2949,10 @@
     &:first-child {
       margin-top: 12px;
     }
+
+    // &:first-of-type div{
+    //   padding-top: 1px;
+    // }
   }
 
   .draggable-model-dropdown {
@@ -2978,13 +2990,13 @@
   }
 
   .draggable-one {
-    padding: 0px 20px;
+    padding: 0px 10px;
     margin: 0px;
 
   }
 
   .draggable-two {
-    padding: 1px 20px;
+    padding: 0px 10px;
     margin: 0px 10px;
     // border: 1px solid var(--lightThemeDropDownBorderColor) !important;
 
@@ -2997,9 +3009,11 @@
     padding-left: 17px;
     padding-top: 7px;
   }
-.settings-toggle-style{
-  margin-bottom: unset !important;
-}
+
+  .settings-toggle-style {
+    margin-bottom: unset !important;
+  }
+
   .draggble-content-label {
     padding-top: 5px;
     font-weight: 600;
@@ -3035,30 +3049,35 @@
     border-bottom: 1px solid #ddd;
     padding: 5px 0px;
   }
-.pivot-add-new-webpart-container{
-  .ms-FocusZone {
-    padding: 0 20px;
-    margin: 0;
-  }
-}
-.expand-query-request{
-  min-height: 280px;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  padding: 10px;
-  text-align: center;
-  font-weight: 500;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-.site-url-label-style{
-  position: relative;
-  top: 18px;
-}
+  .pivot-add-new-webpart-container {
+    .ms-FocusZone {
+      // padding: 0 20px;
+      padding: 0px 10px;
+      margin: 0;
+    }
+  }
+
+  .expand-query-request {
+    min-height: 280px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .site-url-label-style {
+    position: relative;
+    top: 18px;
+  }
+
   // background-color: rgb(255, 255, 255); hover gray color and active color
   // END
   // anish127
@@ -4116,8 +4135,23 @@
   }
 
   .ms-Panel-content {
-    padding-left: 12px;
-    padding-right: 12px;
+    // padding-left: 12px;
+    // padding-right: 12px;
+    padding: unset !important;
+    padding: 0px 0px !important;
+    padding: unset !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
+  .ms-Panel-content content {
+    // padding-left: 12px;
+    // padding-right: 12px;
+    padding: unset !important;
+    padding: 0px 0px !important;
+    padding: unset !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
 
