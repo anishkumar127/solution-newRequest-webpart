@@ -7782,7 +7782,7 @@ function AddNewTickets(props) {
                           defaultValue={isTicketMailBox === "Yes" ? CheckUri(globalMessage) : globalMessage}
                           preserveWhitespace={true}
                           formats={formats}
-                          placeholder={"Please Elaborate your query..."}
+                          placeholder={"Please elaborate your query..."}
                           onChange={(text) => onTextChange(text)}
                           key={quillRender}
                         />
@@ -7794,14 +7794,14 @@ function AddNewTickets(props) {
               }) : null
             }
 
-            {/* <div className={`${styles.descpad} ${RichTextToolboxAddNew}`}>
+            <div className={`${styles.descpad} ${RichTextToolboxAddNew}`}>
             <div className={Homestyles.DesktopView}>
-              <AMDragDropAttach selectedFile={props.selectedFile} setSelectedFile={props.setSelectedFile} onChangeCommercialAttachment={onAttachmentChange1} multiple={true} lightdark={props.lightdarkmode}  IgnoreUptoMBValue={IgnoreUptoMBValue}/>
+              {/* <AMDragDropAttach selectedFile={props.selectedFile} setSelectedFile={props.setSelectedFile} onChangeCommercialAttachment={onAttachmentChange1} multiple={true} lightdark={props.lightdarkmode}  IgnoreUptoMBValue={IgnoreUptoMBValue}/>
               <div className={styles.files}>
                 <a href={attachFileUrl1} target="_blank">
                   {attachFile1}
                 </a>
-              </div>
+              </div> */}
 
               <div className={styles.button}>
                 <PrimaryButton onClick={SubmitTicket}
@@ -7819,7 +7819,7 @@ function AddNewTickets(props) {
               </div>
 
             </div>
-            <div className={Homestyles.MobileView}>
+            {/* <div className={Homestyles.MobileView}>
               <div className={Homestyles.SnedAttachIcon}>
                 <div className={styles.imgload}>
                   <label htmlFor="file-input">
@@ -7846,15 +7846,15 @@ function AddNewTickets(props) {
                   styles={{ icon: { color: props.lightdarkmode == 'light' ? 'var(--lightdarkColor) !important' : 'var(--lightdarkBGGray) !important', } }}
                 />
               </div>
-            </div>
-          </div> */}
-            <div className={Homestyles.MobileView}>
+            </div> */}
+          </div>
+            {/* <div className={Homestyles.MobileView}>
               <div className={styles.files}>
                 <a href={attachFileUrl1} target="_blank">
                   {attachFile1}
                 </a>
               </div>
-            </div>
+            </div> */}
 
           </>
           :

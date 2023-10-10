@@ -910,7 +910,7 @@ const Home = () => {
               isBlocking={true}
               styles={{
                 main: {
-                  minWidth: "600px",
+                  minWidth: "800px",
                   Minheight: "540px"
                 }
               }}

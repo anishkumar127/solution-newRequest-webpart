@@ -1004,7 +1004,7 @@ const SingleLayoutHeader = ({ propsData }) => {
     <>
       <div className='add-new-ticket-header-style header-single-layout-add-new-ticket'>
         <img className='add-new-ticket-header-style-img' src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
-        <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span>
+        {/* <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span> */}
 
 
         <span className='add-new-ticket-title-single-layout'>Raise New Request</span>
