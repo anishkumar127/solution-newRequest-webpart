@@ -53,6 +53,24 @@ const SingleLayoutHeader = ({ propsData }) => {
   const getTeamsDepartmentApi = useAddNewApiStore((state) => state.getTeamsDepartmentApi());
   const getIsInstalled = useStore((state) => state.getIsInstalled());
 
+  const [isRoleAdmin,setIsRoleAdmin] = useState<boolean>(false);
+
+
+  // useEffect(()=>{
+  //   const currentData = ContextService.GetCurrentUser();
+  //   if(currentData){
+  //     const email:string = currentData?.email;
+  //     const isRole = getUserLists?.some((item)=>item?.Email===email && item?.Roles==="Admin")
+  //     console.log("currentData",getUserLists);
+  //     setIsRoleAdmin(isRole);
+  //   }
+  //   console.log("currentData",currentData);
+  // },[propsData?.fetchDone]);
+  // useEffect(()=>{
+  //   console.log("RE RUNNN",propsData?.fetchDone)
+  // },[propsData?.fetchDone])
+
+  // console.log("zzzzzzzzzzzzzzzzz",getUserLists)
   console.log("SITE DATA", getSettingsCollection);
 
   // <----------------------- MODEL ON/OFF STATES --------------->
@@ -133,6 +151,19 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
     fetchedIsInstalled();
   }, [openModel]);
+
+
+  const getUserListsData = useStore((state) => state.getUserListsData());
+  // React.useEffect(()=>{
+  //   const currentData = ContextService.GetCurrentUser();
+  //   if(currentData){
+  //     const email:string = currentData?.email;
+  //     const isRole = getUserLists?.some((item)=>item?.Email===email && item?.Roles==="Admin")
+  //     console.log("currentData",getUserLists);
+  //     setIsRoleAdmin(isRole);
+  //   }
+  //   console.log("currentData",currentData);
+  // },[getUserListsData]);
 
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {
@@ -1022,17 +1053,17 @@ const SingleLayoutHeader = ({ propsData }) => {
   return (
     <>
       <div className='add-new-ticket-header-style header-single-layout-add-new-ticket'>
-        <img className='add-new-ticket-header-style-img' src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
+        <img title='Helpdesk 365' className='add-new-ticket-header-style-img' src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
         {/* <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span> */}
 
 
-        <span className='add-new-ticket-title-single-layout'>{getIsInstalled?.title?.trim()?.length > 0 ? getIsInstalled?.title : 'Raise Request'}</span>
-        <span className='single-layout-add-new-icon-style-header'>
-          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Settings"
+        <span title="Raise Request" className='add-new-ticket-title-single-layout'>{getIsInstalled?.title?.trim()?.length > 0 ? getIsInstalled?.title : 'Raise Request'}</span>
+        <span title="Settings" className='single-layout-add-new-icon-style-header'>
+          {propsData?.isRoleAdmin ? <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Settings"
             onClick={() => setOpenModel(true)}
-          />
-          <Icon className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="MiniExpand" onClick={handleExpandScreen} />
-          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
+          /> : null}
+          <Icon title='Expand' className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="MiniExpand" onClick={handleExpandScreen} />
+          <Icon title='Submit' className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
 
         </span>
       </div>

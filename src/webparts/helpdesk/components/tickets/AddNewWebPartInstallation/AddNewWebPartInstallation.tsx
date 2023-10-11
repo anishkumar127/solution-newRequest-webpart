@@ -6,6 +6,7 @@ import ContextService from '../../../loc/Services/ContextService';
 import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react';
 import { Spinner, SpinnerSize } from '@fluentui/react';
+import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 
 const AddNewWebPartInstallation = ({ UIRender }) => {
     const HRlogo: any = require('../../../../../../assets/HR365SPFXmainlog.png');
@@ -18,6 +19,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
     const isInstalledInfo = useStore((state) => state.getIsInstalled());
     const setIsInstalled = useStore((state) => state.setIsInstalled);
     const fetchIsInstalled = useStore((state) => state.fetchIsInstalled);
+  const fetchUserLists = useAddNewApiStore((state) => state.fetchUserLists);
  
     const [Isloading,setIsLoading] = useState<boolean>(false);
 
@@ -46,12 +48,14 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                         },
                     }
                 )
-                .then((response: SPHttpClientResponse) => {
+                .then(async(response: SPHttpClientResponse) => {
                     if (response.ok) {
                         const Template = {
                             IsInstalled: Typed.Yes,
                             SiteUrl: siteUrl
                         }
+                        await fetchUserLists(siteUrl);
+
                         setIsOpened(false);
                         UIRender?.setLoading(true);
                         setIsUrlValid(false);

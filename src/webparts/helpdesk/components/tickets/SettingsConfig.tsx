@@ -146,10 +146,10 @@ const SettingsConfig = () => {
             </div>
 
             {/* Ticket Webpart Title */}
-            <Label className='site-url-label-style' style={{ top: "0px" }}>Webpart Header</Label>
+            <Label className='site-url-label-style' style={{ top: "0px" }}>Webpart Heading Title</Label>
             <div className='configure-settings-btn-input' style={{ padding: "0px 0px 5px 0px" }}>
                 <div style={{ flexGrow: "1" }}>
-                    <input className='add-new-webpart-site-url-input' style={{ width: "90%" }} type='text' placeholder='webpart header' value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <input className='add-new-webpart-site-url-input' style={{ width: "90%" }} type='text' placeholder='webpart heading title' value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className='add-new-installation-common-style-btn-input' style={{ padding: "0px" }}>
                     <button className='add-new-installation-submit-btn' onClick={onSubmitWebpart}>Save</button>

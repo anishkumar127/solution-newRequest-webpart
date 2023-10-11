@@ -5,9 +5,11 @@ import { persist } from "zustand/middleware";
 import { SPHttpClient, SPHttpClientResponse } from "@microsoft/sp-http";
 import ContextService from "../loc/Services/ContextService";
 import { devtools } from "zustand/middleware";
+import { Web } from "sp-pnp-js";
 interface State {
   SettingsCollection: any;
   ThemesColor: string;
+  UserListsData: any[];
   ExpandScreen: boolean;
   fetchSettingsCollection: () => void;
   getSettingsCollection: () => any;
@@ -20,6 +22,8 @@ interface State {
   fetchIsInstalled: () => void;
   AddNewWebPartInfo: any;
   setIsInstalled: (Template: any) => void;
+  fetchUserListsData: () => Promise<void>;
+  getUserListsData: () => any[];
 }
 
 export const useStore = create(
@@ -29,13 +33,14 @@ export const useStore = create(
     SettingsCollection: [],
     ThemesColor: "",
     ExpandScreen: false,
+    UserListsData: [],
     // <------- AddNewWebPart List Installed Application Info ---------->
     AddNewWebPartInfo: {
       Id: 1,
       IsInstalled: "No",
       SiteUrl: "No",
-      ExpandView:"No",
-      title:"Raise New Request"
+      ExpandView: "No",
+      title: "Raise New Request",
     },
 
     fetchSettingsCollection: async () => {
@@ -113,8 +118,8 @@ export const useStore = create(
               Id: items?.value[0]?.ID,
               IsInstalled: items?.value[0]?.IsInstalled,
               SiteUrl: items?.value[0]?.SiteUrl,
-              ExpandView:items?.value[0]?.ExpandView,
-              title:items?.value[0]?.WebpartTitle
+              ExpandView: items?.value[0]?.ExpandView,
+              title: items?.value[0]?.WebpartTitle,
             };
             set({ AddNewWebPartInfo: Template });
           })
@@ -179,6 +184,27 @@ export const useStore = create(
       }
       console.log("called store fetch data");
     },
+    fetchUserListsData: async () => {
+      try {
+        // const data = get()?.AddNewWebPartInfo;
+        // if (data?.SiteUrl) {
+        // if (siteURL) {
+        let web = new Web(get()?.AddNewWebPartInfo?.SiteUrl);
+        web.lists
+          .getByTitle("HR365HDMUsers")
+          .items.select(
+            "*,ID,Roles,Users/Id,Users/Title,UsersId,Email,Department,Roles,TicketCount&$expand=Users"
+          )
+          .get()
+          .then((data) => {
+            set({ UserListsData: data });
+          });
+        // }
+      } catch (error) {
+        console.error("Error fetching user lists", error);
+      }
+    },
+    getUserListsData: () => get().UserListsData,
   }))
   // { name: "zustand-store" }
   // )
