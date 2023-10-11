@@ -26,7 +26,7 @@ interface State {
   initializeDataAddNewWebPart: () => Promise<void>;
   fetchRequestFieldsCheckbox: () => Promise<void>;
   fetchEmailTemplate: () => Promise<void>;
-  fetchUserLists: () => Promise<void>;
+  fetchUserLists: (siteURL) => Promise<void>;
 
   // GET
   getTeamsDepartmentApi: () => any[];
@@ -220,11 +220,12 @@ const storeData = (set, get) => ({
       console.error("fetching email template error", error);
     }
   },
-  fetchUserLists: async () => {
+  fetchUserLists: async (siteURL) => {
     try {
       const data = get()?.AddNewWebPartInfo;
-      if (data?.SiteUrl) {
-        let web = new Web(data?.SiteUrl);
+      // if (data?.SiteUrl) {
+      if (siteURL) {
+        let web = new Web(siteURL);
         web.lists
           .getByTitle("HR365HDMUsers")
           .items.select(

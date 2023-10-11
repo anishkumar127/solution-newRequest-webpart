@@ -3,7 +3,7 @@ import { useStore } from '../../../store/zustand';
 const helpDeskLog = require('../../../../../../assets/help-desk.png');
 const helpDeskLogDarkMode = require('../../../../../../assets/HD365-Icon-White-1200.png');
 import { IIconProps, Icon } from '@fluentui/react/lib/Icon';
-import { IButtonStyles, ICheckboxStyles, IconButton, Modal, Pivot, PivotItem } from '@fluentui/react';
+import { IButtonStyles, ICheckboxStyles, IconButton, Modal, Panel, PanelType, Pivot, PivotItem } from '@fluentui/react';
 import { useRequestPost } from '../../../store/apis_add-new-tickts/add-new-api-post';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 import ReusableSweetAlerts, { CustomAlertType } from '../../../utils/SweetAlerts/ReusableSweetAlerts';
@@ -18,6 +18,7 @@ import SelectionFields from '../SelectionFields';
 import DefaultFields from '../DefaultFields';
 import SettingsConfig from '../SettingsConfig';
 import { alertsConfig } from '../../../utils/SweetAlerts/alertsConfig';
+import { useCustomSwalContainerStyle } from '../../../utils/SweetAlerts/useCustomSwalContainerStyle';
 
 let mandatoryFields = [];
 let finalticketID = '';
@@ -52,6 +53,24 @@ const SingleLayoutHeader = ({ propsData }) => {
   const getTeamsDepartmentApi = useAddNewApiStore((state) => state.getTeamsDepartmentApi());
   const getIsInstalled = useStore((state) => state.getIsInstalled());
 
+  const [isRoleAdmin,setIsRoleAdmin] = useState<boolean>(false);
+
+
+  // useEffect(()=>{
+  //   const currentData = ContextService.GetCurrentUser();
+  //   if(currentData){
+  //     const email:string = currentData?.email;
+  //     const isRole = getUserLists?.some((item)=>item?.Email===email && item?.Roles==="Admin")
+  //     console.log("currentData",getUserLists);
+  //     setIsRoleAdmin(isRole);
+  //   }
+  //   console.log("currentData",currentData);
+  // },[propsData?.fetchDone]);
+  // useEffect(()=>{
+  //   console.log("RE RUNNN",propsData?.fetchDone)
+  // },[propsData?.fetchDone])
+
+  // console.log("zzzzzzzzzzzzzzzzz",getUserLists)
   console.log("SITE DATA", getSettingsCollection);
 
   // <----------------------- MODEL ON/OFF STATES --------------->
@@ -65,6 +84,8 @@ const SingleLayoutHeader = ({ propsData }) => {
   const [configureRequestUpdate, setConfigureRequestUpdate] = useState<boolean>(false);
   const [maxSelect, setMaxSelect] = useState<boolean>(false);
   const [selectDefaultValue, setSelectDefaultValue] = useState<boolean>(false);
+  const [configureSelectionUpdate, setConfigureSelectionUpdate] = useState<boolean>(false);
+
 
 
   // <----------------------- SUBMIT TICKET & SAVE TICKETS ID STATES --------------->
@@ -126,10 +147,23 @@ const SingleLayoutHeader = ({ propsData }) => {
 
   React.useEffect(() => {
     const fetchedIsInstalled = async () => {
-        await fetchIsInstalled();
+      await fetchIsInstalled();
     }
     fetchedIsInstalled();
-}, [openModel]);
+  }, [openModel]);
+
+
+  const getUserListsData = useStore((state) => state.getUserListsData());
+  // React.useEffect(()=>{
+  //   const currentData = ContextService.GetCurrentUser();
+  //   if(currentData){
+  //     const email:string = currentData?.email;
+  //     const isRole = getUserLists?.some((item)=>item?.Email===email && item?.Roles==="Admin")
+  //     console.log("currentData",getUserLists);
+  //     setIsRoleAdmin(isRole);
+  //   }
+  //   console.log("currentData",currentData);
+  // },[getUserListsData]);
 
   // <------------------ EXPAND SCREEN ON CHANGE -------------------->
   const handleExpandScreen = () => {
@@ -218,9 +252,10 @@ const SingleLayoutHeader = ({ propsData }) => {
         } catch (error) {
           console.error("api checkbox selection post calls error", error)
         }
-        setConfigureRequestUpdate(true);
-        setTimedState(setConfigureRequestUpdate, true, 2000);
-        setOpenModel(false);
+        setConfigureSelectionUpdate(true);
+        setTimedState(setConfigureSelectionUpdate, true, 2000);
+        // setOpenModel(false);
+        setTimedState(setOpenModel, true, 2000);
       } else {
         setMaxSelect(true);
         setTimedState(setMaxSelect, true, 2000);
@@ -243,7 +278,8 @@ const SingleLayoutHeader = ({ propsData }) => {
       await setDefaultRequestSettings(defaultData); // POSTING Default Data.
       setConfigureRequestUpdate(true);
       setTimedState(setConfigureRequestUpdate, true, 2000);
-      setOpenModel(false);
+      // setOpenModel(false);
+      setTimedState(setOpenModel, true, 2000);
     } catch (error) {
       console.error("api default post calls error", error);
     }
@@ -944,6 +980,12 @@ const SingleLayoutHeader = ({ propsData }) => {
     }
   };
 
+  const customSwalPropsMedium = {
+    desiredWidth: '650px',
+    saved: configureRequestUpdate ? configureRequestUpdate : configureSelectionUpdate,
+    newerror: maxSelect,
+  };
+  useCustomSwalContainerStyle(customSwalPropsMedium);
   // <--------------------- SWEET ALERT CONFIG  ----------------------------
 
   const alerts = [
@@ -951,7 +993,15 @@ const SingleLayoutHeader = ({ propsData }) => {
       show: configureRequestUpdate,
       type: 'success' as CustomAlertType,
       text: 'Updated successfully!',
-      id: 'ConfigureRequest',
+      id: 'A',
+      popupCustomClass: "general-settings",
+
+    },
+    {
+      show: configureSelectionUpdate,
+      type: 'success' as CustomAlertType,
+      text: 'Updated successfully!',
+      id: 'Z',
       popupCustomClass: "general-settings",
 
     },
@@ -959,7 +1009,7 @@ const SingleLayoutHeader = ({ propsData }) => {
       show: maxSelect,
       type: 'warning' as CustomAlertType,
       text: 'Please select up to 5.',
-      id: 'ConfigureRequest2',
+      id: 'Selection-and-default',
       popupCustomClass: "general-settings",
 
     },
@@ -1003,84 +1053,70 @@ const SingleLayoutHeader = ({ propsData }) => {
   return (
     <>
       <div className='add-new-ticket-header-style header-single-layout-add-new-ticket'>
-        <img className='add-new-ticket-header-style-img' src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
-        <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span>
+        <img title='Helpdesk 365' className='add-new-ticket-header-style-img' src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
+        {/* <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span> */}
 
 
-        <span className='add-new-ticket-title-single-layout'>Raise New Request</span>
-        <span className='single-layout-add-new-icon-style-header'>
-          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Settings"
+        <span title="Raise Request" className='add-new-ticket-title-single-layout'>{getIsInstalled?.title?.trim()?.length > 0 ? getIsInstalled?.title : 'Raise Request'}</span>
+        <span title="Settings" className='single-layout-add-new-icon-style-header'>
+          {propsData?.isRoleAdmin ? <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Settings"
             onClick={() => setOpenModel(true)}
-          />
-          <Icon className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="MiniExpand" onClick={handleExpandScreen} />
-          <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
+          /> : null}
+          <Icon title='Expand' className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="MiniExpand" onClick={handleExpandScreen} />
+          <Icon title='Submit' className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
 
         </span>
       </div>
-      {openModel &&
-        <div className='draggable-model-root'>
-          <Modal
-            isOpen={openModel}
-            onDismiss={() => setOpenModel(false)}
-            isBlocking={true}
-            styles={{
-              main: {
-                minWidth: "600px",
-                width: "600px",
-                height: "583px",
-                maxHeight:"590px"
-              }
-            }}
-          >
-            <IconButton
-              styles={iconButtonStyles}
-              className='draggable-model-close-btn'
-              iconProps={cancelIcon}
-              ariaLabel="Close popup modal"
-              onClick={() => setOpenModel(false)}
-            />
+      {/* <div id="OK"/> */}
 
-            {/* Pivot */}
+      {
+        openModel && <Panel
+          headerText="Settings"
+          isOpen={openModel}
+          onDismiss={() => setOpenModel(false)}
+          type={PanelType.custom}
+          customWidth="600px"
+          closeButtonAriaLabel="Close"
+        >
 
-            <div className='pivot-add-new-webpart-container'>
-              <Pivot aria-label="Basic Pivot Example">
-                <PivotItem
-                  headerText="Selection & Order"
-                >
-                  {/* Checkbox */}
-                  <SelectionFields
-                    onChangeCheckbox={onChangeCheckbox}
-                    handleDragEnd={handleDragEnd}
-                    draggedOrderData={draggedOrderData}
-                    checkboxStyle={checkboxStyle}
-                    onSubmit={onSubmit}
-                    setOpenModel={setOpenModel}
-                  />
+          <div id="Selection-and-default" className='pivot-add-new-webpart-container'>
+            <Pivot aria-label="Basic Pivot Example">
+              <PivotItem
+                headerText="General Settings"
+              >
+                <SettingsConfig
+                />
+              </PivotItem>
+              <PivotItem
+                headerText="Selection & Order"
+              >
+                {/* Checkbox */}
+                <SelectionFields
+                  onChangeCheckbox={onChangeCheckbox}
+                  handleDragEnd={handleDragEnd}
+                  draggedOrderData={draggedOrderData}
+                  checkboxStyle={checkboxStyle}
+                  onSubmit={onSubmit}
+                  setOpenModel={setOpenModel}
+                />
 
-                </PivotItem>
-                <PivotItem
-                  headerText="Default Choices"
-                >
-                  <DefaultFields
-                    propsData={propsData}
-                    onDefaultSubmit={onDefaultSubmit}
-                    setOpenModel={setOpenModel}
-                  />
+              </PivotItem>
+              <PivotItem
+                headerText="Default Values"
+              >
+                <DefaultFields
+                  propsData={propsData}
+                  onDefaultSubmit={onDefaultSubmit}
+                  setOpenModel={setOpenModel}
+                />
 
-                </PivotItem>
-                <PivotItem
-                  headerText="General Settings"
-                >
-                  <SettingsConfig
-                  />
-                </PivotItem>
-              </Pivot>
-            </div>
-          </Modal>
-        </div>
+              </PivotItem>
+
+            </Pivot>
+          </div>
+
+        </Panel>
       }
-
-
       {/* <div id="ConfigureRequest" /> */}
 
       {alerts?.map((alert, index) => {

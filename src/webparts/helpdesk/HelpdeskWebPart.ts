@@ -103,9 +103,12 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
       '<Field Name="RequestTickets" ID="{AC318277-129E-44A2-8B95-64F3113FA385}" DisplayName="RequestTickets" Type="Note"></Field>';
       var XMLExpandView =
       '<Field Name="ExpandView" ID="{F24497CA-616A-42E6-AE87-A2E667DF59BD}" DisplayName="ExpandView" Type="Note"></Field>';
+      var XMLWebpartTitle =
+      '<Field Name="WebpartTitle" ID="{1FC16B0C-ACEA-48EA-B623-A4137C0797A9}" DisplayName="WebpartTitle" Type="Note"></Field>';
     empcolEN = [
       XMLIsInstalled,
       XMLSiteUrl,
+      XMLWebpartTitle,
       XMLRequestTicketsDefaultSettings,
       XMLRequestTicketsCheckedFields,
       XMLRequestTickets,

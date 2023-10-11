@@ -10,7 +10,8 @@ const DefaultFields = (props) => {
         );
     }
     return (
-        <>
+        <React.Fragment>
+                <div id="A"/>
             <div className='draggble-container'>
 
                 {/* DEFAULT CONTNET */}
@@ -20,7 +21,7 @@ const DefaultFields = (props) => {
                         calloutProps={{
                             styles: {
                                 root: {
-                                     maxHeight: '200px !important',
+                                    maxHeight: '200px !important',
                                 },
                             }
                         }}
@@ -38,7 +39,7 @@ const DefaultFields = (props) => {
                         calloutProps={{
                             styles: {
                                 root: {
-                                     maxHeight: '200px !important',
+                                    maxHeight: '200px !important',
                                 },
                             }
                         }}
@@ -56,7 +57,7 @@ const DefaultFields = (props) => {
                         calloutProps={{
                             styles: {
                                 root: {
-                                     maxHeight: '200px !important',
+                                    maxHeight: '200px !important',
                                 },
                             }
                         }}
@@ -74,7 +75,7 @@ const DefaultFields = (props) => {
                         calloutProps={{
                             styles: {
                                 root: {
-                                     maxHeight: '200px !important',
+                                    maxHeight: '200px !important',
                                 },
                             }
                         }}
@@ -94,7 +95,7 @@ const DefaultFields = (props) => {
                         calloutProps={{
                             styles: {
                                 root: {
-                                     maxHeight: '200px !important',
+                                    maxHeight: '200px !important',
                                 },
                             }
                         }}
@@ -112,7 +113,7 @@ const DefaultFields = (props) => {
             {/* NOTES: */}
             <div style={{ padding: "20px 30px", display: "flex" }}>
                 <p className='draggble-model-short-note'>
-                    <strong>Note:</strong> The upper values to be treated as default values and will be prefilled in the form.
+                    <strong>Note:</strong> Selected values will be prefilled in the form, for the visible as well as hidden fields.
                 </p>
             </div>
             {/* Submit & Cancel Button */}
@@ -120,7 +121,7 @@ const DefaultFields = (props) => {
                 <button className='add-new-installation-submit-btn' onClick={onDefaultSubmit}>Save</button>
                 <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
             </div>
-        </>
+        </React.Fragment>
     )
 }
 

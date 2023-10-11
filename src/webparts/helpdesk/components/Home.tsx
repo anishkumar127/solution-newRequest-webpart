@@ -5,6 +5,8 @@ import './global.scss'
 import SingleLayoutAddNewTicket from './tickets/SingleLayout/SingleLayoutAddNewTicket';
 import AddNewTickets from './tickets/AddNewTickets';
 import { Modal } from '@fluentui/react';
+import { useAddNewApiStore } from '../store/apis_add-new-tickts/add-new-apis';
+import ContextService from '../loc/Services/ContextService';
 let themeMode = 'theme';
 // THEME DARK OR LIGHT COLOR CHECKER.
 function isColorDark(color) {
@@ -26,6 +28,7 @@ const Home = () => {
   const SettingsCollection = useStore((state) => state.SettingsCollection);
   const setColorMode = useStore((state) => state.setColorMode);
   const getExpandMode = useStore((state) => state.getExpandMode());
+  
   React.useEffect(() => {
 
     const fetchfetchSettingsCollectionData = async () => {
@@ -910,7 +913,7 @@ const Home = () => {
               isBlocking={true}
               styles={{
                 main: {
-                  minWidth: "600px",
+                  minWidth: "800px",
                   Minheight: "540px"
                 }
               }}

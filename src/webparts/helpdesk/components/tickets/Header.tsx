@@ -14,11 +14,11 @@ const Header = ({SubmitTicket}) => {
   return (
     <>
       <div className='add-new-ticket-header-style-large'>
-        <img src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
-        <span className='helpdesk-name-style logo-name-helpdesk'>HelpDesk 365</span>
-        <span className='helpdesk-name-style new-ticket-helpdesk-title'>Raise New Request</span>
-        <Icon className='add-new-full-screen-icon send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Clear" onClick={handleExpandScreen} />
-        <Icon onClick={()=>SubmitTicket()} style={{ marginRight: "12px" }} className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" />
+        <img  src={ThemesColor === "light" ? helpDeskLog : helpDeskLogDarkMode} alt='helpdesk' />
+        <span className='helpdesk-name-style logo-name-helpdesk' style={{fontSize:"18px"}}>Helpdesk 365</span>
+        {/* <span className='helpdesk-name-style new-ticket-helpdesk-title'>Raise New Request</span> */}
+        <Icon className='add-new-full-screen-icon send-on-submit-add-new-icon add-new-ticket-pointer' style={{marginLeft:"auto",marginRight:"10px"}} iconName="Clear" onClick={handleExpandScreen} />
+        {/* <Icon onClick={()=>SubmitTicket()} style={{ marginRight: "12px" }} className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" /> */}
 
 
       </div>

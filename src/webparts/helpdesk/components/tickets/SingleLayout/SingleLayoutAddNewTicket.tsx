@@ -43,12 +43,14 @@ const SingleLayoutAddNewTicket = () => {
   );
   const getRequestFieldsCheckbox = useAddNewApiStore((state) => state.getRequestFieldsCheckbox());
   // const getSettingsCollection = useStore((state) => state.getSettingsCollection());
+  const getUserLists = useAddNewApiStore((state) => state.getUserLists());
+  const [isRoleAdmin,setIsRoleAdmin] = useState<boolean>(false);
 
   const getPriorityApi = useAddNewApiStore((state) => state.getPriorityApi());
   const getRequestType = useAddNewApiStore((state) => state.getRequestType());
   const getService = useAddNewApiStore((state) => state.getService());
   const getSubService = useAddNewApiStore((state) => state.getSubService());
-
+  const fetchUserListsData = useStore((state)=>state.fetchUserListsData)
   // console.log("getSettingsCollection", getSettingsCollection);
   const getIsInstalled = useStore((state) => state.getIsInstalled());
   const setExpandMode = useStore((state) => state.setExpandMode);
@@ -93,6 +95,7 @@ const SingleLayoutAddNewTicket = () => {
   // 
   const [ticketTitle, setTicketTitle] = useState<string>("");
   const [descriptionValue, setDescriptionValue] = useState<string>("");
+  const [fetchDone,setFetchDone] = useState<boolean>(false);
   // VALIDATOR FUNCTION
 
   function isStringValidated(value) {
@@ -189,14 +192,24 @@ const SingleLayoutAddNewTicket = () => {
   }, []);
 
   // <-------------------- FETCHING USER LISTS --------------------------->
+  const getUserListsData = useStore((state) => state.getUserListsData());
   React.useEffect(() => {
     const fetchUserListsFunction = async () => {
-      await fetchUserLists();
+      await fetchUserListsData();
     }
     fetchUserListsFunction();
   }, []);
-
-
+console.log(getUserListsData);
+  React.useEffect(()=>{
+    const currentData = ContextService.GetCurrentUser();
+    if(currentData){
+      const email:string = currentData?.email;
+      const isRole = getUserListsData?.some((item)=>item?.Email===email && item?.Roles==="Admin")
+      console.log("currentData",getUserLists);
+      setIsRoleAdmin(isRole);
+    }
+    console.log("currentData",currentData);
+  },[getUserListsData]);
   //  ALL USEEFFECT WILL BE HERE.
 
   useEffect(() => {
@@ -231,6 +244,7 @@ const SingleLayoutAddNewTicket = () => {
     console.log("DraggableTemplate", DraggableTemplate);
     // }
   }, [])
+
 
   //
   useEffect(() => {
@@ -413,6 +427,9 @@ const SingleLayoutAddNewTicket = () => {
     <>
       <SingleLayoutHeader
         propsData={{
+          getUserListsData,
+          isRoleAdmin,
+          fetchDone,
           teamsoptionarray, handleTeamsOnChange, serviceOption, handleServiceOnChange, defltService, subserviceOption, handleSubServiceOnChange, defltSubService, priorityoptions,
           defltPriority, handlePriorityOnChange, handleRequestTypeOnChange,
           requestoptions, defltTeam, defltReq, closePanel, setClosePanel, ticketTitle,
@@ -502,7 +519,7 @@ const SingleLayoutAddNewTicket = () => {
           })}
         </div>
 
-          : <div className="expand-query-request">
+          : <div className="expand-query-request" onClick={handleExpandView}>
             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
               <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
             </div>
