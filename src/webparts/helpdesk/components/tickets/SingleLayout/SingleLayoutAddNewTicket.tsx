@@ -233,9 +233,9 @@ const SingleLayoutAddNewTicket = () => {
   }, [])
 
   //
-  useEffect(()=>{
-console.log("re fetching & updating...")
-  },[getIsInstalled?.ExpandView]);
+  useEffect(() => {
+    console.log("re fetching & updating...")
+  }, [getIsInstalled?.ExpandView]);
 
 
   // <-------------------- TEAMS DEPARTMENT FUNCTION ------------------->
@@ -404,8 +404,8 @@ console.log("re fetching & updating...")
     item: IDropdownOption) => {
     setDefltReq(item.key as string);
   }
-  
-  const handleExpandView = () =>{
+
+  const handleExpandView = () => {
     console.log("clicked")
     setExpandMode(true);
   }
@@ -433,16 +433,37 @@ console.log("re fetching & updating...")
                   item?.Name === "Teams" && item?.isChecked === true ? <Dropdown
                     options={teamsoptionarray}   // <--- TEAMS --->
                     onChange={handleTeamsOnChange}
+                    calloutProps={{
+                      styles: {
+                        root: {
+                          maxHeight: '200px !important',
+                        },
+                      }
+                    }}
                     placeholder="Select teams"
                     selectedKey={defltTeam}
                   /> : item?.Name === "Services" && item?.isChecked === true ? <Dropdown
                     options={serviceOption}           // <--- SERVICE --->
                     onChange={handleServiceOnChange}
                     placeholder="Select services"
+                    calloutProps={{
+                      styles: {
+                        root: {
+                          maxHeight: '200px !important',
+                        },
+                      }
+                    }}
                     selectedKey={defltService}
                   /> : item?.Name === "Sub Services" && item?.isChecked === true ? <Dropdown
                     options={subserviceOption}
                     onChange={handleSubServiceOnChange}
+                    calloutProps={{
+                      styles: {
+                        root: {
+                          maxHeight: '200px !important',
+                        },
+                      }
+                    }}
                     placeholder="Select sub services"      // <--- SUBSERVICE --->
                     selectedKey={defltSubService}
                   /> : item?.Name === "Description" && item?.isChecked === true ? <TextField
@@ -455,12 +476,26 @@ console.log("re fetching & updating...")
                     options={requestoptions}     // <--- REQUEST TYPE --->
                     onChange={handleRequestTypeOnChange}
                     placeholder="Select request type"
+                    calloutProps={{
+                      styles: {
+                        root: {
+                          maxHeight: '200px !important',
+                        },
+                      }
+                    }}
                     selectedKey={defltReq}
                   /> : item?.Name === "Priority" && item?.isChecked === true ? <Dropdown
                     options={priorityoptions}      // <--- PROIRTY --->
                     onChange={handlePriorityOnChange}
                     placeholder="Select priority"
                     selectedKey={defltPriority}
+                    calloutProps={{
+                      styles: {
+                        root: {
+                          maxHeight: '200px !important',
+                        },
+                      }
+                    }}
                   /> : null}
               </Fragment>
             )
@@ -468,13 +503,13 @@ console.log("re fetching & updating...")
         </div>
 
           : <div className="expand-query-request">
-             <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
-                            <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
-                        </div>
-           {/* <p> If you have any queries, please <Link onClick={handleExpandView}>click here</Link> to raise a request.</p> */}
-           <p>Do you want to raise a ticket <Link onClick={handleExpandView}> click here</Link>.</p>
+            <div style={{ display: 'flex', justifyContent: 'center', paddingBottom: "5px" }}>
+              <img src={HDPlogo} style={{ width: '100%', maxWidth: '95px' }} />
+            </div>
+            {/* <p> If you have any queries, please <Link onClick={handleExpandView}>click here</Link> to raise a request.</p> */}
+            <p>Do you want to raise a ticket <Link onClick={handleExpandView}> click here</Link>.</p>
 
-              </div>
+          </div>
       }
 
 

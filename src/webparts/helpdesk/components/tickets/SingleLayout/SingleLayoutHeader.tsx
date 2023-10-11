@@ -1012,7 +1012,7 @@ const SingleLayoutHeader = ({ propsData }) => {
           <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Settings"
             onClick={() => setOpenModel(true)}
           />
-          <Icon className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="FullScreen" onClick={handleExpandScreen} />
+          <Icon className='send-on-submit-add-new-iconExpandRemove add-new-ticket-pointer' iconName="MiniExpand" onClick={handleExpandScreen} />
           <Icon className='send-on-submit-add-new-icon add-new-ticket-pointer' iconName="Send" onClick={SubmitTicket} />
 
         </span>
