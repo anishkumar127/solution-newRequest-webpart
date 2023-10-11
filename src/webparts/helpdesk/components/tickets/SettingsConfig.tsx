@@ -17,6 +17,7 @@ const SettingsConfig = () => {
     const [siteUrl, setSiteUrl] = useState<string>("");
     const [urlNotValidMsg, setUrlNotValidMsg] = useState<boolean>(false);
     const [urlValidMsg, setUrlValidMsg] = useState<boolean>(false);
+    const [ExpandViewMsg,setExpandViewMsg] = useState<boolean>(false);
     const [isExpandView, setIsExpandView] = useState(false);
     const [updatedGeneralSettings, setUpdatedGeneralSettings] = useState<boolean>(false);
 
@@ -33,6 +34,8 @@ const SettingsConfig = () => {
             }
             console.log("%c isChecked onChange", "background:red", isChecked);
             setIsExpandView(isChecked);
+            setExpandViewMsg(true);
+            setTimedState(setExpandViewMsg,true,2000);
             console.log("updatedGeneralSettings ,OnChange ", updatedGeneralSettings)
             isChecked ? setUpdatedGeneralSettings((prev) => !prev) : setUpdatedGeneralSettings((prev) => !prev)
         }
@@ -108,20 +111,21 @@ const SettingsConfig = () => {
         fetchedIsInstalled();
     }, [isExpandView]);
     return (
-        <div style={{ padding: "0px 20px", margin: "0px" }}>
+        <div style={{ padding: "0px 20px", margin: "0px",marginLeft:"10px" }}>
+                <Label className='site-url-label-style'>Site URL</Label>
             <div className='configure-settings-btn-input'>
                 <div style={{ flexGrow: "1" }}>
                     <input className='add-new-webpart-site-url-input' style={{ width: "90%" }} type='text' placeholder='Enter site URL' value={siteUrl} onChange={(e) => setSiteUrl(e.target.value)} />
                 </div>
                 <div className='add-new-installation-common-style-btn-input'>
-                    <button className='add-new-installation-submit-btn' onClick={onSubmit}>Submit</button>
+                    <button className='add-new-installation-submit-btn' onClick={onSubmit}>Save</button>
                 </div>
             </div>
 
             {/* Toggle */}
             <div className='configure-toggle-btn-alignment'>
-                <Label>Expand Default View</Label>
-                <Toggle checked={isExpandView} onText="On" offText="Off" onChange={onChangeHandleExpandView} />
+                <div><Label>Default Expand View</Label></div>
+                <Toggle className='settings-toggle-style' checked={isExpandView} onText="On" offText="Off" onChange={onChangeHandleExpandView} />
             </div>
             {/* <div className='configure-toggle-btn-alignment'>
                 <Label>Setting</Label>
@@ -146,6 +150,20 @@ const SettingsConfig = () => {
             }
             {
                 urlValidMsg && <ReusableSweetAlerts
+                    type="success"
+                    title="Skip"
+                    text={
+                        "Updated successfully!"
+                    }
+                    isBehindVisible={false}
+                    isConfirmBtn={false}
+                    id={"#ConfigureRequest"}
+                    countdown={2000}
+                    popupCustomClass={"general-settings"}
+                />
+            }
+            {
+                ExpandViewMsg && <ReusableSweetAlerts
                     type="success"
                     title="Skip"
                     text={

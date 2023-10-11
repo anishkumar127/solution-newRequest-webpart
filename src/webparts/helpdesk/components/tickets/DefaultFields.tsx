@@ -78,8 +78,14 @@ const DefaultFields = (props) => {
                 </div>
             </div>
 
+   {/* NOTES: */}
+            <div style={{ padding: "20px 30px", display: "flex" }}>
+                <p className='draggble-model-short-note'>
+                    <strong>Note:</strong> The upper values to be treated as default values and will be prefilled in the form.
+                </p>
+            </div>
             {/* Submit & Cancel Button */}
-            <div style={{ gap: "20px", paddingBottom: "12px" }} className='add-new-installation-common-style-btn-input'>
+            <div style={{ gap: "20px", paddingBottom: "12px" ,paddingTop:"20px"}} className='add-new-installation-common-style-btn-input'>
                 <button className='add-new-installation-submit-btn' onClick={onDefaultSubmit}>Save</button>
                 <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
             </div>

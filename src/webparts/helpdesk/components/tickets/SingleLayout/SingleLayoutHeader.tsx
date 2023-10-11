@@ -1027,8 +1027,8 @@ const SingleLayoutHeader = ({ propsData }) => {
               main: {
                 minWidth: "600px",
                 width: "600px",
-                height: "583px"
-
+                height: "583px",
+                maxHeight:"590px"
               }
             }}
           >
