@@ -9,6 +9,7 @@ import { Spinner, SpinnerSize } from '@fluentui/react';
 import { useAddNewApiStore } from '../../../store/apis_add-new-tickts/add-new-apis';
 
 const AddNewWebPartInstallation = ({ UIRender }) => {
+    const navigateUrl = window.location.href.split('/sites')[0];
     const HRlogo: any = require('../../../../../../assets/HR365SPFXmainlog.png');
     const HDPlogo: any = require('../../../../../../assets/help-desk.png');
     const [isOpened, setIsOpened] = useState<boolean>(false);
@@ -50,6 +51,14 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                 )
                 .then(async(response: SPHttpClientResponse) => {
                     if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error(`Request failed with status: ${response.status}`);
+                    }
+                })
+                .then(async(items: any) => {
+                    // console.log("fetching for validation.")
+                    if(items?.value?.length>0){
                         const Template = {
                             IsInstalled: Typed.Yes,
                             SiteUrl: siteUrl
@@ -65,13 +74,9 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                         setTimeout(() => {
                             UIRender?.setLoading(false);
                         }, 2000);
-                        return response.json();
-                    } else {
-                        throw new Error(`Request failed with status: ${response.status}`);
+                    }else{
+                        throw new Error(`Request failed with status 404`);
                     }
-                })
-                .then((items: any) => {
-                    console.log("fetching for validation.")
                 })
                 .catch((error: Error) => {
                     setIsUrlValid(true);
@@ -147,6 +152,8 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
 
                             </strong>
                             <div className={'dia3rdheader'} style={{ fontSize: "15px" }}>{"Please enter site URL for installed Helpdesk 365."}
+                            </div>
+                            <div className={'dia3rdheader'} style={{ fontSize: "15px" }}>{"to navigate to the SharePoint homepage, please "}<a target='_blank' href={navigateUrl}>click here.</a>
                             </div>
                         </div>
                     </div>

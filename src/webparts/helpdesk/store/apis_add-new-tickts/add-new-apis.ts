@@ -169,7 +169,7 @@ const storeData = (set, get) => ({
     try {
       let web = new Web(ContextService.GetUrl());
       web.lists
-        .getByTitle("HR365HDMAddNewTicketsWebpart")
+        .getByTitle("HR365HDMWPSettings")
         .select("items/RequestTicketsCheckedFields")
         .items.get()
         .then((data) => {

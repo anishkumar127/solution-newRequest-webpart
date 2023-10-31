@@ -95,7 +95,7 @@ export const useStore = create(
         console.log("%c fetchIsInstalled", "background:green");
         ContextService.GetSPContext()
           .get(
-            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items`,
+            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items`,
             SPHttpClient.configurations.v1,
             {
               headers: {
@@ -144,7 +144,7 @@ export const useStore = create(
       try {
         await ContextService.GetSPContext()
           .post(
-            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items(${
+            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items(${
               ID ? ID : 1
             })`,
             SPHttpClient.configurations.v1,
