@@ -42,7 +42,7 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
   private setDefaultValueAddNewTicketsWebparts() {
     ContextService.GetSPContext()
       .get(
-        `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items`,
+        `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items`,
         SPHttpClient.configurations.v1,
         {
           headers: {
@@ -63,7 +63,7 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
           };
           ContextService.GetSPContext()
             .post(
-              `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items`,
+              `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items`,
               SPHttpClient.configurations.v1,
               {
                 headers: {
@@ -116,7 +116,7 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
     ];
     let web = new Web(ContextService.GetUrl());
     return web.lists
-      .ensure("HR365HDMAddNewTicketsWebpart")
+      .ensure("HR365HDMWPSettings")
       .then((ler: ListEnsureResult) => {
         const batch = web.createBatch();
 
@@ -146,7 +146,7 @@ export default class HelpdeskWebPart extends BaseClientSideWebPart<IHelpdeskWebP
     const url: string =
       this.context.pageContext.web.absoluteUrl + "/_api/web/lists";
     const listDefinitionstAddNewWebpart: any = {
-      Title: "HR365HDMAddNewTicketsWebpart",
+      Title: "HR365HDMWPSettings",
       BaseTemplate: 100,
       Hidden: true,
       NoCrawl: true,

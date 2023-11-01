@@ -20,7 +20,7 @@ export const useRequestPost = create(
       try {
         if (Id) {
           await ContextService.GetSPContext().post(
-            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items(${Id})`,
+            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items(${Id})`,
             SPHttpClient.configurations.v1,
             {
               headers: {
@@ -57,7 +57,7 @@ export const useRequestPost = create(
       try {
         if (Id) {
           await ContextService.GetSPContext().post(
-            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items(${Id})`,
+            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items(${Id})`,
             SPHttpClient.configurations.v1,
             {
               headers: {
@@ -94,7 +94,7 @@ export const useRequestPost = create(
       try {
         if (Id) {
           await ContextService.GetSPContext().post(
-            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMAddNewTicketsWebpart')/items(${Id})`,
+            `${ContextService.GetUrl()}/_api/web/lists/getbytitle('HR365HDMWPSettings')/items(${Id})`,
             SPHttpClient.configurations.v1,
             {
               headers: {

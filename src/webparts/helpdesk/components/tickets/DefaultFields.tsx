@@ -1,4 +1,4 @@
-import { Dropdown } from '@fluentui/react'
+import { DefaultButton, Dropdown, PrimaryButton } from '@fluentui/react'
 import React from 'react'
 
 
@@ -118,8 +118,8 @@ const DefaultFields = (props) => {
             </div>
             {/* Submit & Cancel Button */}
             <div style={{ gap: "20px", paddingBottom: "12px", paddingTop: "20px" }} className='add-new-installation-common-style-btn-input'>
-                <button className='add-new-installation-submit-btn' onClick={onDefaultSubmit}>Save</button>
-                <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
+                <PrimaryButton className='add-new-installation-submit-btn' onClick={onDefaultSubmit}>Save</PrimaryButton>
+                <DefaultButton style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</DefaultButton>
             </div>
         </React.Fragment>
     )

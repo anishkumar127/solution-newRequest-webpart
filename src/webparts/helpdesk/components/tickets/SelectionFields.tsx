@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkbox, Icon } from '@fluentui/react';
+import { Checkbox, DefaultButton, Icon, PrimaryButton } from '@fluentui/react';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 
 const SelectionFields = (props) => {
@@ -67,8 +67,8 @@ const SelectionFields = (props) => {
 
             {/* Submit & Cancel Button */}
             <div style={{ gap: "20px", paddingBottom: "12px" }} className='add-new-installation-common-style-btn-input'>
-                <button className='add-new-installation-submit-btn' onClick={onSubmit}>Save</button>
-                <button style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</button>
+                <PrimaryButton className='add-new-installation-submit-btn' onClick={onSubmit}>Save</PrimaryButton>
+                <DefaultButton style={{ background: "#fff", color: "#333", border: "1px solid gray" }} className='add-new-installation-submit-btn' onClick={() => setOpenModel(false)}>Cancel</DefaultButton>
             </div>
         </>
     )
