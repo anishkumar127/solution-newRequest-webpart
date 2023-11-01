@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "helpdesk-client-side-solution",
+    "name": "HD365 Ticket Form Add-on",
     "id": "f1a7031b-99bc-4f07-92c5-a7db9c800fc5",
-    "version": "12.23.1031.1845",
+    "version": "12.23.0111.1108",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,

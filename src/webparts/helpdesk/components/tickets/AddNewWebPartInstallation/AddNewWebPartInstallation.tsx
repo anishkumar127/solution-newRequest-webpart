@@ -148,7 +148,7 @@ const AddNewWebPartInstallation = ({ UIRender }) => {
                         </div>
                         <div style={{ textAlign: 'center' }}>
                             <strong>
-                                <div className={'diaheader'} style={{ paddingBottom: "5px" }} >{"Welcome to Helpdesk 365 New Request Webpart"}</div>
+                                <div className={'diaheader'} style={{ paddingBottom: "5px" }} >{"Welcome to HD365 Ticket Form Add-on"}</div>
 
                             </strong>
                             <div className={'dia3rdheader'} style={{ fontSize: "15px" }}>{"Please enter site URL for installed Helpdesk 365."}
